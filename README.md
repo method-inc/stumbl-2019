@@ -14,22 +14,36 @@ Stumbl is a simple SPA to be used by attendees of [Denver Startup Week](https://
 * 🤔 Try to work on **unfamiliar technology** to learn new tech
 * 🕵️‍ Help teammates **discover solutions** - don't just solve for them if you know it
 * 🛠 **Resist tools** like scaffolding CLIs and prebuilt solutions.  Handroll components when possible to learn the technology under the hood.
-* Work together with every member of the team at some point
-* 🎉 **Teach each other and celebrate each other's successes!**
-* 🕺 Having fun
+* 👯‍ Work together with **every member** of the team at some point
+* 🎉 **Celebrate each other's successes, and have fun!**
+
+## Intention
+
+To build strong relationships with each other by working together to learn new technologies and methods of software project development, expand our technical knowledge, and ultimately deliver a product to real users with the intention of maximizing their engagement with Denver Startup Week.
 
 ## Issue Tracking
 
-We use Github Projects to track our tasks.  We will develop and groom these work items as a team each friday.
+We use Github Project Boards to track our tasks.  We will develop and groom these work items as a team each meeting.
+
+-----
 
 ## Important Dates
 
-_Chat with Michael about meeting dates with DSW Stakeholders_
-
-* ⌨️ **June-ish**: Vue 3.x released - *Class based components, built-in ts support*
-* ✅ **July 15th**: QA Ready - *Reach out to a couple DSW Venues to get them to use Stumbl*
-* 🚀 **August 16th**: STUMBL development completed
+* ⌨️ **June-ish**: Vue 3.x released
+  * *Class based components, built-in ts support*
+* ✅ **July 15th**: QA Ready
+  * *Reach out to a couple DSW Venues to get them to use Stumbl*
+* 🚀 **August 16th**: Development completed, critical bug squashing only
 * 🎉 **September 16th**: Denver Startup Week Begins
+
+**Sales Meetings with DSW Stakeholders**, and milestones to reach by each
+
+* **January 18th**
+  * Project boilerplate set up
+  * Feature set decided
+  * Wireframes under-way
+
+----- 
 
 # Development
 
