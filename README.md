@@ -76,6 +76,6 @@ In short, most work will be on a `feature/` branch, which comes off of `develop`
 * Set up deployment environments for front and back end
 * Find out who to talk to about deploying to stumbl.skookum.com
 
-## Questions
+## "Wants"
 
-* Can we leverage Tracy's Design System?
+* Utilize Lottie CSS animations
