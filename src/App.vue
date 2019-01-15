@@ -1,11 +1,11 @@
 <template>
   <div class="full-width center-content">
-    <hello-component name="Everyone"></hello-component>
+    <hello-component name="Everyone" message="What's up?"></hello-component>
   </div>
 </template>
 
 <script>
-import HelloComponent from "./components/HelloComponent.vue";
+import HelloComponent from "./components/HelloComponent/HelloComponent.vue";
 
 export default {
   components: {
