@@ -4,7 +4,6 @@ about: 'Begin a discussion, with the intention to reach a decision 🧠🤔'
 title: '✋'
 labels: 'discussion'
 assignees: ''
-
 ---
 
 **Describe the problem that began this discussion topic**
