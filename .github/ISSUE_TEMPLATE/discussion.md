@@ -1,7 +1,7 @@
 ---
-name: 'Discussion'
+name: '🗣 Discussion'
 about: 'Begin a discussion, with the intention to reach a decision'
-title: 'discussion:'
+title: '🗣'
 labels: 'discussion'
 assignees: ''
 ---
