@@ -1,8 +1,8 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+name: '🐛 Bug Report'
+about: 'When something's not working as expected 🤔'
+title: '🐛'
+labels: 'bug'
 assignees: ''
 
 ---
@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+If applicable, add screenshots (or gifs!) to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
@@ -33,6 +33,9 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. iOS8.1]
  - Browser [e.g. stock browser, safari]
  - Version [e.g. 22]
+
+**Potential solution**
+Do you have any ideas about how to fix this bug?
 
 **Additional context**
 Add any other context about the problem here.
