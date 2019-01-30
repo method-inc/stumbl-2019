@@ -56,6 +56,18 @@ npm run dev
 open http://localhost:8080/
 ```
 
+## Run the Unit Tests
+
+```
+npm run test:unit
+```
+
+## Run the e2e Tests
+
+```
+npm run test:e2e
+```
+
 ## Branching Strategy: Git Flow
 
 We'll utilize [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/), which keeps branches organized with the following 5 branches/prefixes:

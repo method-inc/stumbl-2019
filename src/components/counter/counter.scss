@@ -1,0 +1,11 @@
+.counter {
+  &__label {
+    font-size: 32px;
+    color: blue;
+  }
+
+  &__button {
+    height: 40px;
+    cursor: pointer;
+  }
+}
