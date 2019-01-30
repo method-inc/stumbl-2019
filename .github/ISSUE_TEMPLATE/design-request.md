@@ -4,7 +4,6 @@ about: 'Request designs for a feature or improvement'
 title: '🎨'
 labels: 'enhancement'
 assignees: ''
-
 ---
 
 **Describe the problem we want to solve**

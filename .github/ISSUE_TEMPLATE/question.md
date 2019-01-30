@@ -1,10 +1,9 @@
 ---
-name: '✋ Discussion
-about: 'Begin a discussion, with the intention to reach a decision 🧠🤔'
-title: '✋'
-labels: 'discussion'
+name: '🗣 Question'
+about: 'Begin a discussion, with the intention to reach a decision'
+title: '🗣'
+labels: 'question'
 assignees: ''
-
 ---
 
 **Describe the problem that began this discussion topic**

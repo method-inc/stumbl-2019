@@ -1,10 +1,9 @@
 ---
 name: '🐛 Bug Report'
-about: 'When something's not working as expected 🤔'
+about: "When something's not working as expected 🤔"
 title: '🐛'
 labels: 'bug'
 assignees: ''
-
 ---
 
 **Describe the bug**
