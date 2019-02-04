@@ -112,6 +112,33 @@ is becoming too verbose; a `vue.config.js` file can be added with a module expor
 ```
 For more Vue Configuration options, see https://cli.vuejs.org/config/#vue-config-js
 
+### Unit testing
+Jest has been configured on this project as the unit testing suite.  Configurable by
+modifying the `"jest"` option in the package.json file.
+
+__Note__: Alternatively, a `jest.config.js` file can be added in the project root.
+
+```
+"jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx"
+    ],
+    "testMatch": [
+      "**/*.spec.(ts)"
+    ],
+    "testURL": "http://localhost/",
+    ...
+  },
+```
+For more Jest information, see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest
+
+### E2E testing
+The e2e is configured using the cypress.json file to kickoff the test.  Currently, this is still awaiting 
+setup....
+
+For Cypress e2e Configuration options, see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress
+
 ### SCSS
 The scss is setup in the `package.json` file to import the `styles.scss` import to all outputted files.
 ```
