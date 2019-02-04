@@ -62,5 +62,8 @@
       "**/*.spec.(ts)"
     ],
     "testURL": "http://localhost/"
+  },
+  "vue": {
+    "outputDir": "dist"
   }
 }
