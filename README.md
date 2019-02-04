@@ -91,3 +91,36 @@ In short, most work will be on a `feature/` branch, which comes off of `develop`
 ## "Wants"
 
 * Utilize Lottie CSS animations
+
+
+
+## Configuration
+
+### Webpack Config
+VueCLI uses the vue-cli-service as a wrapper for the Webpack configuration setup.  To modify these settings 
+the `package.json` must be updated.  
+
+__Note__: Alternatively, if configuration reaches a limit where the package.json
+is becoming too verbose; a `vue.config.js` file can be added with a module export object for config.
+
+```
+"vue": {
+    "outputDir": "dist",
+    ...
+  }
+
+```
+For more Vue Configuration options, see https://cli.vuejs.org/config/#vue-config-js
+
+### SCSS
+The scss is setup in the `package.json` file to import the `styles.scss` import to all outputted files.
+```
+"css": {
+      "loaderOptions": {
+        "sass": {
+          "data": "@import '@/styles/styles.scss';"
+        }
+      }
+    }
+```
+For more SCSS options, see https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders

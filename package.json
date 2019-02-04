@@ -64,6 +64,13 @@
     "testURL": "http://localhost/"
   },
   "vue": {
-    "outputDir": "dist"
+    "outputDir": "dist",
+    "css": {
+      "loaderOptions": {
+        "sass": {
+          "data": "@import '@/styles/styles.scss';"
+        }
+      }
+    }
   }
 }

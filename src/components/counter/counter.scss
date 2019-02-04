@@ -1,7 +1,7 @@
 .counter {
   &__label {
     font-size: 32px;
-    color: blue;
+    color: $color_primary;
   }
 
   &__button {

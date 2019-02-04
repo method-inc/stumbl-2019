@@ -1,6 +1,10 @@
+<style lang="scss">
+@import './about.scss';
+</style>
+
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1 class="about__header">This is an about page</h1>
   </div>
 </template>
 
