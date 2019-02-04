@@ -56,6 +56,18 @@ npm run dev
 open http://localhost:8080/
 ```
 
+## Run the Unit Tests
+
+```
+npm run test:unit
+```
+
+## Run the e2e Tests
+
+```
+npm run test:e2e
+```
+
 ## Branching Strategy: Git Flow
 
 We'll utilize [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/), which keeps branches organized with the following 5 branches/prefixes:
@@ -79,3 +91,63 @@ In short, most work will be on a `feature/` branch, which comes off of `develop`
 ## "Wants"
 
 * Utilize Lottie CSS animations
+
+
+
+## Configuration
+
+### Webpack Config
+VueCLI uses the vue-cli-service as a wrapper for the Webpack configuration setup.  To modify these settings 
+the `package.json` must be updated.  
+
+__Note__: Alternatively, if configuration reaches a limit where the package.json
+is becoming too verbose; a `vue.config.js` file can be added with a module export object for config.
+
+```
+"vue": {
+    "outputDir": "dist",
+    ...
+  }
+
+```
+For more Vue Configuration options, see https://cli.vuejs.org/config/#vue-config-js
+
+### Unit testing
+Jest has been configured on this project as the unit testing suite.  Configurable by
+modifying the `"jest"` option in the package.json file.
+
+__Note__: Alternatively, a `jest.config.js` file can be added in the project root.
+
+```
+"jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx"
+    ],
+    "testMatch": [
+      "**/*.spec.(ts)"
+    ],
+    "testURL": "http://localhost/",
+    ...
+  },
+```
+For more Jest information, see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest
+
+### E2E testing
+The e2e is configured using the cypress.json file to kickoff the test.  Currently, this is still awaiting 
+setup....
+
+For Cypress e2e Configuration options, see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress
+
+### SCSS
+The scss is setup in the `package.json` file to import the `styles.scss` import to all outputted files.
+```
+"css": {
+      "loaderOptions": {
+        "sass": {
+          "data": "@import '@/styles/styles.scss';"
+        }
+      }
+    }
+```
+For more SCSS options, see https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders

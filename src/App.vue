@@ -1,24 +1,20 @@
+<style lang="scss">
+@import './app.scss';
+</style>
+
 <template>
-  <div class="full-width center-content">
-    <hello-component name="Everyone" message="What's up?"></hello-component>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import HelloComponent from "./components/HelloComponent/HelloComponent.vue";
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  components: {
-    HelloComponent
-  }
-}
+@Component({})
+export default class App extends Vue {}
 </script>
-
-
-<style lang="scss">
-  .full-width {
-    // note that in app.scss, `color: red;`
-    color: blue;
-  }
-</style>
-
