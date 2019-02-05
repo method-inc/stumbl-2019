@@ -19,13 +19,13 @@ import Component from 'vue-class-component';
 
 @Component({})
 export default class Counter extends Vue {
-  public count = 0;
+  count = 0;
 
-  public increment() {
+  increment() {
     this.count++;
   }
 
-  public decrement() {
+  decrement() {
     this.count--;
   }
 }

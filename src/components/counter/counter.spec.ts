@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils';
 import Counter from '@/components/counter/counter.vue';
+import { mount } from '@vue/test-utils';
 
 describe('counter.vue', () => {
   it('sets the correct default data', () => {

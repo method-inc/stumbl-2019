@@ -10,13 +10,17 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "rxjs": "^6.4.0",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
-    "vue-router": "^3.0.1"
+    "vue-resource": "^1.5.1",
+    "vue-router": "^3.0.1",
+    "vue-rx": "^6.1.0"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
+    "@types/vue-resource": "^0.9.34",
     "@vue/cli-plugin-e2e-cypress": "^3.3.0",
     "@vue/cli-plugin-typescript": "^3.3.0",
     "@vue/cli-plugin-unit-jest": "^3.3.0",

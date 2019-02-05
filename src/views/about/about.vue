@@ -1,5 +1,5 @@
 <style lang="scss">
-@import './about.scss';
+@import "./about.scss";
 </style>
 
 <template>
@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
+
 export default class About extends Vue {}
 </script>
 
