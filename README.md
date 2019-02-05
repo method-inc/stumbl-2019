@@ -2,6 +2,8 @@
 
 Stumble application built in Vue.js and Go by Skookum Denver.
 
+>**Check out [this project's Wiki](https://github.com/Skookum/stumbl-2019/wiki) for thorough project information!**
+
 ## Purpose
 
 Stumbl is a simple SPA to be used by attendees of [Denver Startup Week](https://www.denverstartupweek.org/) to improve information discovery, increase attendee engagement, and increase visibility for sponsors.  Stumbl will allow users to view venue and session information.  It will also allow venues to manage the information presented to users about their business, giving them further control over their image.
