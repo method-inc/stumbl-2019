@@ -151,3 +151,4 @@ The scss is setup in the `package.json` file to import the `styles.scss` import 
     }
 ```
 For more SCSS options, see https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
+
