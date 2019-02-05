@@ -5,17 +5,17 @@ workflow "Build and test" {
 
 action "build" {
   uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
-  args = "build"
+  args = "run build"
 }
 
 action "lint" {
   uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
   needs = ["build"]
-  args = "lint"
+  args = "run lint"
 }
 
 action "test" {
   uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
   needs = ["build"]
-  args = "test:unit"
+  args = "run test:unit"
 }
