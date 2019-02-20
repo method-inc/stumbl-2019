@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "develop": "docker-compose up stumbl-web",
+    "start": "docker-compose up stumbl-web",
+    "stop": "docker-compose down stumbl-web",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
