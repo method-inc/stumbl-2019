@@ -14,11 +14,24 @@ Stumbl is a simple SPA to be used by attendees of [Denver Startup Week](https://
 
 ## Run the application
 
+
 ```
-// clone this repository
-npm install
-npm run dev
-open http://localhost:8080/
+1. clone this repository
+2. npm install
+3. start web project using docker
+docker-compose up stumbl-web
+
+4. open http://localhost:8080/
+
+5. stop web project
+docker-compose down stumbl-web
+```
+
+Alternatively, there have been npm scripts created for starting/stopping docker.
+```
+npm run start (docker-compose up)
+
+npm run stop (docker-compose down)
 ```
 
 ## Run the Unit Tests
