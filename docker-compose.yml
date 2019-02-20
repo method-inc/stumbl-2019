@@ -1,0 +1,15 @@
+version: '3'
+services:
+  stumbl-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    # Use -h 0.0.0.0 inside container to allow localhost to connect
+    command: bash -c "$$(npm bin)/vue-cli-service serve"
+    volumes:
+      - .:/work
+      # Mounting the dev files overwrites node_modules in container.
+      # Reloading them as a volume restores them.
+      - /work/node_modules
+    ports:
+      - "8080:8080"
