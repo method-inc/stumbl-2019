@@ -4,6 +4,6 @@ WORKDIR /work
 
 COPY ./package*.json ./
 COPY ./server.js ./
+COPY ./dist ./
 
 RUN npm install
-RUN npm build
