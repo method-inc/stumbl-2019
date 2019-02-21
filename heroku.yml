@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile.web
 run:
-  web: bash -c "$$(npm bin)/vue-cli-service serve"
+  web: node server.js
