@@ -7,7 +7,7 @@ app = express();
 app.use(serveStatic(__dirname + "/dist"));
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.render("index.html");
 });
 
 app.listen(port, console.log("Listening on port " + port));
