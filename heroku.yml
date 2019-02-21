@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile.web
 run:
-  web: bundle exec puma -C config/puma.rb
+  web: bash -c "$$(npm bin)/vue-cli-service serve"
