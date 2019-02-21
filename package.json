@@ -11,6 +11,9 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
+  "engines": {
+    "node": "8.9.0"
+  },
   "dependencies": {
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
