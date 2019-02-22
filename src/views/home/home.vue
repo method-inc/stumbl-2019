@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Counter from '@/components/counter/counter.vue';
+import Counter from '@/components/counter/counter-component.vue';
 
 @Component({
   components: {

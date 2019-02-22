@@ -1,5 +1,5 @@
 <style lang="scss">
-@import "./counter.scss";
+@import "./counter-component.scss";
 </style>
 
 <template>
