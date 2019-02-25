@@ -1,4 +1,4 @@
-import Counter from '@/components/counter/counter.vue';
+import Counter from '@/components/counter/counter-component.vue';
 import { mount } from '@vue/test-utils';
 
 describe('counter.vue', () => {
