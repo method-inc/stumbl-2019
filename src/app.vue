@@ -1,5 +1,5 @@
 <style lang="scss">
-@import "./app.scss";
+@import './app.scss';
 </style>
 
 <template>
@@ -14,13 +14,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Header from "@/components/header/header-component.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import Header from '@/components/header/header-component.vue';
 
 @Component({
   components: {
-    Header
-  }
+    Header,
+  },
 })
 export default class App extends Vue {}
 </script>
