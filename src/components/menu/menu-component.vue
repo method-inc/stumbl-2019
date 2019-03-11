@@ -10,10 +10,9 @@
       text-decoration: none;
       color: #232323;
       transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: tomato;
+      &:hover {
+        color: #71C4C7 !important;
+      }
     }
 
     & input {
@@ -29,9 +28,7 @@
       -webkit-touch-callout: none;
     }
 
-    /*
-    * Just a quick hamburger
-    */
+    // Hamburger
     & span {
       display: block;
       width: 33px;
@@ -47,7 +44,6 @@
                   background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
                   opacity 0.55s ease;
     }
-
     & span:first-child {
       transform-origin: 0% 0%;
     }
@@ -55,42 +51,28 @@
     & span:nth-last-child(2) {
       transform-origin: 0% 100%;
     }
-    /* 
-    * Transform all the slices of hamburger
-    * into a crossmark.
-    */
+    //  Transform all the slices of hamburger into a crossmark.
     & input:checked ~ span {
       opacity: 1;
       transform: rotate(45deg) translate(-2px, -1px);
       background: #232323;
     }
-    /*
-    * But let's hide the middle one.
-    */
+    // Hide the middle one.
     & input:checked ~ span:nth-last-child(3) {
       opacity: 0;
       transform: rotate(0deg) scale(0.2, 0.2);
     }
-
-    /*
-    * Ohyeah and the last one should go the other direction
-    */
+    //  The last one should go the other direction
     & input:checked ~ span:nth-last-child(2) {
       transform: rotate(-45deg) translate(0, -1px);
     }
-    //  And let's slide it in from the left
+    // Slide it in from the left
     & input:checked ~ ul {
       transform: none;
     }
-
-
-    /*
-    * Make this absolute positioned
-    * at the top left of the screen
-    */
+    //  Make this absolute positioned at the top left of the screen
     &-menu {
       position: absolute;
-      width: 300px;
       margin: -100px 0 0 -50px;
       padding: 50px;
       padding-top: 125px;
@@ -98,8 +80,7 @@
       background: #ededed;
       list-style-type: none;
       -webkit-font-smoothing: antialiased;
-      /* to stop flickering of text in safari */
-      
+      //  To stop flickering of text in safari
       transform-origin: 0% 0%;
       transform: translate(-100%, 0);
       

@@ -42,15 +42,15 @@ export default class HeaderComponent extends Vue {
     return {
       menuTitles: [
         {
-          href: 'https://www.google.com',
+          href: '',
           title: 'About'
         },
         {
-          href: 'https://www.linkedin.com/in/andylushman',
+          href: '',
           title: 'Venues'
         },
         {
-          href: 'google.com',
+          href: '',
           title: 'Locations'
         }
       ]
