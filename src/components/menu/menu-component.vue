@@ -121,10 +121,14 @@
     <span></span>
     <span></span>
     <ul class="menu--toggle-menu">
-      <a href="#"><li>Home</li></a>
-      <a href="#"><li>About</li></a>
-      <a href="#"><li>Info</li></a>
-      <a href="#"><li>Contact</li></a>
+      <a 
+      v-for="(menuTitle, index) in menuTitles"
+      :key="index"
+      :href="menuTitle.href"
+      target="_blank"
+      >
+      <li>{{menuTitle.title}}</li>
+      </a>
     </ul>
   </div>
 </nav>
@@ -134,7 +138,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-@Component({})
+@Component({
+  props: {
+    menuTitles: Array
+  }
+})
+
 export default class MenuComponent extends Vue {}
 
 </script>

@@ -19,7 +19,7 @@
 <template>
   <header class="header--navbar">
     <div class="header--navbar-menu">
-      <Menu />
+      <Menu :menuTitles="menuTitles"/>
     </div>
     <div class="header--navbar-logo">
       <img class="header--navbar-logo-image" src="../../images/DENStartupWeek-Logo.png" alt="Denver startup week logo">
@@ -37,5 +37,24 @@ import Menu from '@/components/menu/menu-component.vue';
     Menu,
   },
 })
-export default class HeaderComponent extends Vue {}
+export default class HeaderComponent extends Vue {
+  data() {
+    return {
+      menuTitles: [
+        {
+          href: 'https://www.google.com',
+          title: 'About'
+        },
+        {
+          href: 'https://www.linkedin.com/in/andylushman',
+          title: 'Venues'
+        },
+        {
+          href: 'google.com',
+          title: 'Locations'
+        }
+      ]
+    }
+  }
+}
 </script>
