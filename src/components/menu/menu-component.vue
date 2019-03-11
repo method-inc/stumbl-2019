@@ -97,7 +97,7 @@
 <template>
 <nav role="navigation">
   <div class="menu--toggle">
-    <input type="checkbox" />
+    <input :checked="showMenu" @click="showMenu = !showMenu" type="checkbox" />
     <span></span>
     <span></span>
     <span></span>
@@ -121,10 +121,11 @@ import Component from 'vue-class-component';
 
 @Component({
   props: {
-    menuTitles: Array
-  }
+    menuTitles: Array,
+  },
 })
 
-export default class MenuComponent extends Vue {}
-
+export default class MenuComponent extends Vue {
+  public showMenu = false;
+}
 </script>

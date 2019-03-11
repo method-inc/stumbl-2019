@@ -38,23 +38,23 @@ import Menu from '@/components/menu/menu-component.vue';
   },
 })
 export default class HeaderComponent extends Vue {
-  data() {
+  public data() {
     return {
       menuTitles: [
         {
           href: '',
-          title: 'About'
+          title: 'About',
         },
         {
           href: '',
-          title: 'Venues'
+          title: 'Venues',
         },
         {
           href: '',
-          title: 'Locations'
-        }
-      ]
-    }
+          title: 'Locations',
+        },
+      ],
+    };
   }
 }
 </script>
