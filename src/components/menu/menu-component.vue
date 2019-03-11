@@ -73,9 +73,9 @@
     //  Make this absolute positioned at the top left of the screen
     &-menu {
       position: absolute;
-      margin: -100px 0 0 -50px;
-      padding: 50px;
+      margin: -100px 0 0 -75px;
       padding-top: 125px;
+      padding-bottom: 25px;
       
       background: #ededed;
       list-style-type: none;
@@ -87,7 +87,7 @@
       transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 
       & li {
-        padding: 10px 0;
+        padding: 10px 25px;
         font-size: 22px;
       }
     }
@@ -97,7 +97,7 @@
 <template>
 <nav role="navigation">
   <div class="menu--toggle">
-    <input :checked="showMenu" @click="showMenu = !showMenu" type="checkbox" />
+    <input :checked="showMenu" @click="showMenu = !showMenu" type="checkbox"  v-click-outside="clickedOutside"/>
     <span></span>
     <span></span>
     <span></span>
@@ -119,6 +119,22 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+Vue.directive('click-outside', {
+  bind: function (el, binding, vnode) {
+    el.clickOutsideEvent = function (event) {
+    
+      if (event.target.className != 'menu--toggle-menu' && el != event.target) {
+
+        vnode.context[binding.expression](event);
+      }
+    };
+    document.body.addEventListener('click', el.clickOutsideEvent)
+  },
+  unbind: function (el) {
+    document.body.removeEventListener('click', el.clickOutsideEvent)
+  },
+});
+
 @Component({
   props: {
     menuTitles: Array,
@@ -127,5 +143,12 @@ import Component from 'vue-class-component';
 
 export default class MenuComponent extends Vue {
   public showMenu = false;
+  
+  public clickedOutside() {
+    this.showMenu = false
+    console.log("clicked outside");
+    
+  }
+
 }
 </script>
