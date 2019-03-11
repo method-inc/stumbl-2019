@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 import Component from 'vue-class-component';
 
 export default class GoogleMapComponent extends Vue {
-  public message = 'Hello Google Map Comopnent'
+  public message = 'Hello Google Map Comopnent';
 }
 </script>
 

@@ -3,9 +3,7 @@
 </style>
 
 <template>
-  <div class="counter">
-    <h3>MapContainer</h3>
-    <div>{{message}}</div>
+  <div class="map-container">
     <GoogleMapComponent/>
   </div>
 </template>
@@ -17,10 +15,10 @@ import GoogleMapComponent from '@/components/google-map/google-map-component.vue
 
 @Component({
   components: {
-    GoogleMapComponent
-  }
+    GoogleMapComponent,
+  },
 })
 export default class MapContainerComponent extends Vue {
-  public message = "Hello MapContainer Component";
+  public message = 'Hello MapContainer Component';
 }
 </script>
