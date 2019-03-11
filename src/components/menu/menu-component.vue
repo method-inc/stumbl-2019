@@ -120,7 +120,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 Vue.directive('click-outside', {
-  bind: function (el, binding, vnode) {
+  bind: function (el, binding, vnode) {  
     el.clickOutsideEvent = function (event) {
     
       if (event.target.className != 'menu--toggle-menu' && el != event.target) {
@@ -145,9 +145,7 @@ export default class MenuComponent extends Vue {
   public showMenu = false;
   
   public clickedOutside() {
-    this.showMenu = false
-    console.log("clicked outside");
-    
+    this.showMenu = false    
   }
 
 }
