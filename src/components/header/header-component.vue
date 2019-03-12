@@ -1,19 +1,5 @@
 <style lang="scss">
-  .header--navbar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    &-menu {
-      flex-basis: 33%;
-    }
-    &-logo {
-      flex-basis: 33%;
-      &-image{
-        height: 100px;
-      }
-    }
-  }
-
+@import "./header-component.scss";
 </style>
 
 <template>
