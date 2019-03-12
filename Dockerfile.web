@@ -1,11 +1,11 @@
 FROM node:8.9.0 as node
 
-  WORKDIR /work
+WORKDIR /work
 
-  COPY ./package*.json ./
+COPY ./package*.json ./
 
-  RUN npm install
+RUN npm install
 
-  COPY . ./
+COPY . ./
 
-  RUN npm run build
+RUN npm run build
