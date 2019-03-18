@@ -4,18 +4,15 @@
 
 <template>
   <div class="map-container">
-    <GoogleMapComponent/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import GoogleMapComponent from '@/components/google-map/google-map-component.vue';
 
 @Component({
   components: {
-    GoogleMapComponent,
   },
 })
 export default class MapContainerComponent extends Vue {

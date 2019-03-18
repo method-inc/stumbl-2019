@@ -1,9 +1,9 @@
-import GoogleMap from './google-map-component.vue';
+import MapComponent from './map-component.vue';
 import { mount } from '@vue/test-utils';
 
-describe('google-map-component.vue', () => {
+describe('map-component.vue', () => {
   it('initializes successfully', () => {
-    const wrapper = mount(GoogleMap, {
+    const wrapper = mount(MapComponent, {
     propsData: {
       message: 'test success',
     },

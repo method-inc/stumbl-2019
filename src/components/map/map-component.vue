@@ -1,10 +1,11 @@
 <style lang="scss">
-@import "./map-component.scss";
+
 </style>
 
 <template>
-  <div class="map">
-    <h3>Map Goes Here</h3>
+  <div>
+    Map goes here
+    <div>{{message}}</div>
   </div>
 </template>
 
@@ -12,6 +13,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-@Component({})
-export default class MapComponent extends Vue {}
+export default class MapComponent extends Vue {
+  public message = 'Hello Map Component';
+
+}
 </script>
+
