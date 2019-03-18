@@ -10,4 +10,4 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/dist/index.html");
 });
 
-app.listen(port, console.log("Listening on port " + port));
+app.listen(port, console.log("STUMBL: Listening on port " + port));
