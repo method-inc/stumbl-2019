@@ -1,17 +1,11 @@
 #map {
   height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
 }
 
 .marker {
   // TODO: Replace this custom icon
-  background-image: url('mapbox-icon.png');
+  background-image: url('../../images/mapbox-icon.png');
 
   background-size: cover;
   width: 50px;
