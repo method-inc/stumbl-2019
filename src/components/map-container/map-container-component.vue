@@ -11,9 +11,21 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import mapboxgl, { MapboxOptions } from 'mapbox-gl';
+import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHJvd2UiLCJhIjoiY2p0ZXB3NGZ3MDdnNzQ0bnV2OW9sdWthMyJ9.r8ldYBDjW7ZsJ-GNKelFxQ';
+
+interface GeoJsonFeature {
+  type: string;
+  geometry: {
+    type: string;
+    coordinates: number[] | LngLatLike;
+  };
+  properties: {
+    title: string;
+    description: string;
+  };
+}
 
 @Component({})
 
@@ -31,7 +43,7 @@ export default class MapContainerComponent extends Vue {
 
     // Custom style for coloring the map
     // Can be changed in Mapbox Studio using Paul's credentials
-    style: 'mapbox://styles/prowe/cjtet6cwy58qo1fqrowfu9t4i', 
+    style: 'mapbox://styles/prowe/cjtet6cwy58qo1fqrowfu9t4i',
 
     center: [-104.9890, 39.7480], // 1801 California Street, Denver CO
     zoom: 15.0,
@@ -58,27 +70,27 @@ export default class MapContainerComponent extends Vue {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [-104.9890, 39.7480] // 1801 California St, Denver
+          coordinates: [-104.9890, 39.7480], // 1801 California St, Denver
         },
         properties: {
           title: 'Skookum',
-          description: 'Skook City USA'
-        }
+          description: 'Skook City USA',
+        },
       },
       {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [-104.9891, 39.7481] // right next to 1801 California St, Denver
+          coordinates: [-104.9891, 39.7481], // right next to 1801 California St, Denver
         },
         properties: {
           title: 'Jimmy Johns',
-          description: 'Denver, CO'
-        }
-      }]
+          description: 'Denver, CO',
+        },
+      }],
     };
 
-    geojson.features.forEach((marker) => {
+    geojson.features.forEach((marker: GeoJsonFeature) => {
       // create a HTML element for each feature
       const el = document.createElement('div');
       el.className = 'marker';
