@@ -13,7 +13,7 @@ import Component from 'vue-class-component';
 
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoicHJvd2UiLCJhIjoiY2p0ZXB3NGZ3MDdnNzQ0bnV2OW9sdWthMyJ9.r8ldYBDjW7ZsJ-GNKelFxQ';
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
