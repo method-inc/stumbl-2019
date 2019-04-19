@@ -6,16 +6,16 @@
   <header>
     <nav class="header--nav">
       <router-link class="header--nav-logo" to="/">
-        <img src="../../images/dsw-logo.svg" alt="Denver startup week logo">
+        <img src="../../images/dsw_logo.svg" alt="Denver startup week logo">
       </router-link>
       <router-link  v-if="!['about', 'rewards'].includes($route.name)" to="/rewards">
-        <img src="../../images/rewards-icon.svg" alt="Points icon">
+        <img src="../../images/rewards_icon.svg" alt="Points icon">
       </router-link>
       <router-link v-if="!['about', 'rewards'].includes($route.name)" to="/about">
-        <img src="../../images/info-icon.svg" alt="Info icon">
+        <img src="../../images/info_icon.svg" alt="Info icon">
       </router-link>
       <router-link v-if="['about', 'rewards'].includes($route.name)" to="/">
-        <img src="../../images/close-page-icon.svg" alt="Close page icon">
+        <img src="../../images/close_page_icon.svg" alt="Close page icon">
       </router-link>
     </nav>
   </header>
