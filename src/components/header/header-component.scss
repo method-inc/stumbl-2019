@@ -1,14 +1,14 @@
-.header--navbar {
+.header--nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  &-menu {
-    flex-basis: 33%;
-  }
+  & a {
+    padding: 15px;
+  }   
   &-logo {
-    flex-basis: 33%;
-    &-image{
-      height: 100px;
+    margin-right: auto;
+    &-image {
+      height: 50px;
     }
   }
 }

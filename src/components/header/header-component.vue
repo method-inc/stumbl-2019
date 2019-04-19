@@ -3,44 +3,26 @@
 </style>
 
 <template>
-  <header class="header--navbar">
-    <div class="header--navbar-menu">
-      <Menu :menuTitles="menuTitles"/>
-    </div>
-    <div class="header--navbar-logo">
-      <img class="header--navbar-logo-image" src="../../images/DENStartupWeek-Logo.png" alt="Denver startup week logo">
-    </div>
+  <header>
+    <div class="header--nav">
+    
+         <router-link class="header--nav-logo" to="/home">
+          <img src="../../images/DSW-Logo.svg" alt="Denver startup week logo">
+        </router-link>
+                  <router-link to="/points">
+          <img src="../../images/Points-Icon.svg" alt="Points Icon">
+        </router-link>
+                   <router-link to="/about">
+          <img src="../../images/Info-Icon.svg" alt="Info Icon">
+        </router-link>
+          </div>
   </header>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Menu from '@/components/menu/menu-component.vue';
 
-@Component({
-  components: {
-    Menu,
-  },
-})
-export default class HeaderComponent extends Vue {
-  public data() {
-    return {
-      menuTitles: [
-        {
-          href: '',
-          title: 'About',
-        },
-        {
-          href: '',
-          title: 'Venues',
-        },
-        {
-          href: '',
-          title: 'Locations',
-        },
-      ],
-    };
-  }
-}
+@Component({})
+export default class HeaderComponent extends Vue {}
 </script>
