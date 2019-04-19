@@ -8,13 +8,13 @@
       <router-link class="header--nav-logo" to="/">
         <img src="../../images/dsw-logo.svg" alt="Denver startup week logo">
       </router-link>
-      <router-link  v-if="!['about'].includes($route.name)"  to="/">
-        <img src="../../images/points-icon.svg" alt="Points icon">
+      <router-link  v-if="!['about', 'rewards'].includes($route.name)"  to="/rewards">
+        <img src="../../images/rewards-icon.svg" alt="Points icon">
       </router-link>
-      <router-link v-if="!['about'].includes($route.name)" to="/about">
+      <router-link v-if="!['about', 'rewards'].includes($route.name)" to="/about">
         <img src="../../images/info-icon.svg" alt="Info icon">
       </router-link>
-      <router-link v-if="['about'].includes($route.name)" to="/">
+      <router-link v-if="['about', 'rewards'].includes($route.name)" to="/">
         <img src="../../images/close-page-icon.svg" alt="Close page icon">
       </router-link>
     </nav>
