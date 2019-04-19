@@ -8,7 +8,7 @@
       <router-link class="header--nav-logo" to="/">
         <img src="../../images/dsw-logo.svg" alt="Denver startup week logo">
       </router-link>
-      <router-link  v-if="!['about', 'rewards'].includes($route.name)"  to="/rewards">
+      <router-link  v-if="!['about', 'rewards'].includes($route.name)" to="/rewards">
         <img src="../../images/rewards-icon.svg" alt="Points icon">
       </router-link>
       <router-link v-if="!['about', 'rewards'].includes($route.name)" to="/about">
