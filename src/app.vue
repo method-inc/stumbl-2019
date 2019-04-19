@@ -4,9 +4,7 @@
 
 <template>
   <div id="app">
-    <div id="nav">
-      <Header/>
-    </div>
+    <Header/>
     <router-view/>
   </div>
 </template>

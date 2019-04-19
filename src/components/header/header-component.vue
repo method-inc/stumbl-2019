@@ -4,17 +4,20 @@
 
 <template>
   <header>
-    <div class="header--nav">
+    <nav class="header--nav">
       <router-link class="header--nav-logo" to="/">
-        <img src="../../images/DSW-Logo.svg" alt="Denver startup week logo">
+        <img src="../../images/dsw-logo.svg" alt="Denver startup week logo">
       </router-link>
-      <router-link to="/points">
-        <img src="../../images/Points-Icon.svg" alt="Points Icon">
+      <router-link  v-if="!['about'].includes($route.name)"  to="/">
+        <img src="../../images/points-icon.svg" alt="Points icon">
       </router-link>
-      <router-link to="/about">
-        <img src="../../images/Info-Icon.svg" alt="Info Icon">
+      <router-link v-if="!['about'].includes($route.name)" to="/about">
+        <img src="../../images/info-icon.svg" alt="Info icon">
       </router-link>
-    </div>
+      <router-link v-if="['about'].includes($route.name)" to="/">
+        <img src="../../images/close-page-icon.svg" alt="Close page icon">
+      </router-link>
+    </nav>
   </header>
 </template>
 
@@ -23,5 +26,6 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({})
-export default class HeaderComponent extends Vue {}
+export default class HeaderComponent extends Vue {
+}
 </script>
