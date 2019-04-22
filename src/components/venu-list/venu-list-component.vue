@@ -12,18 +12,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+<script lang='ts'>
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 @Component({})
 export default class VenuListComponent extends Vue {
-  data() {
+ public data() {
     return {
       venus: [
-        { name: "apple", price: "10" },
-        { name: "orange", price: "12" }
-      ]
+        {
+          name: 'Signpost',
+          address: '2363 Blake St',
+        },
+        {
+          name: 'Skookum',
+          address: '1801 California St.',
+        },
+      ],
     };
   }
 }

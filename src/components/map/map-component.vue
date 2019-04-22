@@ -4,7 +4,7 @@
 
 <template>
   <div class="map">
-    <h1>Map Goes Here</h1>
+    <h2>Map Goes Here</h2>
   </div>
 </template>
 
