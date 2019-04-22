@@ -1,0 +1,37 @@
+.button {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  background: linear-gradient(83.81deg, #05D3D8 0%, #748BFE 179.53%);
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 40px auto;
+  height: 48px;
+  width: 327px;
+  color: #01222D;
+  cursor: pointer;
+  &--router-link {
+    text-decoration: none;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 327px;
+    height: 48px;
+    z-index: 1;
+  }
+  &--text {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    align-self: center;
+  }
+}
+.buttonBackgroundWhite {
+    background: white;
+}
+.buttonBackgroundGreen {
+  background: #BBDD7A;;
+}
