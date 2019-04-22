@@ -1,17 +1,19 @@
 <template>
   <div class="home">
-    <h1>Welcome to the Stumbl App!</h1>
-    <Counter/>
+    <Map />
+    <VenuList />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Counter from '@/components/counter/counter-component.vue';
+import Map from '@/components/map/map-component.vue';
+import VenuList from '@/components/venu-list/venu-list-component.vue';
 
 @Component({
   components: {
-    Counter,
+    Map,
+    VenuList,
   },
 })
 export default class Home extends Vue {}
