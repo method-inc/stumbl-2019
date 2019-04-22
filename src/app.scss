@@ -1,11 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,800');
+
 html {
   background: #01222D;
+  font-family: Montserrat;
+}
+
+body {
+  margin: 0;
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  line-height: 24px;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  padding: 0 24px 0 24px;
 }

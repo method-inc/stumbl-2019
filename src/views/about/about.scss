@@ -1,5 +1,24 @@
 .about {
+  text-align: left;
+  font-size: 16px;
+  & ul {
+    list-style: none;
+    & li {
+      background:url('../../images/bullet-icon.svg') no-repeat 0 10px; 
+      padding-left: 20px;
+      margin: 3px -38px;
+      max-width: 100%;
+    }
+  }
   &__header {
-    color: $color_primary;
+    margin-top: 35px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    &-rewards-icon {
+      height: 15px;
+      vertical-align: bottom;
+      padding: 4px;
+    }
   }
 }

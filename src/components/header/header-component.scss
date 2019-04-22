@@ -1,9 +1,10 @@
 .header--nav {
+  height: 88px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  & a {
-    padding: 10px;
+  &-rewards-icon {
+    padding-right: 10px;
   }   
   &-logo {
     margin-right: auto;

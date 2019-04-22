@@ -8,7 +8,7 @@
       <router-link class="header--nav-logo" to="/">
         <img src="../../images/dsw_logo.svg" alt="Denver startup week logo">
       </router-link>
-      <router-link  v-if="!['about', 'rewards'].includes($route.name)" to="/rewards">
+      <router-link class="header--nav-rewards-icon"  v-if="!['about', 'rewards'].includes($route.name)" to="/rewards">
         <img src="../../images/rewards_icon.svg" alt="Points icon">
       </router-link>
       <router-link v-if="!['about', 'rewards'].includes($route.name)" to="/about">
@@ -27,5 +27,4 @@ import Component from 'vue-class-component';
 
 @Component({})
 export default class HeaderComponent extends Vue {}
-  
 </script>

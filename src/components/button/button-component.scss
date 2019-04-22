@@ -1,0 +1,22 @@
+.button {
+  background: linear-gradient(83.81deg, #05D3D8 0%, #748BFE 179.53%);
+  border-radius: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 40px auto;
+  height: 48px;
+  width: 327px;
+  color: #01222D;
+  &--text {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 48px;
+  }
+}
+.buttonBackgroundWhite {
+    background: white;
+}
+.buttonBackgroundGreen {
+  background: #BBDD7A;;
+}
