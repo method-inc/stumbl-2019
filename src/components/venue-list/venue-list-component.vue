@@ -1,12 +1,12 @@
 <style lang="scss">
-@import "./venu-list-component.scss";
+@import "./venue-list-component.scss";
 </style>
 
 <template>
   <div>
     <ul>
-      <li v-for="(venu, index) in venus" :key="index">
-        {{ venu.name }}
+      <li v-for="(venue, index) in venues" :key="index">
+        <Venue  />
       </li>
     </ul>
   </div>
@@ -15,12 +15,17 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Venue from '@/components/venue-list/venue/venue-component.vue';
 
-@Component({})
-export default class VenuListComponent extends Vue {
+@Component({
+  components: {
+    Venue,
+  },
+})
+export default class VenueListComponent extends Vue {
  public data() {
     return {
-      venus: [
+      venues: [
         {
           name: 'Signpost',
           address: '2363 Blake St',
