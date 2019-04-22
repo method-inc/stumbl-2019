@@ -28,7 +28,7 @@
         results they’ve ever experienced.
       </p>
     </div>
-    <Button :title="'More about skookum'" :showImage="true" :whiteBackground="true"/>
+    <Button :title="'More about skookum'" :showImage="true" :whiteBackground="true" href="https://skookum.com/"/>
   </div>
 </template>
 

@@ -3,10 +3,14 @@
 </style>
 
 <template>
-  <div class="button" :class="{'buttonBackgroundWhite': whiteBackground, 'buttonBackgroundGreen': greenBackground,}">
-    <img v-if="showImage" src="../../images/skookum-logo.svg" alt="Skookum Logo">
+  <button  class="button" :class="{'buttonBackgroundWhite': whiteBackground, 'buttonBackgroundGreen': greenBackground,}">
+    <img v-if="showImage" src="../../images/skookum-logo.svg" alt="Skookum Logo" class="button--image">
     <p class="button--text">{{title}}</p>
-  </div>
+    <router-link v-if="routerLink" class="button--router-link" :to="routerLink">
+    </router-link>
+    <a v-if="href" class="button--router-link" :href="href"  target="_blank">
+    </a>
+  </button>
 </template>
 
 <script lang="ts">
@@ -16,12 +20,18 @@ import Component from 'vue-class-component';
 @Component({
   props: {
     title: String,
-    href: String,
-    routerLink: String,
+    routerLink: {
+      default: '',
+      type: String,
+    },
+    href: {
+      default: '',
+      type: String,
+    },
     whiteBackground: Boolean,
     greenBackground: Boolean,
-    showImage: Boolean
-    }
+    showImage: Boolean,
+    },
   })
 export default class ButtonComponent extends Vue {}
 </script>
