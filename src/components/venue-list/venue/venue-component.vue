@@ -5,7 +5,7 @@
 <template>
   <div class="venue">
     <div class="venue--map-icon">
-      <img src="../../../images/map-icon.svg" alt="Map icon">
+      <img :src="venue.mapIcon" alt="Map icon">
     </div>
     <div class="venue--details">
       <div class="venue--details-name">

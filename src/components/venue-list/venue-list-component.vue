@@ -29,14 +29,17 @@ export default class VenueListComponent extends Vue {
         {
           name: 'Signpost',
           address: '2363 Blake St',
+          mapIcon: require("../../images/map-icons/signpost-map-icon.svg"),
         },
         {
           name: 'Skookum',
           address: '1801 California St.',
+          mapIcon: require("../../images/map-icons/skookum-map-icon.svg"),
         },
         {
           name: 'Super long startup name that doesnt fit on the screen in one line',
           address: '2120 Market St.',
+          mapIcon: require("../../images/map-icons/supperLongName-map-icon.svg"),
         },
       ],
     };
