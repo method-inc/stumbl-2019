@@ -1,3 +1,29 @@
 .venue {
-  font-size: 32px;
+  display: flex;
+  padding: 20px 24px;
+  margin: 0 -24px;
+  box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.24);
+  &--map-icon {
+    align-self: center;
+  }
+  &--details {
+    min-width: 0;
+    text-align: left;
+    margin-left: 15px;
+    &-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &-address {
+      font-size: 14px;
+      color: #C0CACC;
+      &-image {
+        height: 12px;
+      }
+    }
+  }
 }

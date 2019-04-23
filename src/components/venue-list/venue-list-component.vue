@@ -3,10 +3,10 @@
 </style>
 
 <template>
-  <div>
+  <div class="venue-list">
     <ul>
       <li v-for="(venue, index) in venues" :key="index">
-        <Venue  />
+        <Venue :venue="venue" />
       </li>
     </ul>
   </div>
@@ -33,6 +33,10 @@ export default class VenueListComponent extends Vue {
         {
           name: 'Skookum',
           address: '1801 California St.',
+        },
+        {
+          name: 'Super long startup name that doesnt fit on the screen in one line',
+          address: '2120 Market St.',
         },
       ],
     };
