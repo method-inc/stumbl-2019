@@ -12,6 +12,7 @@
   width: 327px;
   color: #01222D;
   cursor: pointer;
+  
   &--router-link {
     text-decoration: none;
     position: absolute;
@@ -22,6 +23,7 @@
     height: 48px;
     z-index: 1;
   }
+
   &--text {
     font-size: 16px;
     font-weight: 700;
@@ -32,6 +34,7 @@
 .buttonBackgroundWhite {
     background: white;
 }
+
 .buttonBackgroundGreen {
   background: #BBDD7A;;
 }
