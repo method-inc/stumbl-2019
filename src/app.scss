@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800');
 
 html {
-  background: #01222D;
+  background: $color_background;
   font-family: Montserrat;
 }
 
@@ -12,7 +12,7 @@ body {
 #app {
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   line-height: 24px;
-  color: #ffffff;
+  color: $color_white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
