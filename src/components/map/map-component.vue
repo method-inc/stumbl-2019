@@ -4,7 +4,6 @@
 
 <template>
   <div class="map">
-    <h3>Map Goes Here</h3>
     <MapContainer/>
   </div>
 </template>

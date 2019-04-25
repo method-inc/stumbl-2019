@@ -3,7 +3,14 @@
 </style>
 
 <template>
-  <div id="map"></div>
+  <div id="map">
+    <div class="map-hidden-alert" v-if="!mapLoaded">
+      The map is probably not broken, the mapbox access token 
+      is just commented out to reduce API requests during dev.<br/>
+      Uncomment the Access Token in the MapContainer Component
+      if you'd like to see it!
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,7 +20,25 @@ import Component from 'vue-class-component';
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+/**
+ * ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️
+ * ---------HEY, SKOOKUM DEV!!------------
+ * 
+ * In an effort to reduce API calls during 
+ * development, leave the map access token
+ * commented out unless you are explicitly
+ * working on the functionality of the map
+ * 
+ * This will keep us on a free tier 
+ * for the Mapbox API (less than 50k req)
+ * 
+ * TODO: 
+ * Uncomment this access token for prod
+ * ---------------------------------------
+ */
+
+// ⚠️PR REVIEWERS - Make sure this is commented out before merge!
+// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
@@ -30,7 +55,7 @@ interface GeoJsonFeature {
 @Component({})
 
 export default class MapContainerComponent extends Vue {
-  mapLoaded = false;
+  public mapLoaded = false;
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
@@ -57,7 +82,7 @@ export default class MapContainerComponent extends Vue {
 
   // Build the Mapbox instance and draw the map
   private createMap() {
-    if (!this.mapLoaded) {
+    if (!this.mapLoaded && mapboxgl.accessToken) {
       const map = new mapboxgl.Map(this.mapboxOptions);
       map.addControl(new mapboxgl.NavigationControl());
       this.loadMarkers(map);
