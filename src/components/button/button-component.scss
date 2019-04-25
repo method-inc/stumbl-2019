@@ -10,7 +10,7 @@
   margin: 40px auto;
   height: 48px;
   width: 327px;
-  color: #01222D;
+  color: $color_background;
   cursor: pointer;
   
   &--router-link {
@@ -32,9 +32,9 @@
   }
 }
 .buttonBackgroundWhite {
-    background: white;
+    background: $color_white;
 }
 
 .buttonBackgroundGreen {
-  background: #BBDD7A;;
+  background: $color_button-green;
 }
