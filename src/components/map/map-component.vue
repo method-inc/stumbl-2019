@@ -15,8 +15,8 @@ import MapContainer from '@/components/map-container/map-container-component.vue
 
 @Component({
   components: {
-    MapContainer
-  }
+    MapContainer,
+  },
 })
 export default class MapComponent extends Vue {}
 </script>

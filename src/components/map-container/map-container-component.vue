@@ -23,16 +23,16 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 /**
  * ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️
  * ---------HEY, SKOOKUM DEV!!------------
- * 
- * In an effort to reduce API calls during 
+ *
+ * In an effort to reduce API calls during
  * development, leave the map access token
  * commented out unless you are explicitly
  * working on the functionality of the map
- * 
- * This will keep us on a free tier 
+ *
+ * This will keep us on a free tier
  * for the Mapbox API (less than 50k req)
- * 
- * TODO: 
+ *
+ * TODO:
  * Uncomment this access token for prod
  * ---------------------------------------
  */
@@ -89,8 +89,8 @@ export default class MapContainerComponent extends Vue {
 
       // Assures that the map is only loaded once
       //  so we are less likely to hit our free-tier api request limit
-      // 
-      // ...but it still can be loaded multiple 
+      //
+      // ...but it still can be loaded multiple
       //  times per session if route is reloaded...
       //
       //  TODO: Load map globally only once
