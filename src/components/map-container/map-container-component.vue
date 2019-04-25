@@ -1,6 +1,5 @@
 <style lang="scss">
 @import "./map-container-component.scss";
-@import url('https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css');
 </style>
 
 <template>
@@ -12,6 +11,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
@@ -30,6 +30,7 @@ interface GeoJsonFeature {
 @Component({})
 
 export default class MapContainerComponent extends Vue {
+  mapLoaded = false;
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
@@ -56,9 +57,20 @@ export default class MapContainerComponent extends Vue {
 
   // Build the Mapbox instance and draw the map
   private createMap() {
-    const map = new mapboxgl.Map(this.mapboxOptions);
-    map.addControl(new mapboxgl.NavigationControl());
-    this.loadMarkers(map);
+    if (!this.mapLoaded) {
+      const map = new mapboxgl.Map(this.mapboxOptions);
+      map.addControl(new mapboxgl.NavigationControl());
+      this.loadMarkers(map);
+
+      // Assures that the map is only loaded once
+      //  so we are less likely to hit our free-tier api request limit
+      // 
+      // ...but it still can be loaded multiple 
+      //  times per session if route is reloaded...
+      //
+      //  TODO: Load map globally only once
+      this.mapLoaded = true;
+    }
   }
 
   // Load and place location markers on the map
