@@ -46,6 +46,12 @@ npm run test:unit
 npm run test:e2e
 ```
 
+## 🛠 Troubleshooting
+
+**Mapbox Not Displaying?**
+
+If you uncommented the correct line indicated in the container and the Map still doesn't show, then you're probably missing the correct environment variable in your `.env` file.  Ask another dev to share the contents of their `.env` file with you.
+
 ## Configuration
 
 ### Webpack Config

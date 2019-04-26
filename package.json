@@ -12,13 +12,17 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "dotenv": "^7.0.0",
+    "mapbox-gl": "^0.53.1",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
     "@types/jest": "^23.1.4",
+    "@types/mapbox-gl": "^0.51.4",
     "@vue/cli-plugin-e2e-cypress": "^3.3.0",
     "@vue/cli-plugin-typescript": "^3.3.0",
     "@vue/cli-plugin-unit-jest": "^3.3.0",
