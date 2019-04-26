@@ -20,8 +20,8 @@ action "lint" {
   args = "run lint"
 }
 
-action "test" {
-  uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
-  needs = ["build"]
-  args = "run test:unit"
-}
+# action "test" {
+#   uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
+#   needs = ["build"]
+#   args = "run test:unit"
+# }
