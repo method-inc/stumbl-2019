@@ -1,10 +1,10 @@
 <style lang="scss">
-@import "./venue-detail-component.scss";
+@import "./venue-details.scss";
 </style>
 
 <template>
-  <div class="venue-detail">
-    <div>Venue Detail</div>
+  <div class="venue-details">
+    <div>Venue Details</div>
   </div>
 </template>
 
@@ -16,5 +16,5 @@ import Component from 'vue-class-component';
 
 })
 
-export default class VenueDetailComponent extends Vue {}
+export default class VenueDetails extends Vue {}
 </script>

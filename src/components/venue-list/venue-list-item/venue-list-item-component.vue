@@ -9,7 +9,9 @@
     </div>
     <div class="venue-list-item--details">
       <div class="venue-list-item--details-name">
-        {{venue.name}}
+        <router-link  to="/venue">
+          {{venue.name}}
+        </router-link>
       </div>
       <div class="venue-list-item--details-address">
         <img class="venue-list-item--details-address-image" src="../../../images/location-icon.svg" alt="Location icon">

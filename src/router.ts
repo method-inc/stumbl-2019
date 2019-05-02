@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Home from './views/home/home.vue';
 const About = () => import('./views/about/about.vue');
 const Rewards = () => import('./views/rewards/rewards.vue');
+const VenueDetails = () => import('./views/venue-details/venue-details.vue');
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/rewards',
       name: 'rewards',
       component: Rewards,
+    },
+    {
+      path: '/venue',
+      name: 'venue',
+      component: VenueDetails,
     },
     {
       path: '*',
