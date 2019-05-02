@@ -6,7 +6,7 @@
   <div class="venue-list">
     <ul>
       <li v-for="(venue, index) in venues" :key="index">
-        <Venue :venue="venue" />
+        <VenueListItem :venue="venue" />
       </li>
     </ul>
   </div>
@@ -15,11 +15,11 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Venue from '@/components/venue-list/venue/venue-component.vue';
+import VenueListItem from '@/components/venue-list/venue-list-item/venue-list-item-component.vue';
 
 @Component({
   components: {
-    Venue,
+    VenueListItem,
   },
 })
 export default class VenueListComponent extends Vue {
