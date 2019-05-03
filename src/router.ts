@@ -27,7 +27,7 @@ export default new Router({
       component: Rewards,
     },
     {
-      path: '/venue',
+      path: '/venue/:venueId',
       name: 'venue',
       component: VenueDetails,
     },

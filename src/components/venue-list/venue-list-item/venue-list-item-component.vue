@@ -9,7 +9,7 @@
     </div>
     <div class="venue-list-item--details">
       <div class="venue-list-item--details-name">
-        <router-link  to="/venue">
+        <router-link  :to="'/venue/' + venue.Id">
           {{venue.name}}
         </router-link>
       </div>
