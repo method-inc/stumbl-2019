@@ -1,4 +1,4 @@
-interface Venue {
+export interface Venue {
   Id: number;
   name: string;
   address: string;
@@ -7,13 +7,16 @@ interface Venue {
   mapIcon: ImageBitmap;
 }
 
-interface VenuesService {
-  venues: Venue[];
-  getAllVenues: () => Venue[];
-  // getSelectedVenue: () => Venue;
-}
-
-export default class Venues implements VenuesService {
+export const emptyVenue = {
+  Id: 0,
+  name: 'Page Unavailable ',
+  address: '',
+  url: '',
+  mapIcon: require('../images/map-icons/signpost-map-icon.svg'),
+  companyImage: require('../images/company-images/emptyVenue.jpeg'),
+  description: '',
+};
+export class VenuesService  {
   public venues = [
     {
       Id: 1,
@@ -56,8 +59,15 @@ export default class Venues implements VenuesService {
     },
   ];
 
-public getAllVenues = () => this.venues;
+  public getAllVenues = () => this.venues;
 
-public getSelectedVenue = (Id: number) => this.venues.find((venue) => venue.Id === Id);
+  public getSelectedVenue = (Id: number): Venue => {
+    const venue = this.venues.find((v) => v.Id === Id);
+
+    if (venue) {
+      return venue;
+    }
+    return emptyVenue;
+  }
 
 }

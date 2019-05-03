@@ -16,9 +16,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import VenueListItem from '@/components/venue-list/venue-list-item/venue-list-item-component.vue';
-import { log } from 'util';
 
-import venueService from '../../services/venue-service'
+import {VenuesService} from '../../services/venue-service';
 
 @Component({
   components: {
@@ -26,7 +25,7 @@ import venueService from '../../services/venue-service'
   },
 })
 export default class VenueListComponent extends Vue {
-  venueSevice = new venueService()
-  venues = this.venueSevice.getAllVenues()
+  public venueSevice = new VenuesService();
+  public venues = this.venueSevice.getAllVenues();
 }
 </script>

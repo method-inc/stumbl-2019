@@ -11,8 +11,22 @@ $global-padding: 0 24px;
   font-size: 28px;
 }
 
-.header-3 {
+.header-1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header-2 {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.venue-address {
+  font-size: 14px;
+  color: $color_address;
+  &--image {
+    height: 12px;
+    margin-right: 5px;
+  }
 }

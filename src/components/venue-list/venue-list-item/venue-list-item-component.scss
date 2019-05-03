@@ -1,4 +1,5 @@
 .venue-list-item {
+  position: relative;
   display: flex;
   padding: 20px 24px;
   margin: 0 -24px;
@@ -8,28 +9,27 @@
     align-self: center;
   }
 
+  &--router-link {
+    text-decoration: none;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 95px;
+    z-index: 1;
+  }
+
   &--details {
     min-width: 0;
     text-align: left;
     margin-left: 15px;
 
     &-name {
-      font-size: 18px;
-      font-weight: 600;
       margin-bottom: 8px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    &-address {
-      font-size: 14px;
-      color: $color_address;
-
-      &-image {
-        height: 12px;
-        margin-right: 5px;
-      }
     }
   }
 }

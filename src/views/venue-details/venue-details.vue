@@ -9,12 +9,12 @@
       <div class="venue-details--title global-title">
         {{venue.name}}
       </div>
-      <div class="venue-list-item--details-address">
-        <img class="venue-list-item--details-address-image" src="../../images/location-icon.svg" alt="Location icon">
+      <div class="venue-address">
+        <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon">
         {{venue.address}}
       </div>
       <div>
-        <p class="header-3 venue-details--about">About</p>
+        <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">
           {{venue.description}}
         </p>
@@ -27,10 +27,10 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { log } from 'util';
 import Button from '@/components/button/button-component.vue';
 
-import venueService from '../../services/venue-service'
+import {VenuesService, Venue, emptyVenue} from '../../services/venue-service';
+import { Prop } from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -39,12 +39,13 @@ import venueService from '../../services/venue-service'
 })
 
 export default class VenueDetails extends Vue {
-  venueSevice = new venueService()
-  venue: any;
+
+  public venueSevice = new VenuesService();
+  public venue: Venue = emptyVenue;
 
   public beforeMount() {
     const Id: number = parseFloat(this.$route.params.venueId);
-    this.venue = this.venueSevice.getSelectedVenue(Id)
+    this.venue = this.venueSevice.getSelectedVenue(Id);
   }
 
 }
