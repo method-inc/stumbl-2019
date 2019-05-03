@@ -4,16 +4,23 @@
 
 <template>
   <div>
-    <div v-if="!venue">
-      Loading...
-    </div>
-
-    <div class="venue-details" v-else>
-      {{venue.name}}
-      {{venue.address}}
-      <!-- <Button :title="'Visit Website'" :href="'{{venue.url}}'"/> -->
-    </div>
-    
+    <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
+    <div class="venue-details">   
+      <div class="venue-details--title global-title">
+        {{venue.name}}
+      </div>
+      <div class="venue-list-item--details-address">
+        <img class="venue-list-item--details-address-image" src="../../images/location-icon.svg" alt="Location icon">
+        {{venue.address}}
+      </div>
+      <div>
+        <p class="header-3 venue-details--about">About</p>
+        <p class="venue-details--description">
+          {{venue.description}}
+        </p>
+      </div>
+      <Button :title="'Visit Website'" :href="venue.url"/>
+    </div> 
   </div>
 </template>
 
@@ -21,21 +28,23 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { log } from 'util';
+import Button from '@/components/button/button-component.vue';
 
 import venueService from '../../services/venue-service'
 
 @Component({
-
+  components: {
+    Button,
+  },
 })
 
 export default class VenueDetails extends Vue {
   venueSevice = new venueService()
   venue: any;
 
-  public async beforeMount() {
-    const Id: number = await parseFloat(this.$route.params.venueId);
+  public beforeMount() {
+    const Id: number = parseFloat(this.$route.params.venueId);
     this.venue = this.venueSevice.getSelectedVenue(Id)
-    console.log(this.venue);
   }
 
 }

@@ -1,1 +1,17 @@
+.venue-details {
+  padding: $global-padding;
+  
+  &--image {
+    width: 100%;
+    margin-bottom: 24px;
+  }
 
+  &--title {
+    margin-bottom: 16px;
+  }
+
+  &--about {
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+}
