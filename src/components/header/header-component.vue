@@ -27,6 +27,6 @@ import Component from 'vue-class-component';
 
 @Component({})
 export default class HeaderComponent extends Vue {
-  routes = ['about', 'rewards', 'venue']
+  public routes = ['about', 'rewards', 'venue'];
 }
 </script>
