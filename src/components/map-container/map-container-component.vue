@@ -83,6 +83,8 @@ export default class MapContainerComponent extends Vue {
 
   // Build the Mapbox instance and draw the map
   private createMap() {
+    console.log('ENV VAR:', process.env.VUE_APP_MAPBOX_KEY)
+    console.log('TOKEN SET:', mapboxgl.accessToken)
     if (!this.mapLoaded && mapboxgl.accessToken) {
       const map = new mapboxgl.Map(this.mapboxOptions);
 
