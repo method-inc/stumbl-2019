@@ -6,7 +6,7 @@
   <div class="venue-list">
     <ul>
       <li v-for="(venue, index) in venues" :key="index">
-        <Venue :venue="venue" />
+        <VenueListItem :venue="venue" />
       </li>
     </ul>
   </div>
@@ -15,34 +15,17 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Venue from '@/components/venue-list/venue/venue-component.vue';
+import VenueListItem from '@/components/venue-list/venue-list-item/venue-list-item-component.vue';
+
+import {VenuesService} from '../../services/venue-service';
 
 @Component({
   components: {
-    Venue,
+    VenueListItem,
   },
 })
 export default class VenueListComponent extends Vue {
- public data() {
-    return {
-      venues: [
-        {
-          name: 'Signpost',
-          address: '2363 Blake St',
-          mapIcon: require('../../images/map-icons/signpost-map-icon.svg'),
-        },
-        {
-          name: 'Skookum',
-          address: '1801 California St.',
-          mapIcon: require('../../images/map-icons/skookum-map-icon.svg'),
-        },
-        {
-          name: 'Super long startup name that doesnt fit on the screen in one line',
-          address: '2120 Market St.',
-          mapIcon: require('../../images/map-icons/supperLongName-map-icon.svg'),
-        },
-      ],
-    };
-  }
+  public venueSevice = new VenuesService();
+  public venues = this.venueSevice.getAllVenues();
 }
 </script>

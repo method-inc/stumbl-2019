@@ -4,3 +4,29 @@ $color_button-green: #BBDD7A;
 $color_white: #ffffff;
 
 $global-padding: 0 24px;
+
+.global-title {
+  line-height: 36px;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.header-1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header-2 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.venue-address {
+  font-size: 14px;
+  color: $color_address;
+  &--image {
+    height: 12px;
+    margin-right: 5px;
+  }
+}
