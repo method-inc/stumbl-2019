@@ -38,7 +38,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
  */
 
 // ⚠️PR REVIEWERS - Make sure this is commented out before merge!
-// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+// 5/7/19 - Uncommenting to test user location in prod vs localhost on mobile
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
@@ -84,7 +85,18 @@ export default class MapContainerComponent extends Vue {
   private createMap() {
     if (!this.mapLoaded && mapboxgl.accessToken) {
       const map = new mapboxgl.Map(this.mapboxOptions);
+
+      // Zoom controls
       map.addControl(new mapboxgl.NavigationControl());
+      
+      // Track user's Current Location
+      map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true
+      }));
+
       this.loadMarkers(map);
 
       // Assures that the map is only loaded once
