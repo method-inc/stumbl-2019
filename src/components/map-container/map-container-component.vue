@@ -17,6 +17,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+import config from '../../../config';
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -39,7 +40,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 // ⚠️PR REVIEWERS - Make sure this is commented out before merge!
 // 5/7/19 - Uncommenting to test user location in prod vs localhost on mobile
-mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+mapboxgl.accessToken = config.mapboxToken as string;
 
 interface GeoJsonFeature {
   type: string;
