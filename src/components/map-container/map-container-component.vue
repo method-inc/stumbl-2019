@@ -17,6 +17,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+//@ts-ignore
 import config from '../../../config';
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
