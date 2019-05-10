@@ -38,7 +38,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
  */
 
 // ⚠️PR REVIEWERS - Make sure this is commented out before merge!
+<<<<<<< HEAD
 // 5/7/19 - Uncommenting to test user location in prod vs localhost on mobile
+=======
+>>>>>>> removed docker
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
