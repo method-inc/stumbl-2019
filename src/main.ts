@@ -6,6 +6,9 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
+// Set page title (Vue overrides html title tag)
+document.title = 'Stumbl | Denver Startup Week';
+
 new Vue({
   router,
   render: (h) => h(App),
