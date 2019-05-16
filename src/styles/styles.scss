@@ -5,6 +5,28 @@ $color_white: #ffffff;
 
 $global-padding: 0 24px;
 
+%marker-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #05D3D8;
+  background: linear-gradient(88.75deg, #05D3D8 29.77%, #748BFE 187.55%);
+  color: #01222D;
+  border: 2px solid white;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  z-index: 40;
+  cursor: pointer;
+}
+
 .global-title {
   line-height: 36px;
   font-weight: 600;

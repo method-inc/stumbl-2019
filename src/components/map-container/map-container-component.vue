@@ -58,6 +58,7 @@ interface GeoJsonFeature {
 export default class MapContainerComponent extends Vue {
   public venuesService = new VenuesService();
   public mapLoaded = false;
+  public markers: mapboxgl.Marker[] = [];
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
@@ -74,7 +75,7 @@ export default class MapContainerComponent extends Vue {
     style: 'mapbox://styles/prowe/cjtet6cwy58qo1fqrowfu9t4i',
 
     center: [-104.9890, 39.7480], // 1801 California Street, Denver CO
-    zoom: 15.0,
+    zoom: 13.0,
   };
 
   // Lifecycle hook
@@ -120,18 +121,24 @@ export default class MapContainerComponent extends Vue {
 
   // Load and place location markers on the map
   private loadMarkers(map: mapboxgl.Map) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
     const geojson = this.venuesService.getAllVenuesAsGeoJSON();
 
-    geojson.features.forEach((marker: GeoJsonFeature) => {
+    geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
+      const markerLabel = alphabet[index];
       // create a HTML element for each feature
       const el = document.createElement('div');
       el.className = 'marker';
+      el.id = 'marker-' + markerLabel;
+      el.innerHTML = markerLabel;
 
       // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el)
+      const markerRef = new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates as mapboxgl.LngLatLike)
         .addTo(map);
+
+      this.markers.push(markerRef);
     });
   }
 }
