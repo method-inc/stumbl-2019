@@ -39,7 +39,7 @@ import { VenuesService } from '../../services/venue-service';
  */
 
 // ⚠️PR REVIEWERS - Make sure this is commented out before merge!
-mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
