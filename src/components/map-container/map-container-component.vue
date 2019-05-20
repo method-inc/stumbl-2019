@@ -19,6 +19,7 @@ import Component from 'vue-class-component';
 
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { VenuesService } from '../../services/venue-service';
 
 /**
  * ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️
@@ -38,7 +39,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
  */
 
 // ⚠️PR REVIEWERS - Make sure this is commented out before merge!
-mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
@@ -55,7 +56,9 @@ interface GeoJsonFeature {
 @Component({})
 
 export default class MapContainerComponent extends Vue {
+  public venuesService = new VenuesService();
   public mapLoaded = false;
+  public markers: mapboxgl.Marker[] = [];
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
@@ -72,7 +75,7 @@ export default class MapContainerComponent extends Vue {
     style: 'mapbox://styles/prowe/cjtet6cwy58qo1fqrowfu9t4i',
 
     center: [-104.9890, 39.7480], // 1801 California Street, Denver CO
-    zoom: 15.0,
+    zoom: 13.0,
   };
 
   // Lifecycle hook
@@ -88,13 +91,20 @@ export default class MapContainerComponent extends Vue {
       // Zoom controls
       map.addControl(new mapboxgl.NavigationControl());
 
-      // Track user's Current Location
-      map.addControl(new mapboxgl.GeolocateControl({
+      // Add geolocator to map to track user's Current Location
+      const geolocator = new mapboxgl.GeolocateControl({
         positionOptions: {
           enableHighAccuracy: true,
         },
         trackUserLocation: true,
-      }));
+      });
+      map.addControl(geolocator);
+
+      // When map is loaded, programmatically request user's location
+      // TODO: Trigger when user selects "YES" for location services on walkthrough
+      map.on('load', () => {
+        geolocator.trigger();
+      });
 
       this.loadMarkers(map);
 
@@ -111,42 +121,24 @@ export default class MapContainerComponent extends Vue {
 
   // Load and place location markers on the map
   private loadMarkers(map: mapboxgl.Map) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
-    const geojson = {
-      type: 'FeatureCollection',
-      features: [{
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-104.9890, 39.7480], // 1801 California St, Denver
-        },
-        properties: {
-          title: 'Skookum',
-          description: 'Skook City USA',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-104.9891, 39.7481], // right next to 1801 California St, Denver
-        },
-        properties: {
-          title: 'Jimmy Johns',
-          description: 'Denver, CO',
-        },
-      }],
-    };
+    const geojson = this.venuesService.getAllVenuesAsGeoJSON();
 
-    geojson.features.forEach((marker: GeoJsonFeature) => {
+    geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
+      const markerLabel = alphabet[index];
       // create a HTML element for each feature
       const el = document.createElement('div');
       el.className = 'marker';
+      el.id = 'marker-' + markerLabel;
+      el.innerHTML = markerLabel;
 
       // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el)
+      const markerRef = new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates as mapboxgl.LngLatLike)
         .addTo(map);
+
+      this.markers.push(markerRef);
     });
   }
 }

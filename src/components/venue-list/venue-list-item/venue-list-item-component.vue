@@ -5,7 +5,9 @@
 <template>
   <div class="venue-list-item">
     <div class="venue-list-item--map-icon">
-      <img :src="venue.mapIcon" alt="Map icon">
+      <div>
+        {{mapIconLabel()}}
+      </div>
     </div>
     <div class="venue-list-item--details">
       <div class="venue-list-item--details-name header-1">
@@ -24,12 +26,22 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 
 @Component({
   props: {
     venue: Object,
+    index: Number,
   },
 })
 
-export default class VenueListItemComponent extends Vue {}
+export default class VenueListItemComponent extends Vue {
+  @Prop()
+  public index!: number;
+
+  public mapIconLabel = () => {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return alphabet[this.index]
+  }
+}
 </script>

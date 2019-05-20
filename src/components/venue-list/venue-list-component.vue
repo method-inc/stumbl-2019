@@ -6,7 +6,7 @@
   <div class="venue-list">
     <ul>
       <li v-for="(venue, index) in venues" :key="index">
-        <VenueListItem :venue="venue" />
+        <VenueListItem :venue="venue" :index="index" />
       </li>
     </ul>
   </div>
