@@ -3,7 +3,6 @@ export interface Venue {
   name: string;
   url: string;
   companyImage: ImageBitmap;
-  mapIcon: ImageBitmap;
 
   address: string;
   // Manually convert coordinates using google maps
@@ -30,7 +29,6 @@ export const emptyVenue = {
   latitude: 0,
   longitude: 0,
   url: '',
-  mapIcon: require('../images/map-icons/signpost-map-icon.svg'),
   companyImage: require('../images/company-images/emptyVenue.jpeg'),
   description: '',
 };
@@ -43,7 +41,6 @@ export class VenuesService  {
       latitude: 39.758117,
       longitude: -104.989888,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/signpost-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -58,7 +55,6 @@ export class VenuesService  {
       latitude: 39.74767,
       longitude: -104.98982,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/skookum-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -73,7 +69,6 @@ export class VenuesService  {
       latitude: 39.7545,
       longitude: -104.99217,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/supperLongName-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -88,7 +83,6 @@ export class VenuesService  {
       latitude: 39.7471025,
       longitude: -104.9907957,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/supperLongName-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -103,7 +97,6 @@ export class VenuesService  {
       latitude: 39.7491778,
       longitude: -104.9968469,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/supperLongName-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -118,7 +111,6 @@ export class VenuesService  {
       latitude: 39.7586051,
       longitude: -105.0074086,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/supperLongName-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
@@ -133,7 +125,6 @@ export class VenuesService  {
       latitude: 39.755166,
       longitude: -104.990956,
       url: 'https://skookum.com/',
-      mapIcon: require('../images/map-icons/supperLongName-map-icon.svg'),
       companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
