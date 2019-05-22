@@ -41,7 +41,7 @@ export default class VenueListItemComponent extends Vue {
 
   public mapIconLabel = () => {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    return alphabet[this.index]
+    return alphabet[this.index];
   }
 }
 </script>
