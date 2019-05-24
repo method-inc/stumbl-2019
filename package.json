@@ -21,7 +21,7 @@
     "@types/dotenv": "^6.1.0",
     "@types/mapbox-gl": "^0.51.4",
     "@vue/cli-plugin-typescript": "^3.3.0",
-    "@vue/cli-service": "^3.3.0",
+    "@vue/cli-service": "^3.7.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
