@@ -11,6 +11,7 @@
       <GetStarted v-if="introStep === 1"/>
       <ShareLocation v-if="introStep === 2"/>
       <FollowMap v-if="introStep === 3"/>
+      <IntroWin v-if="introStep === 4"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
       <Button :title="label" :blueBackground="true"/>
@@ -30,6 +31,7 @@ import Button from '../../components/button/button-component.vue';
 import GetStarted from '../../components/onboarding/get-started/get-started-component.vue';
 import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
 import FollowMap from '../../components/onboarding/follow-map/follow-map-component.vue';
+import IntroWin from '../../components/onboarding/win/win-component.vue';
 
 @Component({
   components: {
@@ -37,6 +39,7 @@ import FollowMap from '../../components/onboarding/follow-map/follow-map-compone
     GetStarted,
     ShareLocation,
     FollowMap,
+    IntroWin
   },
 })
 export default class Intro extends Vue {
