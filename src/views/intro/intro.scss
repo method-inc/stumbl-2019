@@ -1,0 +1,30 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh);
+
+  &-logo {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+
+    img {
+      height: 72px;
+      width: auto;
+    }
+  }
+
+  &-mountains img {
+    width: 100%;
+    height: auto;
+  }
+
+  &-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
