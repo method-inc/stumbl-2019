@@ -4,7 +4,10 @@
 
 <template>
 <div class="intro--get-started">
-  Hello
+  <h1>Let's crawl, Denver.</h1>
+  <p>
+    Welcome to the official app of the Denver Startup Week Crawl!  Follow the map, meet friends, win prizes. Get started for free below!
+  </p>
 </div>  
 </template>
 
@@ -13,7 +16,5 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({})
-export default class GetStartedComponent extends Vue {
-  public message = 'hello';
-}
+export default class GetStartedComponent extends Vue {}
 </script>
