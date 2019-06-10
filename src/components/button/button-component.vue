@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <button  class="button" :class="{'buttonBackgroundWhite': whiteBackground, 'buttonBackgroundGreen': greenBackground,}">
+  <button  class="button" :class="{'buttonBackgroundWhite': whiteBackground, 'buttonBackgroundGreen': greenBackground, 'buttonBackgroundBlue': blueBackground,}">
     <img v-if="showImage" src="../../images/skookum-logo.svg" alt="Skookum Logo" class="button--image">
     <p class="button--text">{{title}}</p>
     <router-link v-if="routerLink" class="button--router-link" :to="routerLink">
@@ -30,6 +30,7 @@ import Component from 'vue-class-component';
     },
     whiteBackground: Boolean,
     greenBackground: Boolean,
+    blueBackground: Boolean,
     showImage: Boolean,
     },
   })

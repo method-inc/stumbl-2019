@@ -32,9 +32,14 @@
   }
 }
 .buttonBackgroundWhite {
-    background: $color_white;
+  background: $color_white;
 }
 
 .buttonBackgroundGreen {
   background: $color_button-green;
+}
+
+.buttonBackgroundBlue {
+  background: #05D3D8; // fallback
+  background: $color_button-blue-gradient;
 }
