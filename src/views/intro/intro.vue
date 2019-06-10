@@ -10,8 +10,8 @@
     <div class="intro-content">
       <GetStarted v-if="introStep === 1"/>
     </div>
-    <div class="intro-next">
-      <Button :title="getButtonText()" :blueBackground="true"/>
+    <div class="intro-next" v-on:click="nextStep()">
+      <Button :title="label" :blueBackground="true"/>
     </div>
     <div class="intro-mountains">
       <img src="../../images/mountains.svg" alt="mountain scenery">
@@ -33,16 +33,17 @@ import Button from '../../components/button/button-component.vue';
   },
 })
 export default class Intro extends Vue {
-  public introStep = 1;
+  public introStep = 2;
 
-  getButtonText = () => {
-    switch (this.introStep) {
-      case 1:
-        return 'Get Started';
-        break;
-      default:
-        return 'Next';
-    }
+  get label() {
+    return this.introStep === 1
+      ? 'Get Started'
+      : 'Next';
+  }
+
+  public nextStep() {
+    this.$set(this, 'buttonText', 'Next');
+    this.introStep += 1;
   }
 }
 </script>
