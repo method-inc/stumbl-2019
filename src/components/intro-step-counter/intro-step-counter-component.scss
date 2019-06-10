@@ -1,0 +1,13 @@
+.dot {
+  display: inline-block;
+  margin: 4px;
+  margin-top: 15px;
+  height: 10px;
+  width: 10px;
+  border-radius: 5px;
+  background-color: $color_grey;
+
+  &.filled {
+    background: $color_blue-gradient;
+  }
+}

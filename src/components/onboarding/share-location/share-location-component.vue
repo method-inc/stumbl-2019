@@ -9,6 +9,7 @@
     </div>
     <h1>Share your location</h1>
     <p>Requires Copy!!!!!!!!!!</p>
+    <IntroStepCounter :step="2" />
   </div>
 </template>
 
@@ -16,7 +17,13 @@
 import Vue from 'vue'
 import Component from 'vue-class-component';
 
-@Component({})
+import IntroStepCounter from '../../intro-step-counter/intro-step-counter-component.vue';
+
+@Component({
+  components: {
+    IntroStepCounter,
+  },
+})
 export default class ShareLocationComponent extends Vue {}
 </script>
 

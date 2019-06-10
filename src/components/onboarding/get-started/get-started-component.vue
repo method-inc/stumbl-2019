@@ -8,6 +8,7 @@
   <p>
     Welcome to the official app of the Denver Startup Week Crawl!  Follow the map, meet friends, win prizes. Get started for free below!
   </p>
+  <IntroStepCounter :step="1"/>
 </div>  
 </template>
 
@@ -15,6 +16,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-@Component({})
+import IntroStepCounter from '../../intro-step-counter/intro-step-counter-component.vue';
+
+@Component({
+  components: {
+    IntroStepCounter,
+  },
+})
 export default class GetStartedComponent extends Vue {}
 </script>
