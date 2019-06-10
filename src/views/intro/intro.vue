@@ -10,6 +10,7 @@
     <div class="intro-content">
       <GetStarted v-if="introStep === 1"/>
       <ShareLocation v-if="introStep === 2"/>
+      <FollowMap v-if="introStep === 3"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
       <Button :title="label" :blueBackground="true"/>
@@ -24,19 +25,22 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+import Button from '../../components/button/button-component.vue';
+
 import GetStarted from '../../components/onboarding/get-started/get-started-component.vue';
 import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
-import Button from '../../components/button/button-component.vue';
+import FollowMap from '../../components/onboarding/follow-map/follow-map-component.vue';
 
 @Component({
   components: {
     Button,
     GetStarted,
     ShareLocation,
+    FollowMap,
   },
 })
 export default class Intro extends Vue {
-  public introStep = 2;
+  public introStep = 1;
 
   get label() {
     return this.introStep === 1
