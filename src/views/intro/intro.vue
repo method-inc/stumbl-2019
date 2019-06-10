@@ -47,7 +47,7 @@ import EnterEmail from '../../components/onboarding/email/enter-email-component.
   },
 })
 export default class Intro extends Vue {
-  public introStep = 5;
+  public introStep = 1;
   private totalSteps = 5;
 
   get label() {
