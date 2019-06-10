@@ -12,6 +12,7 @@
       <ShareLocation v-if="introStep === 2"/>
       <FollowMap v-if="introStep === 3"/>
       <IntroWin v-if="introStep === 4"/>
+      <EnterEmail v-if="introStep === 5"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
       <Button :title="label" :blueBackground="true"/>
@@ -25,6 +26,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import router from '../../router';
 
 import Button from '../../components/button/button-component.vue';
 
@@ -32,6 +34,7 @@ import GetStarted from '../../components/onboarding/get-started/get-started-comp
 import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
 import FollowMap from '../../components/onboarding/follow-map/follow-map-component.vue';
 import IntroWin from '../../components/onboarding/win/win-component.vue';
+import EnterEmail from '../../components/onboarding/email/enter-email-component.vue'
 
 @Component({
   components: {
@@ -40,13 +43,15 @@ import IntroWin from '../../components/onboarding/win/win-component.vue';
     ShareLocation,
     FollowMap,
     IntroWin,
+    EnterEmail,
   },
 })
 export default class Intro extends Vue {
-  public introStep = 1;
+  public introStep = 5;
+  private totalSteps = 5;
 
   get label() {
-    return this.introStep === 1
+    return (this.introStep === 1 || this.introStep === this.totalSteps)
       ? 'Get Started'
       : 'Next';
   }
@@ -54,6 +59,9 @@ export default class Intro extends Vue {
   public nextStep() {
     this.$set(this, 'buttonText', 'Next');
     this.introStep += 1;
+    if (this.introStep > this.totalSteps) {
+      router.push({name: 'home', params: {authenticated: 'true'}});
+    }
   }
 }
 </script>

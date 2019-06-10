@@ -8,6 +8,7 @@
     <span :class="{'dot': true, 'filled': step === 2}" />
     <span :class="{'dot': true, 'filled': step === 3}" />
     <span :class="{'dot': true, 'filled': step === 4}" />
+    <span :class="{'dot': true, 'filled': step === 5}" />
   </div>
 </template>
 

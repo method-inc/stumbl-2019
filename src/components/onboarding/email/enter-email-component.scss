@@ -1,0 +1,23 @@
+.intro--enter-email {
+  text-align: center;
+
+  input {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    border-bottom: 3px solid red;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.valid {
+      border-bottom: 3px solid $color_button-green;
+      color: green;
+    }
+  }
+}
