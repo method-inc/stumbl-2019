@@ -34,7 +34,7 @@ import GetStarted from '../../components/onboarding/get-started/get-started-comp
 import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
 import FollowMap from '../../components/onboarding/follow-map/follow-map-component.vue';
 import IntroWin from '../../components/onboarding/win/win-component.vue';
-import EnterEmail from '../../components/onboarding/email/enter-email-component.vue'
+import EnterEmail from '../../components/onboarding/email/enter-email-component.vue';
 
 @Component({
   components: {
