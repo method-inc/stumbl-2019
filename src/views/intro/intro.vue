@@ -9,6 +9,7 @@
     </div>
     <div class="intro-content">
       <GetStarted v-if="introStep === 1"/>
+      <ShareLocation v-if="introStep === 2"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
       <Button :title="label" :blueBackground="true"/>
@@ -24,12 +25,14 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 import GetStarted from '../../components/onboarding/get-started/get-started-component.vue';
+import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
 import Button from '../../components/button/button-component.vue';
 
 @Component({
   components: {
-    GetStarted,
     Button,
+    GetStarted,
+    ShareLocation,
   },
 })
 export default class Intro extends Vue {
