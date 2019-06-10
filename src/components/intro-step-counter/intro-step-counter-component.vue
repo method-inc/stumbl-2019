@@ -12,13 +12,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({
   props: {
-    step: Number
-  }
+    step: Number,
+  },
 })
 export default class IntroStepCounterComponent extends Vue {}
 </script>

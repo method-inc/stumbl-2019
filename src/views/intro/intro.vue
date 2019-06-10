@@ -39,7 +39,7 @@ import IntroWin from '../../components/onboarding/win/win-component.vue';
     GetStarted,
     ShareLocation,
     FollowMap,
-    IntroWin
+    IntroWin,
   },
 })
 export default class Intro extends Vue {
