@@ -44,7 +44,7 @@ export default class Home extends Vue {
   public mounted() {
     // Set the date we're counting down to
     // TODO: Correct the date when we actually know it
-    const countDownDate = new Date("Sep 15, 2019 16:00:00").getTime();
+    const countDownDate = new Date('Sep 15, 2019 16:00:00').getTime();
 
     // Update the count down every 1 second
     setInterval(() => {
@@ -62,7 +62,7 @@ export default class Home extends Vue {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the countdownString
-      this.countdownString = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      this.countdownString = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
     }, 1000);
 
   }
