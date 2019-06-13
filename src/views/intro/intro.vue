@@ -15,7 +15,7 @@
       <EnterEmail v-if="introStep === 5" :numberOfSteps="totalSteps" :stepNumber="5"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
-      <Button :title="label" :blueBackground="true"/>
+      <Button :title="label" backgroundColor="blue"/>
     </div>
     <div class="intro-mountains">
       <img src="../../images/mountains.svg" alt="mountain scenery">

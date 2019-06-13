@@ -30,16 +30,17 @@
     margin: 0;
     align-self: center;
   }
-}
-.buttonBackgroundWhite {
-  background: $color_white;
-}
 
-.buttonBackgroundGreen {
-  background: $color_button-green;
-}
+  &--background-green {
+    background: $color_button-green;
+  }
 
-.buttonBackgroundBlue {
-  background: #05D3D8; // fallback
-  background: $color_blue-gradient;
+  &--background-white {
+    background: $color_white;
+  }
+
+  &--background-blue {
+    background: #05D3D8; // fallback
+    background: $color_blue-gradient;
+  }
 }
