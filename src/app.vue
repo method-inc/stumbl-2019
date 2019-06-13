@@ -4,7 +4,7 @@
 
 <template>
   <div id="app">
-    <Header/>
+    <Header v-if="authenticated"/>
     <router-view/>
   </div>
 </template>
@@ -18,5 +18,8 @@ import Header from '@/components/header/header-component.vue';
     Header,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  // TODO: Set to true when authentication is completed
+  public authenticated = false;
+}
 </script>
