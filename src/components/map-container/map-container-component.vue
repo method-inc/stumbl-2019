@@ -19,7 +19,7 @@ import Component from 'vue-class-component';
 
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VenuesService } from '../../services/venue-service';
+import { VenuesService } from '@/services/venue-service';
 
 /**
  * ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️
