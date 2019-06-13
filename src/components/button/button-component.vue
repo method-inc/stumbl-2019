@@ -30,7 +30,7 @@ import Component from 'vue-class-component';
     },
     backgroundColor: {
       type: String,
-      validator: (val) => ['green', 'white', 'blue'].includes(val)
+      validator: (val) => ['green', 'white', 'blue'].includes(val),
     },
     showImage: Boolean,
     },

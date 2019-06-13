@@ -45,22 +45,27 @@ import EnterEmail from '@/components/onboarding/email/enter-email-component.vue'
     IntroWin,
     EnterEmail,
   },
+  data() {
+    return {
+      buttonText: 'Next',
+    };
+  },
 })
 export default class Intro extends Vue {
   public introStep = 1;
   public totalSteps = 5;
 
   get label() {
-    return (this.introStep === 1 || this.introStep === this.totalSteps)
+    return this.introStep === 1 || this.introStep === this.totalSteps
       ? 'Get Started'
       : 'Next';
   }
 
   public nextStep() {
-    this.$set(this, 'buttonText', 'Next');
+    this.$set(this.$data, 'buttonText', 'Next');
     this.introStep += 1;
     if (this.introStep > this.totalSteps) {
-      router.push({name: 'home', params: {authenticated: 'true'}});
+      router.push({ name: 'home', params: { authenticated: 'true' } });
     }
   }
 }
