@@ -4,11 +4,7 @@
 
 <template>
   <div class="intro-steps">
-    <span :class="{'dot': true, 'filled': step === 1}" />
-    <span :class="{'dot': true, 'filled': step === 2}" />
-    <span :class="{'dot': true, 'filled': step === 3}" />
-    <span :class="{'dot': true, 'filled': step === 4}" />
-    <span :class="{'dot': true, 'filled': step === 5}" />
+    <span v-for="n in numberOfSteps"  v-bind:key="`step-counter${n}`" :class="{'dot': true, 'dot--filled': step === n}"/>
   </div>
 </template>
 
@@ -18,6 +14,7 @@ import Component from 'vue-class-component';
 
 @Component({
   props: {
+    numberOfSteps: Number,
     step: Number,
   },
 })

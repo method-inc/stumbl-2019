@@ -1,12 +1,9 @@
-$color_address: #C0CACC;
-$color_background: #01222D;
-$color_button-green: #BBDD7A;
-$color_blue-gradient: linear-gradient(81.56deg, #05D3D8 29.77%, #748BFE 187.55%);
-$color_white: #ffffff;
-$color_grey: #C0CACC;
+@import './_colors.scss';
+@import './_spacing.scss';
 
-$global-padding: 0 24px;
 
+// TODO: Remove all global styles referring to elements
+// avoid adding any styles that refer to specific elements
 %marker-icon {
   display: flex;
   justify-content: center;

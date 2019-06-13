@@ -9,7 +9,7 @@
     </div>
     <h1>Share your location</h1>
     <p>Requires Copy!!!!!!!!!!</p>
-    <IntroStepCounter :step="2" />
+    <IntroStepCounter :numberOfSteps="numberOfSteps" :step="stepNumber" />
   </div>
 </template>
 
@@ -17,9 +17,13 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import IntroStepCounter from '../../intro-step-counter/intro-step-counter-component.vue';
+import IntroStepCounter from '@/components/intro-step-counter/intro-step-counter-component.vue';
 
 @Component({
+  props: {
+    numberOfSteps: Number,
+    stepNumber: Number,
+  },
   components: {
     IntroStepCounter,
   },

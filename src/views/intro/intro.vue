@@ -8,11 +8,11 @@
       <img src="../../images/dsw_logo.svg" alt="denver startup week logo">
     </div>
     <div class="intro-content">
-      <GetStarted v-if="introStep === 1"/>
-      <ShareLocation v-if="introStep === 2"/>
-      <FollowMap v-if="introStep === 3"/>
-      <IntroWin v-if="introStep === 4"/>
-      <EnterEmail v-if="introStep === 5"/>
+      <GetStarted v-if="introStep === 1" :numberOfSteps="totalSteps" :stepNumber="1"/>
+      <ShareLocation v-if="introStep === 2" :numberOfSteps="totalSteps" :stepNumber="2"/>
+      <FollowMap v-if="introStep === 3" :numberOfSteps="totalSteps" :stepNumber="3"/>
+      <IntroWin v-if="introStep === 4" :numberOfSteps="totalSteps" :stepNumber="4"/>
+      <EnterEmail v-if="introStep === 5" :numberOfSteps="totalSteps" :stepNumber="5"/>
     </div>
     <div class="intro-next" v-on:click="nextStep()">
       <Button :title="label" :blueBackground="true"/>
@@ -26,15 +26,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import router from '../../router';
+import router from '@/router';
 
-import Button from '../../components/button/button-component.vue';
+import Button from '@/components/button/button-component.vue';
 
-import GetStarted from '../../components/onboarding/get-started/get-started-component.vue';
-import ShareLocation from '../../components/onboarding/share-location/share-location-component.vue';
-import FollowMap from '../../components/onboarding/follow-map/follow-map-component.vue';
-import IntroWin from '../../components/onboarding/win/win-component.vue';
-import EnterEmail from '../../components/onboarding/email/enter-email-component.vue';
+import GetStarted from '@/components/onboarding/get-started/get-started-component.vue';
+import ShareLocation from '@/components/onboarding/share-location/share-location-component.vue';
+import FollowMap from '@/components/onboarding/follow-map/follow-map-component.vue';
+import IntroWin from '@/components/onboarding/win/win-component.vue';
+import EnterEmail from '@/components/onboarding/email/enter-email-component.vue';
 
 @Component({
   components: {
@@ -48,7 +48,7 @@ import EnterEmail from '../../components/onboarding/email/enter-email-component.
 })
 export default class Intro extends Vue {
   public introStep = 1;
-  private totalSteps = 5;
+  public totalSteps = 5;
 
   get label() {
     return (this.introStep === 1 || this.introStep === this.totalSteps)
