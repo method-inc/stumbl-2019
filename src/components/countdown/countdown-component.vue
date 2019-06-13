@@ -15,7 +15,7 @@ import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
     AlertBanner,
   },
   props: {
-    countdownDate: String,
+    countdownDateString: String,
   },
 })
 export default class CountdownComponent extends Vue {
@@ -23,21 +23,21 @@ export default class CountdownComponent extends Vue {
 
   public mounted() {
     // Set the date we're counting down to
-    const countDownDate = new Date(this.$props.countdownDate).getTime();
+    const countdownDate = new Date(this.$props.countdownDateString).getTime();
 
     // Update the count down every 1 second
     setInterval(() => {
       // Get today's date and time
       const now = new Date().getTime();
 
-      // if the event has already started, let's get out of here
-      if (countDownDate < now) {
+      // skip math if the current date is past the countdownDate
+      if (countdownDate < now) {
         this.countdownString = '';
         return;
       }
 
       // Find the distance between now and the countdown date
-      const distance = countDownDate - now;
+      const distance = countdownDate - now;
 
       // Time calculations for days, hours, minutes and seconds
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -47,9 +47,13 @@ export default class CountdownComponent extends Vue {
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+
       // Display the result in the countdownString
-      this.countdownString =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+      this.countdownString = '';
+      this.countdownString += days > 0 ? days + 'd ' : '';
+      this.countdownString += hours > 0 ? hours + 'h ' : '';
+      this.countdownString += minutes > 0 ? minutes + 'm ' : '';
+      this.countdownString += seconds > 0 ? seconds + 's ' : '';
     }, 1000);
   }
 

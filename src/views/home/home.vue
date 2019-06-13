@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Map/>
-    <Countdown :countdownDate="eventStart"/>
+    <Countdown :countdownDateString="eventStart"/>
     <AlertBanner
       class="alert-location-denied"
       :green="true"
