@@ -15,7 +15,7 @@ export interface GeoJsonFeature {
 /**
  * Default Venue values, to overwrite just set the property.
  */
-const DEFAULT_VENUE: Venue = {
+export const DEFAULT_VENUE: Venue = {
   id: -1,
   address: '',
   name: 'Page Unavailable',
