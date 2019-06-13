@@ -1,4 +1,11 @@
 {
   "tslint.autoFixOnSave": true,
   "editor.tabSize": 2,
+  "typescript.preferences.quoteStyle": "single",
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      // Prettier option here
+      "singleQuote": true
+    }
+  }
 }
