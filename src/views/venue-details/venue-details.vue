@@ -5,8 +5,8 @@
 <template>
   <div>
     <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
-        <AlertBanner
-      class="venue-details--checked-in"
+    <AlertBanner
+      class="venue-details-checked-in-banner"
       :green="true"
       :icon="'location'"
       v-if="checkedIn">

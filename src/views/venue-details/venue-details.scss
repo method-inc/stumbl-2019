@@ -1,16 +1,11 @@
 .venue-details {
   padding: $global-padding;
+  margin-top: 24px;
   
   &--image {
     width: 100%;
     min-height: 250px;
-    margin-bottom: 24px;
-  }
-
-  &--checked-in {
-    width: 100%;
-    margin-top: -32px;
-    margin-bottom: 24px;
+    margin-bottom: -7px;
   }
 
   &--title {
