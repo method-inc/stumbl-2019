@@ -1,0 +1,42 @@
+
+h1 {
+  text-align: center;
+  margin-top: 72px;
+}
+
+.trophy-banner {
+  margin-top: 141px;
+  width: 100%;
+  display: block;
+}
+
+.trophy {
+  left: 50%;
+  top:  50%;
+}
+
+.line {
+  width: 100%;
+
+  &--top {
+    margin-top: 126px;
+  }
+}
+
+.checkmark {
+  float: left;
+  margin-left: 76px;
+  margin-top: 31px;
+}
+
+.prize-details-container {
+ float: left;
+ margin-left: 16px;
+ line-height: 16px;
+}
+
+.prize-details-two {
+  margin-top: 32px;
+  padding: $global-padding;
+  text-align: center;
+}
