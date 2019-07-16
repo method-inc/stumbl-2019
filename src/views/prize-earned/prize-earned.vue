@@ -2,9 +2,6 @@
 @import './prize-earned.scss';
 </style>
 
-// todo: Kick off email once this comes into view
-// todo: Pull count and email dynamically
-
 <template>
   <div>
     <h1>Prize unlocked!</h1>
@@ -55,11 +52,11 @@ import TrophyBanner from '@/components/trophy-banner/trophy-banner-component.vue
 @Component({
   components: {
     Button,
-    TrophyBanner
-  }
+    TrophyBanner,
+  },
 })
 export default class PrizeDetails extends Vue {
-  // pull these values dynamically
+  // TODO: pull these values dynamically
   public visitCount = 8;
   public personEmail = 'test@test.com';
 
