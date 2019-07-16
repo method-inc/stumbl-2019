@@ -10,27 +10,31 @@
     <h1>Prize unlocked!</h1>
 
     <div v-if="visitCount === 4">
-      <TrophyBanner :green="true" />
+      <TrophyBanner class="trophy-banner" :green="true" />
       <img class="trophy" src="../../images/prizes/trophy-green.svg" alt="Green trophy" />
     </div>
     <div v-else-if="visitCount === 8">
-      <TrophyBanner :purple="true" />
+      <TrophyBanner class="trophy-banner" :purple="true" />
       <img class="trophy" src="../../images/prizes/trophy-purple.svg" alt="Purple trophy" />
     </div>
     <div v-else-if="visitCount === 12">
-      <TrophyBanner :orange="true" />
+      <TrophyBanner class="trophy-banner" :orange="true" />
       <img class="trophy" src="../../images/prizes/trophy-orange.svg" alt="Orange trophy" />
     </div>
 
-    <img class="line--top" src="../../images/line.svg" alt="Horizontal line" />
-    <img class="checkmark" src="../../images/checkmark.svg" alt="checkmark" />
-    <div class="prize-details-container">
-      <h3 class="prize-details">Visit {{visitCount}} startups</h3>
-      <div class="prize-details">Win a badass prize yo!</div>
+    <hr class="top-line">
+    <div class="parent">
+      <div class="prize-details-container">
+        <img class="checkmark" src="../../images/checkmark.svg" alt="checkmark" />
+        <div class="prize-details">
+          <h3>Visit {{visitCount}} startups</h3>
+          <div>Win a badass prize yo!</div>
+        </div>
+      </div>
     </div>
-    <img class="line--bottom" src="../../images/line.svg" alt="Horizontal line" />
+    <hr>
 
-    <div class="prize-details-two">
+    <div class="prize-details-paragraph">
       You've earned a prize for visiting {{visitCount}} crawl locations.
       We've sent an email to {{personEmail}} with instructions to claim your prize.
     </div>
@@ -51,8 +55,8 @@ import TrophyBanner from '@/components/trophy-banner/trophy-banner-component.vue
 @Component({
   components: {
     Button,
-    TrophyBanner,
-  },
+    TrophyBanner
+  }
 })
 export default class PrizeDetails extends Vue {
   // pull these values dynamically
