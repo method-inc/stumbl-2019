@@ -21,25 +21,7 @@ import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '../../services/venue-service';
 
-/**
- * ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️ ⚠️ ️⚠️
- * ---------HEY, SKOOKUM DEV!!------------
- *
- * In an effort to reduce API calls during
- * development, leave the map access token
- * commented out unless you are explicitly
- * working on the functionality of the map
- *
- * This will keep us on a free tier
- * for the Mapbox API (less than 50k req)
- *
- * TODO:
- * Uncomment this access token for prod
- * ---------------------------------------
- */
-
-// ⚠️PR REVIEWERS - Make sure this is commented out before merge!
-// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 interface GeoJsonFeature {
   type: string;
