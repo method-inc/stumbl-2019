@@ -7,15 +7,15 @@
     <h1>Prize unlocked!</h1>
 
     <div v-if="visitCount === 4">
-      <TrophyBanner class="trophy-banner" :green="true" />
+      <div class="trophy-banner green"/>
       <img class="trophy" src="../../images/prizes/trophy-green.svg" alt="Green trophy" />
     </div>
     <div v-else-if="visitCount === 8">
-      <TrophyBanner class="trophy-banner" :purple="true" />
+      <div class="trophy-banner purple" />
       <img class="trophy" src="../../images/prizes/trophy-purple.svg" alt="Purple trophy" />
     </div>
     <div v-else-if="visitCount === 12">
-      <TrophyBanner class="trophy-banner" :orange="true" />
+      <div class="trophy-banner orange" />
       <img class="trophy" src="../../images/prizes/trophy-orange.svg" alt="Orange trophy" />
     </div>
 
@@ -47,12 +47,10 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import router from '@/router';
 import Button from '@/components/button/button-component.vue';
-import TrophyBanner from '@/components/trophy-banner/trophy-banner-component.vue';
 
 @Component({
   components: {
     Button,
-    TrophyBanner,
   },
 })
 export default class PrizeDetails extends Vue {
