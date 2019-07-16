@@ -1,14 +1,4 @@
-export interface Venue {
-  Id: number;
-  name: string;
-  url: string;
-  companyImage: ImageBitmap;
-
-  address: string;
-  // Manually convert coordinates using google maps
-  latitude: number;
-  longitude: number;
-}
+import { Venue } from '@/models/venue-model';
 
 export interface GeoJsonFeature {
   type: string;
@@ -22,26 +12,32 @@ export interface GeoJsonFeature {
   };
 }
 
-export const emptyVenue = {
-  Id: 0,
-  name: 'Page Unavailable ',
+/**
+ * Default Venue values, to overwrite just set the property.
+ */
+export const DEFAULT_VENUE: Venue = {
+  id: -1,
   address: '',
-  latitude: 0,
-  longitude: 0,
-  url: '',
+  name: 'Page Unavailable',
+  latitude: 39.758117, // default to skookum coordinates
+  longitude: -104.989888, // default to skookum coordinates
+  geoRadius: 50,
   companyImage: require('../images/company-images/emptyVenue.jpeg'),
-  description: '',
+  url: 'https://www.google.com/',
+  description: `
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac quam
+  lacinia, egestas libero vel, dictum eros. Etiam ut leo quis diam congue elementum
+  et non mi. Maecenas ut ante ut ante rhoncus tincidunt vitae sit amet quam.
+  `,
 };
-export class VenuesService  {
+
+export class VenuesService {
   public venues = [
     {
+      ...DEFAULT_VENUE,
       Id: 1,
       name: 'Signpost',
       address: '2363 Blake St',
-      latitude: 39.758117,
-      longitude: -104.989888,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
       customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
@@ -49,6 +45,7 @@ export class VenuesService  {
       `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 2,
       name: 'Skookum',
       address: '1801 California St.',
@@ -57,80 +54,39 @@ export class VenuesService  {
       url: 'https://skookum.com/',
       companyImage: require('../images/company-images/skookum.png'),
       description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
+      Skookum is a diverse team of engineers, designers, and strategists passionate about
+      solving complex business problems.
       `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 3,
       name: 'Super long startup name that doesnt fit on the screen in one line',
       address: '2120 Market St.',
-      latitude: 39.7545,
-      longitude: -104.99217,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 4,
       name: 'Marketo',
       address: '707 17th St.',
-      latitude: 39.7471025,
-      longitude: -104.9907957,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 5,
       name: 'Gusto',
       address: '1201 16th St',
-      latitude: 39.7491778,
-      longitude: -104.9968469,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 6,
       name: 'WeWork',
       address: '2420 17th St, Denver, CO 80202',
-      latitude: 39.7586051,
-      longitude: -105.0074086,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
     },
     {
+      ...DEFAULT_VENUE,
       Id: 7,
       name: 'Wurk',
       address: '2162 Market St.',
-      latitude: 39.755166,
-      longitude: -104.990956,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
     },
   ];
 
@@ -142,7 +98,7 @@ export class VenuesService  {
     if (venue) {
       return venue;
     }
-    return emptyVenue;
+    return DEFAULT_VENUE;
   }
 
   public getAllVenuesAsGeoJSON = () => {

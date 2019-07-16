@@ -5,6 +5,7 @@ import Home from './views/home/home.vue';
 const About = () => import('./views/about/about.vue');
 const Rewards = () => import('./views/rewards/rewards.vue');
 const VenueDetails = () => import('./views/venue-details/venue-details.vue');
+const Intro = () => import('./views/intro/intro.vue');
 
 Vue.use(Router);
 
@@ -13,6 +14,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'intro',
+      component: Intro,
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home,
     },

@@ -19,7 +19,7 @@ import Component from 'vue-class-component';
 
 import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VenuesService } from '../../services/venue-service';
+import { VenuesService } from '@/services/venue-service';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 

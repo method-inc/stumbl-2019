@@ -1,10 +1,9 @@
-$color_address: #C0CACC;
-$color_background: #01222D;
-$color_button-green: #BBDD7A;
-$color_white: #ffffff;
+@import './_colors.scss';
+@import './_spacing.scss';
+@import './_fonts.scss';
 
-$global-padding: 0 24px;
-
+// TODO: Remove all global styles referring to elements
+// avoid adding any styles that refer to specific elements
 %marker-icon {
   display: flex;
   justify-content: center;
@@ -29,6 +28,11 @@ $global-padding: 0 24px;
 
 .global-title {
   line-height: 36px;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+h1 {
   font-weight: 600;
   font-size: 28px;
 }
