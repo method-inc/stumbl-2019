@@ -9,6 +9,7 @@ Stumble application built in Vue.js by Skookum Denver.
 Stumbl is a simple SPA to be used by attendees of [Denver Startup Week](https://www.denverstartupweek.org/) to improve information discovery, increase attendee engagement, and increase visibility for sponsors.  Stumbl will allow users to view venue and session information.  It will also allow venues to manage the information presented to users about their business, giving them further control over their image.
 
 - [🚀 Heroku Deployment](https://stumbl2019.herokuapp.com)
+- [API Repository](https://github.com/Skookum/stmbl-api)
 - [🎨 Designs](https://www.figma.com/file/SODvCflE383HZfaiLemsHIXZ/2019-DSW-Startup-Crawl?node-id=364%3A506)
 - [2017 Version](https://stmbl.herokuapp.com)
 
@@ -20,27 +21,15 @@ Stumbl is a simple SPA to be used by attendees of [Denver Startup Week](https://
 ```
 1. clone this repository
 2. npm install
-3. start web project using docker
-docker-compose up stumbl-web
-
+3. npm run serve
 4. open http://localhost:8080/
-
-5. stop web project
-docker-compose down stumbl-web
-```
-
-Alternatively, there have been npm scripts created for starting/stopping docker.
-```
-npm run start (docker-compose up)
-
-npm run stop (docker-compose down)
 ```
 
 ## 🛠 Troubleshooting
 
 **Mapbox Not Displaying?**
 
-If you uncommented the correct line indicated in the container and the Map still doesn't show, then you're probably missing the correct environment variable in your `.env` file.  Ask another dev to share the contents of their `.env` file with you.
+You're probably missing the correct environment variable in your `.env` file.  Ask another dev to share the contents of their `.env` file with you.
 
 ## Configuration
 
