@@ -12,14 +12,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-@Component({
-  components: {
-  },
-  props: {
-  },
-})
-export default class VenueListScrollComponent extends Vue {
-
-  public mounted() {}
-}
+@Component({})
+export default class VenueListScrollComponent extends Vue {}
 </script>
