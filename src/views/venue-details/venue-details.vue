@@ -4,6 +4,7 @@
 
 <template>
   <div>
+    <Header/>
     <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
     <AlertBanner
       class="venue-details-checked-in-banner"
@@ -30,6 +31,7 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Header from '@/components/header/header-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Button from '@/components/button/button-component.vue';
 
@@ -39,6 +41,7 @@ import { Prop } from 'vue-property-decorator';
 
 @Component({
   components: {
+    Header,
     AlertBanner,
     Button,
   },

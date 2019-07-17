@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Header/>
   <div class="home">
     <Map/>
     <Countdown :countdownDateString="eventStart"/>
@@ -13,10 +15,12 @@
     </AlertBanner>
     <VenueList/>
   </div>
+</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Header from '@/components/header/header-component.vue';
 import Map from '@/components/map/map-component.vue';
 import VenueList from '@/components/venue-list/venue-list-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
@@ -27,6 +31,7 @@ const START_DATE = 'Sep 15, 2019 16:00:00';
 
 @Component({
   components: {
+    Header,
     AlertBanner,
     Countdown,
     Map,
