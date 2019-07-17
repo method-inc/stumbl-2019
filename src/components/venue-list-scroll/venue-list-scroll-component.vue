@@ -1,9 +1,9 @@
 <style lang="scss">
-@import './scroll-component.scss';
+@import './venue-list-scroll-component.scss';
 </style>
 
 <template>
-  <div class="scroll">
+  <div class="venue-list-scroll">
     <slot></slot>
   </div>
 </template>
@@ -18,7 +18,7 @@ import Component from 'vue-class-component';
   props: {
   },
 })
-export default class ScrollComponent extends Vue {
+export default class VenueListScrollComponent extends Vue {
 
   public mounted() {}
 }
