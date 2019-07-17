@@ -11,6 +11,7 @@
       <!-- TODO: Link to location permissions resource for the user's current browser -->
       <a href>Share your location</a> to crawl!
     </AlertBanner>
+    <ProgressBanner/>
     <VenueList/>
   </div>
 </template>
@@ -21,6 +22,7 @@ import Map from '@/components/map/map-component.vue';
 import VenueList from '@/components/venue-list/venue-list-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Countdown from '@/components/countdown/countdown-component.vue';
+import ProgressBanner from '@/components/progress-banner/progress-banner-component.vue';
 
 // TODO: Correct the date when we actually know it
 const START_DATE = 'Sep 15, 2019 16:00:00';
@@ -31,6 +33,7 @@ const START_DATE = 'Sep 15, 2019 16:00:00';
     Countdown,
     Map,
     VenueList,
+    ProgressBanner,
   },
 })
 export default class Home extends Vue {
