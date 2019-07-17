@@ -32,6 +32,10 @@ export const DEFAULT_VENUE: Venue = {
 };
 
 export class VenuesService {
+  // visitedVenues is an array of venue IDs
+  // TODO: Start as empty array
+  public visitedVenues = [1, 4, 5];
+
   public venues = [
     {
       ...DEFAULT_VENUE,
