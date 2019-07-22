@@ -1,0 +1,31 @@
+.progress-banner {
+  padding: 12px 24px;
+
+  &-text {
+    text-align: center;
+  }
+
+  &-indicator {
+    display: flex;
+    margin-top: 5px;
+
+    .bar {
+      flex-grow: 1;
+      margin: 1px;
+      height: 6px;
+      background-color: #044968;
+
+      &.visited {
+        background-color: #BBDD7A;
+      }
+
+      &:first-of-type {
+        border-radius: 5px 0 0 5px;
+      }
+
+      &:last-of-type {
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
+}
