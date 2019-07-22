@@ -4,7 +4,6 @@
 
 <template>
   <div id="app">
-    <Header v-if="authenticated"/>
     <router-view/>
   </div>
 </template>

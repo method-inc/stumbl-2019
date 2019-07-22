@@ -3,6 +3,8 @@
 </style>
 
 <template>
+<div>
+  <Header/>
   <div class="about">
     <div>
       <p class="about__header">Instructions</p>
@@ -30,16 +32,19 @@
     </div>
     <Button :title="'More about skookum'" :showImage="true" backgroundColor="white" href="https://skookum.com/"/>
   </div>
+</div>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
 import Component from 'vue-class-component';
 import Button from '@/components/button/button-component.vue';
+import Header from '@/components/header/header-component.vue';
 
 @Component({
   components: {
     Button,
+    Header,
   },
 })
 

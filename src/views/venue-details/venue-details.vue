@@ -4,6 +4,7 @@
 
 <template>
   <div>
+    <Header/>
     <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
     <AlertBanner
       class="venue-details-checked-in-banner"
@@ -14,7 +15,7 @@
     </AlertBanner>
     <div class="venue-details">
       <div class="venue-details--title global-title">{{venue.name}}</div>
-      <div class="venue-address">
+      <div class="venue-address" v-on:click="openDirections(venue.address)">
         <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon">
         {{venue.address}}
       </div>
@@ -30,6 +31,7 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Header from '@/components/header/header-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Button from '@/components/button/button-component.vue';
 
@@ -39,6 +41,7 @@ import { Prop } from 'vue-property-decorator';
 
 @Component({
   components: {
+    Header,
     AlertBanner,
     Button,
   },
@@ -51,6 +54,14 @@ export default class VenueDetails extends Vue {
   public beforeMount() {
     const Id: number = parseFloat(this.$route.params.venueId);
     this.venue = this.venueSevice.getSelectedVenue(Id);
+  }
+
+  public openDirections(destination: string) {
+    const urlEncodedDestination = encodeURIComponent(destination);
+    const fullUrlPath =
+      `https://www.google.com/maps/dir/?api=1&destination=${urlEncodedDestination}&travelmode=walking`;
+
+    window.open(fullUrlPath);
   }
 }
 </script>
