@@ -115,7 +115,9 @@ export default class MapContainerComponent extends Vue {
       const el = document.createElement('div');
 
       if (this.visitedVenues.includes(index)) {
-        markerLabel = '<img v-bind:src="../../images/checkmark.svg" />'[index];
+        el.style.backgroundImage ='url(' + require('../../images/checkmark.svg') + ')';
+        el.style.backgroundSize = "100%";
+        markerLabel = ""
       } else {
         markerLabel = alphabet[index];
       }
