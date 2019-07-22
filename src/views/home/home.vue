@@ -10,11 +10,12 @@
       :icon="'location'"
       v-if="!locationPermissionActivated"
     >
-      <!-- TODO: Link to location permissions resource for the user's current browser -->
       <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
     </AlertBanner>
     <ProgressBanner/>
-    <VenueList/>
+    <VenueListScroll>
+      <VenueList/>
+    </VenueListScroll>
   </div>
 </div>
 </template>
@@ -23,6 +24,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Header from '@/components/header/header-component.vue';
 import Map from '@/components/map/map-component.vue';
+import VenueListScroll from '@/components/venue-list-scroll/venue-list-scroll-component.vue';
 import VenueList from '@/components/venue-list/venue-list-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Countdown from '@/components/countdown/countdown-component.vue';
@@ -38,6 +40,7 @@ const START_DATE = 'Sep 15, 2019 16:00:00';
     Countdown,
     Map,
     VenueList,
+    VenueListScroll,
     ProgressBanner,
   },
 })
