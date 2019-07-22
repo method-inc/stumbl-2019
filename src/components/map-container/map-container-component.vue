@@ -1,13 +1,14 @@
 <style lang="scss">
-@import "./map-container-component.scss";
+@import './map-container-component.scss';
 </style>
 
 <template>
   <div id="map">
     <div class="map-hidden-alert" v-if="!mapLoaded">
-      The map is probably not broken, the mapbox access token 
-      is just commented out to reduce API requests during dev.<br/><br/>
-      Uncomment the Access Token in the MapContainer Component
+      The map is probably not broken, the mapbox access token
+      is just commented out to reduce API requests during dev.
+      <br />
+      <br />Uncomment the Access Token in the MapContainer Component
       if you'd like to see it!
     </div>
   </div>
@@ -36,11 +37,12 @@ interface GeoJsonFeature {
 }
 
 @Component({})
-
 export default class MapContainerComponent extends Vue {
   public venuesService = new VenuesService();
   public mapLoaded = false;
   public markers: mapboxgl.Marker[] = [];
+  public visitedVenues = this.venuesService.visitedVenues;
+
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
