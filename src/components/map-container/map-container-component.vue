@@ -6,9 +6,8 @@
   <div id="map">
     <div class="map-hidden-alert" v-if="!mapLoaded">
       The map is probably not broken, the mapbox access token
-      is just commented out to reduce API requests during dev.
-      <br />
-      <br />Uncomment the Access Token in the MapContainer Component
+      is just commented out to reduce API requests during dev.<br/><br/>
+      Uncomment the Access Token in the MapContainer Component
       if you'd like to see it!
     </div>
   </div>
@@ -115,29 +114,15 @@ export default class MapContainerComponent extends Vue {
       const el = document.createElement('div');
 
       if (this.visitedVenues.includes(index)) {
-        el.style.backgroundImage ='url(' + require('../../images/checkmark.svg') + ')';
-        el.style.backgroundSize = "100%";
-        markerLabel = ""
+        markerLabel = null;
+        el.className = 'marker--checkmark';
       } else {
         markerLabel = alphabet[index];
+        el.className = 'marker';
       }
 
-      el.className = 'marker';
       el.id = 'marker-' + markerLabel;
       el.innerHTML = markerLabel;
-
-      // if (this.visitedVenues.includes(index)) {
-      //  el.innerHTML = 'XXXXX';
-
-      //   // const img = new Image();
-      //   // const div = document.getElementById(el.id);
-      //   // img.onload = function() {
-      //   //   div.innerHTML += '<img src="' + img.src + '" />';
-      //   // };
-      //   // img.src = '../../../images/checkmark.svg';
-      // } else {
-      //   el.innerHTML = markerLabel;
-      // }
 
       // make a marker for each feature and add to the map
       const markerRef = new mapboxgl.Marker(el)
