@@ -11,7 +11,7 @@
       v-if="!locationPermissionActivated"
     >
       <!-- TODO: Link to location permissions resource for the user's current browser -->
-      <a href>Share your location</a> to crawl!
+      <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
     </AlertBanner>
     <VenueList/>
   </div>
@@ -41,6 +41,7 @@ const START_DATE = 'Sep 15, 2019 16:00:00';
 export default class Home extends Vue {
   public locationPermissionActivated = false;
   public eventStart = START_DATE;
+  public locationPermissionLink = '';
 
   public beforeMount() {
     navigator.geolocation.getCurrentPosition(
@@ -55,6 +56,22 @@ export default class Home extends Vue {
         this.locationPermissionActivated = false;
       },
     );
+
+    this.locationPermissionLink = this.getLocationPermissionLink();
+  }
+
+  private getLocationPermissionLink() {
+    const isIphone = navigator.userAgent.toLowerCase().includes('iphone');
+    const isAndroid = navigator.userAgent.toLowerCase().includes('android');
+
+    if (isIphone) {
+      return 'https://support.apple.com/en-us/HT207092';
+    } else if (isAndroid) {
+      return 'https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DAndroid&hl=en';
+    } else {
+      // Desktop case. Hope they're using Chrome!
+      return 'https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop&hl=en';
+    }
   }
 }
 </script>
