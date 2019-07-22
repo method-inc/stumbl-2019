@@ -18,7 +18,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
+import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '@/services/venue-service';
 
@@ -110,12 +110,32 @@ export default class MapContainerComponent extends Vue {
     const geojson = this.venuesService.getAllVenuesAsGeoJSON();
 
     geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
-      const markerLabel = alphabet[index];
+      let markerLabel: any;
       // create a HTML element for each feature
       const el = document.createElement('div');
+
+      if (this.visitedVenues.includes(index)) {
+        markerLabel = '<img v-bind:src="../../images/checkmark.svg" />'[index];
+      } else {
+        markerLabel = alphabet[index];
+      }
+
       el.className = 'marker';
       el.id = 'marker-' + markerLabel;
       el.innerHTML = markerLabel;
+
+      // if (this.visitedVenues.includes(index)) {
+      //  el.innerHTML = 'XXXXX';
+
+      //   // const img = new Image();
+      //   // const div = document.getElementById(el.id);
+      //   // img.onload = function() {
+      //   //   div.innerHTML += '<img src="' + img.src + '" />';
+      //   // };
+      //   // img.src = '../../../images/checkmark.svg';
+      // } else {
+      //   el.innerHTML = markerLabel;
+      // }
 
       // make a marker for each feature and add to the map
       const markerRef = new mapboxgl.Marker(el)
