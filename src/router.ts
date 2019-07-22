@@ -6,6 +6,7 @@ const About = () => import('./views/about/about.vue');
 const Rewards = () => import('./views/rewards/rewards.vue');
 const VenueDetails = () => import('./views/venue-details/venue-details.vue');
 const Intro = () => import('./views/intro/intro.vue');
+const PrizeEarned = () => import('./views/prize-earned/prize-earned.vue');
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/venue/:venueId',
       name: 'venue',
       component: VenueDetails,
+    },
+    {
+      path: '/prize_earned',
+      name: 'prize',
+      component: PrizeEarned,
     },
     {
       path: '*',
