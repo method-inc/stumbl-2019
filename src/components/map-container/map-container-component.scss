@@ -7,6 +7,13 @@
 
 .marker {
   @extend %marker-icon;
+
+  &--checkmark {
+    height: 36px;
+    width: 36px;
+    background: url('../../images/checkmark.svg');
+    background-size: 100%;
+  }
 }
 
 .map-hidden-alert {

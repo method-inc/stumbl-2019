@@ -5,9 +5,8 @@
 <template>
   <div class="venue-list-item">
     <div class="venue-list-item--map-icon">
-      <div>
-        {{mapIconLabel()}}
-      </div>
+      <img v-if="visitedVenue()" src="../../../images/checkmark.svg" alt="Checkmark"/>
+      <div v-else>{{mapIconLabel()}}</div>
     </div>
     <div class="venue-list-item--details">
       <div class="venue-list-item--details-name header-1">
@@ -27,6 +26,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import { VenuesService } from '@/services/venue-service';
 
 @Component({
   props: {
@@ -38,6 +38,16 @@ import { Prop } from 'vue-property-decorator';
 export default class VenueListItemComponent extends Vue {
   @Prop()
   public index!: number;
+  public venuesService = new VenuesService();
+  public visitedVenues = this.venuesService.visitedVenues;
+
+  public visitedVenue() {
+    if (this.visitedVenues.includes(this.index)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   public mapIconLabel = () => {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

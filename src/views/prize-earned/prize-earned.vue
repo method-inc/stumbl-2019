@@ -55,7 +55,7 @@ import Button from '@/components/button/button-component.vue';
 })
 export default class PrizeDetails extends Vue {
   // TODO: pull these values dynamically
-  public visitCount = 8;
+  public visitCount = 4;
   public personEmail = 'test@test.com';
 
   public goHome() {

@@ -1,11 +1,11 @@
 <style lang="scss">
-@import "./map-container-component.scss";
+@import './map-container-component.scss';
 </style>
 
 <template>
   <div id="map">
     <div class="map-hidden-alert" v-if="!mapLoaded">
-      The map is probably not broken, the mapbox access token 
+      The map is probably not broken, the mapbox access token
       is just commented out to reduce API requests during dev.<br/><br/>
       Uncomment the Access Token in the MapContainer Component
       if you'd like to see it!
@@ -17,7 +17,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import mapboxgl, { MapboxOptions, LngLatLike } from 'mapbox-gl';
+import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '@/services/venue-service';
 
@@ -36,11 +36,12 @@ interface GeoJsonFeature {
 }
 
 @Component({})
-
 export default class MapContainerComponent extends Vue {
   public venuesService = new VenuesService();
   public mapLoaded = false;
   public markers: mapboxgl.Marker[] = [];
+  public visitedVenues = this.venuesService.visitedVenues;
+
   /**
    * This component leverages `Mapbox GL JS`
    * Mapbox GL JS documentation:  https://docs.mapbox.com/mapbox-gl-js/api/
@@ -108,10 +109,18 @@ export default class MapContainerComponent extends Vue {
     const geojson = this.venuesService.getAllVenuesAsGeoJSON();
 
     geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
-      const markerLabel = alphabet[index];
+      let markerLabel: any;
       // create a HTML element for each feature
       const el = document.createElement('div');
-      el.className = 'marker';
+
+      if (this.visitedVenues.includes(index)) {
+        markerLabel = null;
+        el.className = 'marker--checkmark';
+      } else {
+        markerLabel = alphabet[index];
+        el.className = 'marker';
+      }
+
       el.id = 'marker-' + markerLabel;
       el.innerHTML = markerLabel;
 

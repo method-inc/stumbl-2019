@@ -8,6 +8,11 @@
   &--map-icon {
     align-self: center;
 
+    img {
+      width: 36px;
+      height: 36px;
+    }
+
     & > div {
       @extend %marker-icon;
     }
