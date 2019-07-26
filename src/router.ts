@@ -45,7 +45,7 @@ export default new Router({
       component: PrizeEarned,
     },
     {
-      path: '/venue_discovered',
+      path: '/venue_discovered/:venueId',
       name: 'discovered',
       component: VenueDiscovered,
     },
