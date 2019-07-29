@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Header/>
+  <Header :showRewards=true :showInfo=true />
   <div class="home">
     <Map/>
     <Countdown :countdownDateString="eventStart"/>

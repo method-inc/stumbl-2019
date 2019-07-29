@@ -4,7 +4,7 @@
 
 <template>
 <div>
-  <Header/>
+  <Header :showClose=true />
   <div class="about">
     <div>
       <p class="about__header">Instructions</p>
