@@ -3,27 +3,30 @@
 </style>
 
 <template>
-  <div class="venue-discovered">
-    <div class="venue-discovered--icon">
-      <img src="../../images/visited.svg" alt="discovered icon">
-    </div>
-
-    <p class="venue-discovered--sub-header">Looks like you found</p>
-
-    <div class="venue-discovered--details">
-      <div class="venue-discovered--details-title global-title">{{venue.name}}</div>
-      <div class="venue-address" v-on:click="openDirections(`1801 california st, Denver Co`)">
-        <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon">
-        {{venue.address}}
+  <div>
+    <Header/>
+    <div class="venue-discovered">
+      <div class="venue-discovered--icon">
+        <img src="../../images/visited.svg" alt="discovered icon">
       </div>
-      <div>
-        <p class="venue-discovered--details-description">{{venue.description}}</p>
-      </div>
-      <Button :title="'CHECK IN'" :routerLink="`/venue/${this.venue.Id}`" class="button--background-green"/>
-      <div>
-      <router-link to="/home">
-        <p class="venue-discovered--route-exit">I'm not at this location</p>
-      </router-link>
+
+      <p class="venue-discovered--sub-header">Looks like you found</p>
+
+      <div class="venue-discovered--details">
+        <div class="venue-discovered--details-title global-title">{{venue.name}}</div>
+        <div class="venue-address" v-on:click="openDirections(`1801 california st, Denver Co`)">
+          <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon">
+          {{venue.address}}
+        </div>
+        <div>
+          <p class="venue-discovered--details-description">{{venue.description}}</p>
+        </div>
+        <Button :title="'CHECK IN'" :routerLink="`/venue/${this.venue.Id}`" class="button--background-green"/>
+        <div>
+        <router-link to="/home">
+          <p class="venue-discovered--route-exit">I'm not at this location</p>
+        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +35,7 @@
 <script lang='ts'>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Header from '@/components/header/header-component.vue';
 import Button from '@/components/button/button-component.vue';
 
 import { Venue } from '@/models/venue-model';
@@ -40,6 +44,7 @@ import { VenuesService, DEFAULT_VENUE } from '@/services/venue-service';
 @Component({
   components: {
     Button,
+    Header,
   },
 })
 
