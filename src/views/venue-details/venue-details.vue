@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <Header/>
+    <Header :showClose=true />
     <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
     <AlertBanner
       class="venue-details-checked-in-banner"
