@@ -101,7 +101,7 @@ export default class ApiService {
   /**
    * Add new venue from admin form
    */
-  public addVenue = async (venue: Venue) => {
+  public addNewVenue = async (venue: Venue) => {
     // TODO: Connect this to the API route
     //
     // Docs on uploading multiple files (for venue images):
@@ -119,6 +119,30 @@ export default class ApiService {
       return data;
     } catch (error) {
       console.error('API Error - addVenue:', error);
+    }
+  }
+
+  /**
+   * Add new venue from admin form
+   */
+  public updateVenue = async (venue: Venue) => {
+    // TODO: Connect this to the API route
+    //
+    // Docs on uploading multiple files (for venue images):
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Uploading_multiple_files
+
+    try {
+      const response = await fetch('url', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(venue),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('API Error - updateVenue:', error);
     }
   }
 
