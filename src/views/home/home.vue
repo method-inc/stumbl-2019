@@ -121,7 +121,7 @@ export default class Home extends Vue {
             }
           });
       });
-    }, 3000);
+    }, 5000);
   }
 
   private goToVenueDiscovered(venue: Venue) {
