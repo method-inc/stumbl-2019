@@ -94,6 +94,8 @@ export class VenuesService {
     },
   ];
 
+  // API CALL
+  // Get List of Venues and their detail, to be stored on front end
   public getAllVenues = () => this.venues;
 
   public getSelectedVenue = (Id: number): Venue => {

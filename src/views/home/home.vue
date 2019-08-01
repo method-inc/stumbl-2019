@@ -30,8 +30,10 @@ import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Countdown from '@/components/countdown/countdown-component.vue';
 import ProgressBanner from '@/components/progress-banner/progress-banner-component.vue';
 
-// TODO: Correct the date when we actually know it
-const START_DATE = 'Sep 15, 2019 16:00:00';
+// TODO: Refactor to check if current time is within the bounds of each crawl event
+// Tuesday:   https://www.denverstartupweek.org/schedule/6066-startup-crawl-night-1
+// Thursday:  https://www.denverstartupweek.org/schedule/6067-startup-crawl-night-2
+const START_DATE = 'Sep 16, 2019 16:00:00';
 
 @Component({
   components: {
@@ -65,6 +67,11 @@ export default class Home extends Vue {
 
     this.locationPermissionLink = this.getLocationPermissionLink();
   }
+
+  // TODO: Create checkUserLocation, check if within any geofence every 5s
+  // locationService.isWithinGeoRadius
+  // 
+  // API CALL - If within geofence, log that this user has visited this venue
 
   private getLocationPermissionLink() {
     const isIphone = navigator.userAgent.toLowerCase().includes('iphone');

@@ -32,6 +32,11 @@ export default class EnterEmailComponent extends Vue {
   public entered = '';
   public placeholder = 'ILove@DenStartupWeek.com';
 
+  // API CALL
+  // Creates a user, or returns user data if user already exists
+
+  // TODO: Need to create a submit function...
+
   get validEmail() {
     // Super simple email validation
     // Checks if there's chars before and after @,
