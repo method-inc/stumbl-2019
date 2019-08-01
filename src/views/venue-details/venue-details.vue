@@ -52,8 +52,8 @@ export default class VenueDetails extends Vue {
   public checkedIn = true; // This flag will need to be updated based on the 'Enter Geofence' screen
 
   public beforeMount() {
-    const Id: number = parseFloat(this.$route.params.venueId);
-    this.venue = this.venueSevice.getSelectedVenue(Id);
+    const id: number = parseFloat(this.$route.params.venueId);
+    this.venue = this.venueSevice.getSelectedVenue(id);
   }
 
   public openDirections(destination: string) {

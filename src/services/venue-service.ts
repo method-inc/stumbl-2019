@@ -34,14 +34,16 @@ export const DEFAULT_VENUE: Venue = {
 export class VenuesService {
   // visitedVenues is an array of venue IDs
   // TODO: Start as empty array
-  public visitedVenues = [1, 4, 5];
+  public visitedVenues = [4, 5];
 
   public venues = [
     {
       ...DEFAULT_VENUE,
-      Id: 1,
+      id: 1,
       name: 'Signpost',
       address: '2363 Blake St',
+      latitude: 32.715736,
+      longitude: -117.161087,
       description: `
       Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
       customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
@@ -50,7 +52,7 @@ export class VenuesService {
     },
     {
       ...DEFAULT_VENUE,
-      Id: 2,
+      id: 2,
       name: 'Skookum',
       address: '1801 California St.',
       latitude: 39.74767,
@@ -64,31 +66,31 @@ export class VenuesService {
     },
     {
       ...DEFAULT_VENUE,
-      Id: 3,
+      id: 3,
       name: 'Super long startup name that doesnt fit on the screen in one line',
       address: '2120 Market St.',
     },
     {
       ...DEFAULT_VENUE,
-      Id: 4,
+      id: 4,
       name: 'Marketo',
       address: '707 17th St.',
     },
     {
       ...DEFAULT_VENUE,
-      Id: 5,
+      id: 5,
       name: 'Gusto',
       address: '1201 16th St',
     },
     {
       ...DEFAULT_VENUE,
-      Id: 6,
+      id: 6,
       name: 'WeWork',
       address: '2420 17th St, Denver, CO 80202',
     },
     {
       ...DEFAULT_VENUE,
-      Id: 7,
+      id: 7,
       name: 'Wurk',
       address: '2162 Market St.',
     },
@@ -96,8 +98,8 @@ export class VenuesService {
 
   public getAllVenues = () => this.venues;
 
-  public getSelectedVenue = (Id: number): Venue => {
-    const venue = this.venues.find((v) => v.Id === Id);
+  public getSelectedVenue = (id: number): Venue => {
+    const venue = this.venues.find((v) => v.id === id);
 
     if (venue) {
       return venue;

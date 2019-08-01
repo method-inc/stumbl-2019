@@ -21,7 +21,7 @@
         <div>
           <p class="venue-discovered--details-description">{{venue.description}}</p>
         </div>
-        <Button :title="'CHECK IN'" :routerLink="`/venue/${this.venue.Id}`" class="button--background-green"/>
+        <Button :title="'CHECK IN'" :routerLink="`/venue/${this.venue.id}`" class="button--background-green"/>
         <div>
         <router-link to="/home">
           <p class="venue-discovered--route-exit">I'm not at this location</p>
@@ -53,8 +53,8 @@ export default class VenueDiscovered extends Vue {
   public venue: Venue = DEFAULT_VENUE;
 
   public beforeMount() {
-    const Id: number = parseFloat(this.$route.params.venueId);
-    this.venue = this.venueSevice.getSelectedVenue(Id);
+    const id: number = parseFloat(this.$route.params.venueId);
+    this.venue = this.venueSevice.getSelectedVenue(id);
   }
 
   public openDirections(destination: string) {

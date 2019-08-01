@@ -17,7 +17,7 @@
         {{venue.address}}
       </div>
     </div>
-    <router-link class="venue-list-item--router-link"  :to="'/venue/' + venue.Id">
+    <router-link class="venue-list-item--router-link"  :to="'/venue/' + venue.id">
     </router-link>
   </div>
 </template>
