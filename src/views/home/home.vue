@@ -105,12 +105,14 @@ export default class Home extends Vue {
         .getAllVenues()
         .filter((n) => !this.venueSevice.visitedVenues.includes(n.id));
 
+      // tslint:disable-next-line:no-console
       console.debug('Venues that haven\'t been visited', venuesToCheck);
 
       venuesToCheck.forEach((venue, index) => {
         this.locationService
           .isWithinGeoRadius(200, venue.latitude, venue.longitude)
           .then((response) => {
+            // tslint:disable-next-line:no-console
             console.debug('Is within georadius', venue);
             if (response) {
               // navigate to venue discovered
