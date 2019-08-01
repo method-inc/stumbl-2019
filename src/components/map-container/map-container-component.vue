@@ -84,7 +84,6 @@ export default class MapContainerComponent extends Vue {
       map.addControl(geolocator);
 
       // When map is loaded, programmatically request user's location
-      // TODO: Trigger when user selects "YES" for location services on walkthrough
       map.on('load', () => {
         geolocator.trigger();
       });
@@ -93,13 +92,9 @@ export default class MapContainerComponent extends Vue {
 
       // Assures that the map is only loaded once
       //  so we are less likely to hit our free-tier api request limit
-      //
-      // ...but it still can be loaded multiple
-      //  times per session if route is reloaded...
-      //
-      //  TODO: Load map globally only once
       this.mapLoaded = true;
     }
+
   }
 
   // Load and place location markers on the map
