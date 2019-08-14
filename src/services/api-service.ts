@@ -77,7 +77,7 @@ export default class ApiService {
 
         return this.venues;
       } catch (error) {
-        console.error('API Error - getVenues:', error);
+        return error;
       }
     }
   }
@@ -118,7 +118,7 @@ export default class ApiService {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('API Error - addVenue:', error);
+      return error;
     }
   }
 
@@ -142,7 +142,7 @@ export default class ApiService {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('API Error - updateVenue:', error);
+      return error;
     }
   }
 
@@ -162,7 +162,7 @@ export default class ApiService {
         const data = await response.json();
         return data;
       } catch (error) {
-        console.log('API Error - markVenueVisited:', error);
+        return error;
       }
     }
   }

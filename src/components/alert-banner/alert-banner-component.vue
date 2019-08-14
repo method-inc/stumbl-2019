@@ -33,9 +33,5 @@ import IconLocation from '@/images/icon-location-component.vue';
 })
 export default class AlertBannerComponent extends Vue {
   public name = './../images/mapbox-icon.png';
-
-  public mounted() {
-    // console.log('filename', this.iconFilename)
-  }
 }
 </script>
