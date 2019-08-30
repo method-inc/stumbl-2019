@@ -6,7 +6,7 @@
       <Countdown :countdownDateString="eventStart" />
       <AlertBanner
         class="alert-location-denied"
-        :green="true"
+        :color="'green'"
         :icon="'location'"
         v-if="!locationPermissionActivated"
       >
@@ -33,6 +33,7 @@ import { VenuesService } from '../../services/venue-service';
 import { LocationService } from '../../services/location-service';
 import { Venue } from '../../models/venue-model';
 import router from '@/router';
+import { AlertTypeEnum } from '../../models/alert-model';
 
 // TODO: Correct the date when we actually know it
 const START_DATE = 'Sep 15, 2019 16:00:00';
@@ -75,7 +76,15 @@ export default class Home extends Vue {
   }
 
   public created() {
-    this.pollData();
+    if (this.locationPermissionActivated) {
+      this.pollData();
+    } else {
+      this.$emit(
+        'send-alert',
+        AlertTypeEnum.warn,
+        'Location services have not been enabled.  Please enable location services.',
+      );
+    }
   }
 
   public beforeDestroy() {

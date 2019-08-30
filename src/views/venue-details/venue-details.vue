@@ -8,7 +8,7 @@
     <img class="venue-details--image" :src="venue.companyImage" alt="Company Image">
     <AlertBanner
       class="venue-details-checked-in-banner"
-      :green="true"
+      :color="'green'"
       :icon="'location'"
       v-if="checkedIn">
       You checked in here!

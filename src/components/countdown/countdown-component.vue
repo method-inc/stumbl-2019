@@ -1,5 +1,5 @@
 <template>
-  <AlertBanner v-if="showCountdown" :yellow="true" :icon="'clock'">
+  <AlertBanner v-if="showCountdown" :color="'yellow'" :icon="'clock'">
     The crawl begins in
     <strong>{{countdownString}}</strong>
   </AlertBanner>
