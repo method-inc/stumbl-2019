@@ -16,7 +16,6 @@ export interface Venue {
   features: string; // What will their stop feature
   employees: number; // how many employees do they have
   company_img_url: string;
-  logo_img_url: string;
   created_at?: string; // timestamp
   updated_at?: string; // timestamp
 }
