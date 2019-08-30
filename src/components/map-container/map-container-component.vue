@@ -3,14 +3,7 @@
 </style>
 
 <template>
-  <div id="map">
-    <div class="map-hidden-alert" v-if="!mapLoaded">
-      The map is probably not broken, the mapbox access token
-      is just commented out to reduce API requests during dev.<br/><br/>
-      Uncomment the Access Token in the MapContainer Component
-      if you'd like to see it!
-    </div>
-  </div>
+  <div id="map"/>
 </template>
 
 <script lang="ts">
