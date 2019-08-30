@@ -59,33 +59,25 @@ export default class Home extends Vue {
   public polling: any = null; // polling interval
 
   public beforeMount() {
+    // get position
     navigator.geolocation.getCurrentPosition(
       () => {
-        // success
-        // If browser can get location, permission was granted
         this.locationPermissionActivated = true;
+        this.pollData();
       },
       () => {
-        // error
-        // If it can't, permission was denied
+        // error, location permission denied
         this.locationPermissionActivated = false;
+        clearInterval(this.polling);
+        this.$emit(
+          'send-alert',
+          AlertTypeEnum.warn,
+          'Location services have not been enabled.  Please enable location services.'
+        );
       },
     );
 
     this.locationPermissionLink = this.getLocationPermissionLink();
-  }
-
-  public created() {
-    if (this.locationPermissionActivated) {
-      this.pollData();
-    } else {
-      this.$emit(
-        'send-alert',
-        AlertTypeEnum.warn,
-        'Location services have not been enabled.  Please enable location services.',
-      );
-      // TODO: Call this pollData again after location services have been enabled.
-    }
   }
 
   public beforeDestroy() {
