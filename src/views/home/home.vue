@@ -84,6 +84,7 @@ export default class Home extends Vue {
         AlertTypeEnum.warn,
         'Location services have not been enabled.  Please enable location services.',
       );
+      // TODO: Call this pollData again after location services have been enabled.
     }
   }
 
