@@ -1,30 +1,5 @@
-export interface Venue {
-  id?: number;
-  name: string;
-  address: string;
-  address_2: string;
-  city: string;
-  state: string;
-  zip_code: string;
-  latitude: string;
-  longitude: string;
-  website: string;
-  description: string;
-  links: Array<{ label: string; url: string }>; // array of links they can show on their venue detail
-  company_img_url: string;
-  logo_img_url: string;
-  created_at?: string; // timestamp
-  updated_at?: string; // timestamp
-}
-
-export interface User {
-  id: number;
-  created_at: string;
-  email: string;
-  name: string;
-  password: string;
-  visited_venues: number[];
-}
+import { Venue } from '@/models/venue-model';
+import { User } from '@/models/user-model';
 
 const defaultUser = {
   id: 0,
@@ -34,6 +9,9 @@ const defaultUser = {
   password: '',
   visited_venues: [],
 };
+
+const API_URI = process.env.VUE_APP_STMBL_API_URI;
+const EVENT_ID = process.env.VUE_APP_DSW_CRAWL_EVENT_ID;
 
 export default class ApiService {
   public venues: Venue[] = [];
@@ -50,7 +28,7 @@ export default class ApiService {
       return this.getCachedUser();
     } else {
       // TODO: Connect this to the API route
-      const response = await fetch('url');
+      const response = await fetch(API_URI + '/me');
       const data = await response.json();
 
       this.user = { ...data };
@@ -61,7 +39,7 @@ export default class ApiService {
   /**
    * Gets array of venues and their detail
    */
-  public getAllVenues = async () => {
+  public getAllVenues = async (): Promise<Venue[]> => {
     const hasCachedVenues = this.venues.length;
 
     if (hasCachedVenues) {
@@ -69,9 +47,10 @@ export default class ApiService {
     } else {
       try {
         // TODO: Connect this to API route
-        const response = await fetch('url');
+        const response = await fetch(`${API_URI}/events/${EVENT_ID}/locations`);
 
-        const data = await response.json();
+        const json = await response.json();
+        const data = (json.data.map((entry: any) => entry.attributes)) as Venue[];
 
         this.venues = data;
 
