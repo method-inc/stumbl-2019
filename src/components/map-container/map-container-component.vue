@@ -10,23 +10,13 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+import { GeoJsonFeature } from '@/services/venue-service';
 import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '@/services/venue-service';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
-interface GeoJsonFeature {
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: number[] | LngLatLike;
-  };
-  properties: {
-    title: string;
-    description: string;
-  };
-}
 
 @Component({})
 export default class MapContainerComponent extends Vue {
@@ -91,10 +81,10 @@ export default class MapContainerComponent extends Vue {
   }
 
   // Load and place location markers on the map
-  private loadMarkers(map: mapboxgl.Map) {
+  private async loadMarkers(map: mapboxgl.Map) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
-    const geojson = this.venuesService.getAllVenuesAsGeoJSON();
+    const geojson = await this.venuesService.getAllVenuesAsGeoJSON();
 
     geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
       let markerLabel: any;

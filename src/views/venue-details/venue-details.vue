@@ -42,8 +42,8 @@ import { Prop } from 'vue-property-decorator';
   components: {
     Header,
     AlertBanner,
-    Button
-  }
+    Button,
+  },
 })
 export default class VenueDetails extends Vue {
   public venueSevice = new VenuesService();
@@ -57,7 +57,9 @@ export default class VenueDetails extends Vue {
 
   public openDirections(destination: string) {
     const urlEncodedDestination = encodeURIComponent(destination);
-    const fullUrlPath = `https://www.google.com/maps/dir/?api=1&destination=${urlEncodedDestination}&travelmode=walking`;
+    const fullUrlPath = 'https://www.google.com/maps/dir/?api=1&destination='
+      + urlEncodedDestination
+      + '&travelmode=walking';
 
     window.open(fullUrlPath);
   }

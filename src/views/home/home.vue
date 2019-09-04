@@ -70,7 +70,7 @@ export default class Home extends Vue {
 
   // TODO: Create checkUserLocation, check if within any geofence every 5s
   // locationService.isWithinGeoRadius
-  // 
+  //
   // API CALL - If within geofence, log that this user has visited this venue
 
   private getLocationPermissionLink() {

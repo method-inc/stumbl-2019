@@ -1,5 +1,5 @@
 export interface Venue {
-  id?: number;
+  id?: string;
   name: string;
   address: string;
   address_2: string;

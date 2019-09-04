@@ -28,8 +28,8 @@ import { Venue } from '@/models/venue-model';
 export default class ProgressBannerComponent extends Vue {
   public venuesService = new VenuesService();
   public visitedVenues = this.venuesService.visitedVenues;
-  public allVenues: Array<Venue> = [];
-  public barsArray: Array<boolean> = [];
+  public allVenues: Venue[] = [];
+  public barsArray: boolean[] = [];
 
   constructor() {
     super();
@@ -38,16 +38,12 @@ export default class ProgressBannerComponent extends Vue {
 
   public init = async () => {
     // @NOTE: Note sure how to get arround this.
-    this.allVenues = await this.venuesService.getAllVenues(
-      process.env.VUE_APP_DSW_CRAWL_EVENT_ID
-    );
-
-    console.log(this.allVenues);
+    this.allVenues = await this.venuesService.getAllVenues();
 
     this.barsArray = this.allVenues.map((venue, index) => {
       return index < this.visitedVenues.length;
     });
-  };
+  }
 }
 </script>
 

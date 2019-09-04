@@ -1,11 +1,12 @@
 import { Venue } from '@/models/venue-model';
 import ApiService from '@/services/api-service';
+import { LngLatLike } from 'mapbox-gl';
 
 export interface GeoJsonFeature {
   type: string;
   geometry: {
     type: string;
-    coordinates: string[];
+    coordinates: number[] | LngLatLike;
   };
   properties: {
     title: string;
@@ -17,7 +18,7 @@ export interface GeoJsonFeature {
  * Default Venue values, to overwrite just set the property.
  */
 export const DEFAULT_VENUE: Venue = {
-  id: 0,
+  id: '0',
   address: '',
   address_2: '',
   city: '',
@@ -51,7 +52,7 @@ export class VenuesService {
     return this.venues;
   }
 
-  public getSelectedVenue = (Id: number): Venue => {
+  public getSelectedVenue = (Id: string): Venue => {
     const venue = this.venues.find((v) => v.id === Id);
 
     if (venue) {
@@ -70,7 +71,7 @@ export class VenuesService {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [ venue.longitude, venue.latitude ],
+            coordinates: [ Number(venue.longitude), Number(venue.latitude) ],
           },
           properties: {
             title: venue.name,

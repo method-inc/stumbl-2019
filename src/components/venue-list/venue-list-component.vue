@@ -22,12 +22,12 @@ import { Venue } from '@/models/venue-model';
 
 @Component({
   components: {
-    VenueListItem
-  }
+    VenueListItem,
+  },
 })
 export default class VenueListComponent extends Vue {
   public venueSevice: VenuesService;
-  public venues: Array<Venue> = [];
+  public venues: Venue[] = [];
 
   constructor() {
     super();
@@ -37,9 +37,7 @@ export default class VenueListComponent extends Vue {
 
   public init = async () => {
     // @NOTE: Note sure how to get arround this.
-    this.venues = await this.venueSevice.getAllVenues(
-      process.env.VUE_APP_DSW_CRAWL_EVENT_ID
-    );
-  };
+    this.venues = await this.venueSevice.getAllVenues();
+  }
 }
 </script>

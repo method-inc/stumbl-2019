@@ -66,7 +66,7 @@ export default class ApiService {
    *
    * @param id number
    */
-  public getVenueById = async (id: number) => {
+  public getVenueById = async (id: string) => {
     const noCachedVenues = this.venues.length === 0;
 
     if (noCachedVenues) {
