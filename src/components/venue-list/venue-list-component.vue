@@ -26,17 +26,10 @@ import { Venue } from '@/models/venue-model';
   },
 })
 export default class VenueListComponent extends Vue {
-  public venueSevice: VenuesService;
+  public venueSevice: VenuesService = new VenuesService();
   public venues: Venue[] = [];
 
-  constructor() {
-    super();
-    this.venueSevice = new VenuesService();
-    this.init();
-  }
-
-  public init = async () => {
-    // @NOTE: Note sure how to get arround this.
+  public async mounted() {
     this.venues = await this.venueSevice.getAllVenues();
   }
 }

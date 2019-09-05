@@ -1,18 +1,6 @@
 import { Venue } from '@/models/venue-model';
 import ApiService from '@/services/api-service';
-import { LngLatLike } from 'mapbox-gl';
-
-export interface GeoJsonFeature {
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: number[] | LngLatLike;
-  };
-  properties: {
-    title: string;
-    description: string;
-  };
-}
+import { GeoJsonVenue } from '@/models/geojson-feature';
 
 /**
  * Default Venue values, to overwrite just set the property.
@@ -37,11 +25,39 @@ export const DEFAULT_VENUE: Venue = {
   features: '',
 };
 
+const mockVenues = [
+  {
+    ...DEFAULT_VENUE,
+    id: '1',
+    name: 'one',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '2',
+    name: 'two',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '3',
+    name: 'three',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '4',
+    name: 'four',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '5',
+    name: 'five',
+  },
+];
+
 export class VenuesService {
   public apiSvc = new ApiService();
 
   // visitedVenues is an array of venue IDs
-  public visitedVenues: string[] = [];
+  public visitedVenues: string[] = ['1'];
   public venues: Venue[] = [];
 
   // API CALL
@@ -49,6 +65,9 @@ export class VenuesService {
   public getAllVenues = async (): Promise<Venue[]> => {
     const response = await this.apiSvc.getAllVenues();
     this.venues = response;
+
+    // TODO: Remove mock
+    this.venues = mockVenues;
     return this.venues;
   }
 
@@ -61,21 +80,24 @@ export class VenuesService {
     return DEFAULT_VENUE;
   }
 
-  public getAllVenuesAsGeoJSON = async () => {
-    const features: GeoJsonFeature[] = [];
+  public getAllVenuesAsGeoJSON = async (): Promise<{type: string; features: GeoJsonVenue[]}> => {
     const unformattedVenues = await this.getAllVenues();
+    const features: GeoJsonVenue[] = [];
 
     if (unformattedVenues.length) {
       unformattedVenues.forEach((venue: Venue) => {
         const formattedVenue = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [ Number(venue.longitude), Number(venue.latitude) ],
-          },
-          properties: {
-            title: venue.name,
-            description: venue.address,
+          id: venue.id!,
+          geojson: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [ Number(venue.longitude), Number(venue.latitude) ],
+            },
+            properties: {
+              title: venue.name,
+              description: venue.address,
+            },
           },
         };
 

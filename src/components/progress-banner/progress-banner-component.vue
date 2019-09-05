@@ -31,12 +31,7 @@ export default class ProgressBannerComponent extends Vue {
   public allVenues: Venue[] = [];
   public barsArray: boolean[] = [];
 
-  constructor() {
-    super();
-    this.init.call(this);
-  }
-
-  public init = async () => {
+  public async mounted() {
     // @NOTE: Note sure how to get arround this.
     this.allVenues = await this.venuesService.getAllVenues();
 

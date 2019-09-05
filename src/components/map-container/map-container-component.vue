@@ -10,10 +10,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import { GeoJsonFeature } from '@/services/venue-service';
 import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '@/services/venue-service';
+import { GeoJsonVenue, GeoJsonFeature } from '../../models/geojson-feature';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
@@ -84,14 +84,18 @@ export default class MapContainerComponent extends Vue {
   private async loadMarkers(map: mapboxgl.Map) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
-    const geojson = await this.venuesService.getAllVenuesAsGeoJSON();
+    const geojsonVenues = await this.venuesService.getAllVenuesAsGeoJSON();
+    // const geoJsonForMapbox = {
+    //   type: 'FeatureCollection',
+    //   features: geojsonVenues.features.map((venue: GeoJsonVenue) => venue.geojson)
+    // };
 
-    geojson.features.forEach((marker: GeoJsonFeature, index: number) => {
+    geojsonVenues.features.forEach((venue: GeoJsonVenue, index: number) => {
       let markerLabel: any;
       // create a HTML element for each feature
       const el = document.createElement('div');
 
-      if (this.visitedVenues.includes(index)) {
+      if (this.visitedVenues.includes(venue.id)) {
         markerLabel = null;
         el.className = 'marker--checkmark';
       } else {
@@ -104,7 +108,7 @@ export default class MapContainerComponent extends Vue {
 
       // make a marker for each feature and add to the map
       const markerRef = new mapboxgl.Marker(el)
-        .setLngLat(marker.geometry.coordinates as mapboxgl.LngLatLike)
+        .setLngLat(venue.geojson.geometry.coordinates as mapboxgl.LngLatLike)
         .addTo(map);
 
       this.markers.push(markerRef);
