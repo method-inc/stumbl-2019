@@ -23,8 +23,8 @@ import Component from 'vue-class-component';
   props: {
     title: String,
     subTitle: String,
-    unLocked: Boolean
-  }
+    unLocked: Boolean,
+  },
 })
 export default class RewardDetails extends Vue {}
 </script>

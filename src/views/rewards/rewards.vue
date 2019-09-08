@@ -46,8 +46,8 @@ import { Venue } from '@/models/venue-model';
   components: {
     Header,
     ProgressBannerComponent,
-    RewardDetails
-  }
+    RewardDetails,
+  },
 })
 export default class Rewards extends Vue {
   public venuesService = new VenuesService();
