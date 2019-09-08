@@ -5,7 +5,7 @@
 <template>
   <div class="progress-banner">
     <div class="progress-banner-text">
-      <strong>{{visitedVenues.length}} of {{allVenues.length}} visited</strong>
+      <strong>You've visited {{visitedVenues.length}} of {{allVenues.length}} startups</strong>
     </div>
     <div class="progress-banner-indicator">
       <span
