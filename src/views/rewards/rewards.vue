@@ -9,17 +9,22 @@
       <h1 class="header-2">Your Rewards</h1>
       <ProgressBannerComponent />
       <RewardDetails
-        :title="'Visit 3'"
+        :title="'Visit 1'"
         :subTitle="'One entry to win'"
+        :unLocked="this.visitedVenues.length ? true : false"
+      />
+      <RewardDetails
+        :title="'Visit 3'"
+        :subTitle="'Two entries to win'"
         :unLocked="this.visitedVenues.length > 2 ? true : false"
       />
       <RewardDetails
-        :title="'Visit 8'"
-        :subTitle="'Two entries to win'"
-        :unLocked="this.visitedVenues.length > 7 ? true : false"
+        :title="'Visit 5'"
+        :subTitle="'Three entries to win'"
+        :unLocked="this.visitedVenues.length > 4 ? true : false"
       />
       <RewardDetails
-        :title="'Visit all 12'"
+        :title="'Visited all'"
         :subTitle="'Three entries to win'"
         :unLocked="this.visitedVenues.length === this.allVenues.length ? true : false"
       />
@@ -35,6 +40,7 @@ import ProgressBannerComponent from '@/components/progress-banner/progress-banne
 import RewardDetails from '@/components/rewards-details/reward-details.vue';
 import { VenuesService } from '@/services/venue-service';
 import { log } from 'util';
+import { Venue } from '@/models/venue-model';
 
 @Component({
   components: {
@@ -46,11 +52,10 @@ import { log } from 'util';
 export default class Rewards extends Vue {
   public venuesService = new VenuesService();
   public visitedVenues = this.venuesService.visitedVenues;
-  public allVenues = this.venuesService.getAllVenues();
+  public allVenues: Venue[] = [];
 
-  public beforeMount() {
-    console.log(this.visitedVenues.length);
-    console.log(this.allVenues.length);
+  public async mounted() {
+    this.allVenues = await this.venuesService.getAllVenues();
   }
 }
 </script>
