@@ -3,17 +3,17 @@
     <Header :showRewards="true" :showInfo="true" />
     <div class="home">
       <Map />
-      <Countdown :countdownDateString="eventStart" />
-      <AlertBanner
-        class="alert-location-denied"
-        :color="'green'"
-        :icon="'location'"
-        v-if="!locationPermissionActivated"
-      >
-        <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
-      </AlertBanner>
-      <ProgressBanner />
       <VenueListScroll>
+        <Countdown :countdownDateString="eventStart" />
+        <AlertBanner
+          class="alert-location-denied"
+          :color="'green'"
+          :icon="'location'"
+          v-if="!locationPermissionActivated"
+        >
+          <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
+        </AlertBanner>
+        <ProgressBanner />
         <VenueList />
       </VenueListScroll>
     </div>
@@ -48,8 +48,8 @@ const START_DATE = 'Sep 16, 2019 16:00:00';
     Map,
     VenueList,
     VenueListScroll,
-    ProgressBanner,
-  },
+    ProgressBanner
+  }
 })
 export default class Home extends Vue {
   public venueSevice = new VenuesService();
@@ -74,9 +74,9 @@ export default class Home extends Vue {
         this.$emit(
           'send-alert',
           AlertTypeEnum.warn,
-          'Location services have not been enabled.  Please enable location services.',
+          'Location services have not been enabled.  Please enable location services.'
         );
-      },
+      }
     );
 
     this.locationPermissionLink = this.getLocationPermissionLink();
@@ -110,15 +110,21 @@ export default class Home extends Vue {
 
     this.polling = setInterval(() => {
       // retrieve list of venues that have not been visited
-      const venuesToCheck = allVenues.filter((n) => !this.venueSevice.visitedVenues.includes(n.id!));
+      const venuesToCheck = allVenues.filter(
+        n => !this.venueSevice.visitedVenues.includes(n.id!)
+      );
 
       // tslint:disable-next-line:no-console
-      console.debug('Venues that haven\'t been visited', venuesToCheck);
+      console.debug("Venues that haven't been visited", venuesToCheck);
 
       venuesToCheck.forEach((venue, index) => {
         this.locationService
-          .isWithinGeoRadius(200, parseFloat(venue.latitude), parseFloat(venue.longitude))
-          .then((response) => {
+          .isWithinGeoRadius(
+            200,
+            parseFloat(venue.latitude),
+            parseFloat(venue.longitude)
+          )
+          .then(response => {
             // tslint:disable-next-line:no-console
             console.debug('Is within georadius', venue);
             if (response) {
