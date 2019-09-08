@@ -74,7 +74,7 @@ export default class Home extends Vue {
         this.$emit(
           'send-alert',
           AlertTypeEnum.warn,
-          'Location services have not been enabled.  Please enable location services.'
+          'Location services have not been enabled.  Please enable location services.',
         );
       },
     );
@@ -104,21 +104,20 @@ export default class Home extends Vue {
     }
   }
 
-  private pollData() {
+  private async pollData() {
     const visitedVenues = this.venueSevice.visitedVenues;
+    const allVenues = await this.venueSevice.getAllVenues();
 
     this.polling = setInterval(() => {
       // retrieve list of venues that have not been visited
-      const venuesToCheck = this.venueSevice
-        .getAllVenues()
-        .filter((n) => !this.venueSevice.visitedVenues.includes(n.id));
+      const venuesToCheck = allVenues.filter((n) => !this.venueSevice.visitedVenues.includes(n.id!));
 
       // tslint:disable-next-line:no-console
       console.debug('Venues that haven\'t been visited', venuesToCheck);
 
       venuesToCheck.forEach((venue, index) => {
         this.locationService
-          .isWithinGeoRadius(200, venue.latitude, venue.longitude)
+          .isWithinGeoRadius(200, parseFloat(venue.latitude), parseFloat(venue.longitude))
           .then((response) => {
             // tslint:disable-next-line:no-console
             console.debug('Is within georadius', venue);
