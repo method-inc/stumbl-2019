@@ -1,6 +1,6 @@
 #map {
   display: block;
-  height: 300px;
+  height: calc(30vh);
   width: 100%;
   background-color: darkslategrey;
 }
@@ -11,7 +11,7 @@
   &--checkmark {
     height: 36px;
     width: 36px;
-    background: url('../../images/checkmark.svg');
+    background: url("../../images/checkmark.svg");
     background-size: 100%;
   }
 }

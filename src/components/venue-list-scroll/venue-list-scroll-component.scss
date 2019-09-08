@@ -1,6 +1,6 @@
 .venue-list-scroll {
   position: absolute;
-  top: calc(58vh);
+  top: calc(43vh);
   bottom: 0;
   left: 0;
   width: 100%;
@@ -10,18 +10,12 @@
 
 @media only screen and (max-width: 350px) {
   .venue-list-scroll {
-    top: calc(68vh);
+    top: calc(45vh);
   }
 }
 
 @media only screen and (min-width: 400px) {
   .venue-list-scroll {
-    top: calc(53vh);
-  }
-}
-
-@media only screen and (min-width: 900px) {
-  .venue-list-scroll {
-    top: calc(47vh);
+    top: calc(42vh);
   }
 }

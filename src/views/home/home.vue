@@ -5,12 +5,7 @@
       <Map />
       <VenueListScroll>
         <Countdown :countdownDateString="eventStart" />
-        <AlertBanner
-          class="alert-location-denied"
-          :color="'green'"
-          :icon="'location'"
-          v-if="!locationPermissionActivated"
-        >
+        <AlertBanner class="alert-location-denied" :color="'green'" :icon="'location'" v-if="true">
           <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
         </AlertBanner>
         <ProgressBanner />
