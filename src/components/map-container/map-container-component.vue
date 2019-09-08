@@ -85,10 +85,6 @@ export default class MapContainerComponent extends Vue {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
     const geojsonVenues = await this.venuesService.getAllVenuesAsGeoJSON();
-    // const geoJsonForMapbox = {
-    //   type: 'FeatureCollection',
-    //   features: geojsonVenues.features.map((venue: GeoJsonVenue) => venue.geojson)
-    // };
 
     geojsonVenues.features.forEach((venue: GeoJsonVenue, index: number) => {
       let markerLabel: any;

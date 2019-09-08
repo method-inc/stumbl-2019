@@ -32,7 +32,6 @@ export default class ProgressBannerComponent extends Vue {
   public barsArray: boolean[] = [];
 
   public async mounted() {
-    // @NOTE: Note sure how to get arround this.
     this.allVenues = await this.venuesService.getAllVenues();
 
     this.barsArray = this.allVenues.map((venue, index) => {
