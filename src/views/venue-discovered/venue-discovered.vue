@@ -53,7 +53,7 @@ export default class VenueDiscovered extends Vue {
   public venue: Venue = DEFAULT_VENUE;
 
   public beforeMount() {
-    const id: number = parseFloat(this.$route.params.venueId);
+    const id: string = this.$route.params.venueId;
     this.venue = this.venueSevice.getSelectedVenue(id);
   }
 
