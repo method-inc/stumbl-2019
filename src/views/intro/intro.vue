@@ -14,8 +14,8 @@
       <IntroWin v-if="introStep === 4" :numberOfSteps="totalSteps" :stepNumber="4"/>
       <EnterEmail v-if="introStep === 5" :numberOfSteps="totalSteps" :stepNumber="5"/>
     </div>
-    <div class="intro-next" v-on:click="nextStep()">
-      <Button :title="label" backgroundColor="blue"/>
+    <div class="intro-next" v-if="introStep !== totalSteps" v-on:click="nextStep()">
+      <Button :title="'Next'" backgroundColor="blue"/>
     </div>
     <div class="intro-mountains">
       <img src="../../images/mountains.svg" alt="mountain scenery">
@@ -45,28 +45,13 @@ import EnterEmail from '@/components/onboarding/email/enter-email-component.vue'
     IntroWin,
     EnterEmail,
   },
-  data() {
-    return {
-      buttonText: 'Next',
-    };
-  },
 })
 export default class Intro extends Vue {
   public introStep = 1;
   public totalSteps = 5;
 
-  get label() {
-    return this.introStep === 1 || this.introStep === this.totalSteps
-      ? 'Get Started'
-      : 'Next';
-  }
-
   public nextStep() {
-    this.$set(this.$data, 'buttonText', 'Next');
     this.introStep += 1;
-    if (this.introStep > this.totalSteps) {
-      router.push({ name: 'home', params: { authenticated: 'true' } });
-    }
   }
 }
 </script>

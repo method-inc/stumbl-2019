@@ -8,7 +8,7 @@
       <img src="../../../images/visited.svg" alt="location icon">
     </div>
     <h1>Share your location</h1>
-    <p>Requires Copy!!!!!!!!!!</p>
+    <p>When prompted, please allow this app access to your location so we can check you in when you arrive at each startup</p>
     <IntroStepCounter :numberOfSteps="numberOfSteps" :step="stepNumber" />
   </div>
 </template>
