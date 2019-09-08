@@ -39,6 +39,10 @@
     background: $color_white;
   }
 
+  &--background-grey {
+    background: $color_grey;
+  }
+
   &--background-blue {
     background: #05D3D8; // fallback
     background: $color_blue-gradient;

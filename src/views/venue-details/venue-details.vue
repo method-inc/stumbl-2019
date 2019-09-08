@@ -30,7 +30,11 @@
         <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
-      <Button :title="'Visit Website'" v-if="venue ? venue.website : null" :href="venue ? venue.website : ''" />
+      <Button
+        :title="'Visit Website'"
+        v-if="venue ? venue.website : null"
+        :href="venue ? venue.website : ''"
+      />
     </div>
   </div>
 </template>
@@ -47,13 +51,13 @@ import { Venue } from '@/models/venue-model';
   components: {
     Header,
     AlertBanner,
-    Button,
+    Button
   },
   props: {
     allVenues: Array,
     venueId: String,
-    visitedVenues: Array,
-  },
+    visitedVenues: Array
+  }
 })
 export default class VenueDetails extends Vue {
   public allVenues!: Venue[];
@@ -61,7 +65,7 @@ export default class VenueDetails extends Vue {
   public visitedVenues!: string[];
 
   get venue() {
-    return this.allVenues.find((v: Venue) => v.id === this.venueId );
+    return this.allVenues.find((v: Venue) => v.id === this.venueId);
   }
 
   get checkedIn() {
@@ -70,9 +74,10 @@ export default class VenueDetails extends Vue {
 
   public openDirections(destination: string) {
     const urlEncodedDestination = encodeURIComponent(destination);
-    const fullUrlPath = 'https://www.google.com/maps/dir/?api=1&destination='
-      + urlEncodedDestination
-      + '&travelmode=walking';
+    const fullUrlPath =
+      'https://www.google.com/maps/dir/?api=1&destination=' +
+      urlEncodedDestination +
+      '&travelmode=walking';
 
     window.open(fullUrlPath);
   }
