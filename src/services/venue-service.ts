@@ -1,105 +1,78 @@
 import { Venue } from '@/models/venue-model';
-
-export interface GeoJsonFeature {
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: number[];
-  };
-  properties: {
-    title: string;
-    description: string;
-  };
-}
+import ApiService from '@/services/api-service';
+import { GeoJsonVenue } from '@/models/geojson-feature';
 
 /**
  * Default Venue values, to overwrite just set the property.
  */
 export const DEFAULT_VENUE: Venue = {
-  id: -1,
+  id: '0',
   address: '',
+  address_2: '',
+  city: '',
+  state: '',
+  zip_code: '',
+  employees: 0,
+  crawl_day: 0,
   name: 'Page Unavailable',
-  latitude: 39.758117, // default to skookum coordinates
-  longitude: -104.989888, // default to skookum coordinates
+  latitude: '39.758117', // default to skookum coordinates
+  longitude: '-104.989888', // default to skookum coordinates
   geoRadius: 50,
-  companyImage: require('../images/company-images/emptyVenue.jpeg'),
-  url: 'https://www.google.com/',
-  description: `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac quam
-  lacinia, egestas libero vel, dictum eros. Etiam ut leo quis diam congue elementum
-  et non mi. Maecenas ut ante ut ante rhoncus tincidunt vitae sit amet quam.
-  `,
+  company_img_url: require('../images/company-images/emptyVenue.jpeg'),
+  website: 'https://www.google.com/',
+  description: 'no venue selected',
+  spec_instructions: '',
+  features: '',
 };
 
+const mockVenues = [
+  {
+    ...DEFAULT_VENUE,
+    id: '1',
+    name: 'one',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '2',
+    name: 'two',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '3',
+    name: 'three',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '4',
+    name: 'four',
+  },
+  {
+    ...DEFAULT_VENUE,
+    id: '5',
+    name: 'five',
+  },
+];
+
 export class VenuesService {
+  public apiSvc = new ApiService();
+
   // visitedVenues is an array of venue IDs
-  // TODO: Start as empty array
-  public visitedVenues = [4, 5];
+  public visitedVenues: string[] = ['1'];
+  public venues: Venue[] = [];
 
-  public venues = [
-    {
-      ...DEFAULT_VENUE,
-      id: 1,
-      name: 'Signpost',
-      address: '2363 Blake St',
-      latitude: 32.715736,
-      longitude: -117.161087,
-      description: `
-      Signpost is a smart CRM that helps businesses to know, grow, and strengthen their local
-      customer base. Mia automatically collects and analyzes consumer data from every touchpoint,
-      including email, calls and transactions.
-      `,
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 2,
-      name: 'Skookum',
-      address: '1801 California St.',
-      latitude: 39.74767,
-      longitude: -104.98982,
-      url: 'https://skookum.com/',
-      companyImage: require('../images/company-images/skookum.png'),
-      description: `
-      Skookum is a diverse team of engineers, designers, and strategists passionate about
-      solving complex business problems.
-      `,
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 3,
-      name: 'Super long startup name that doesnt fit on the screen in one line',
-      address: '2120 Market St.',
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 4,
-      name: 'Marketo',
-      address: '707 17th St.',
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 5,
-      name: 'Gusto',
-      address: '1201 16th St',
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 6,
-      name: 'WeWork',
-      address: '2420 17th St, Denver, CO 80202',
-    },
-    {
-      ...DEFAULT_VENUE,
-      id: 7,
-      name: 'Wurk',
-      address: '2162 Market St.',
-    },
-  ];
+  // API CALL
+  // Get List of Venues and their detail, to be stored on front end
+  public getAllVenues = async (): Promise<Venue[]> => {
+    const response = await this.apiSvc.getAllVenues();
+    this.venues = response;
 
-  public getAllVenues = () => this.venues;
+    // TODO: Remove mock
+    this.venues = mockVenues;
+    return this.venues;
+  }
 
-  public getSelectedVenue = (id: number): Venue => {
-    const venue = this.venues.find((v) => v.id === id);
+  public getSelectedVenue = (Id: string): Venue => {
+    const venue = this.venues.find((v) => v.id === Id);
 
     if (venue) {
       return venue;
@@ -107,33 +80,34 @@ export class VenuesService {
     return DEFAULT_VENUE;
   }
 
-  public getAllVenuesAsGeoJSON = () => {
-    const features: GeoJsonFeature[] = [];
-    const unformattedVenues = this.getAllVenues();
+  public getAllVenuesAsGeoJSON = async (): Promise<{type: string; features: GeoJsonVenue[]}> => {
+    const unformattedVenues = await this.getAllVenues();
+    const features: GeoJsonVenue[] = [];
 
-    unformattedVenues.forEach((venue) => {
-      const formattedVenue = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [
-            venue.longitude,
-            venue.latitude,
-          ],
-        },
-        properties: {
-          title: venue.name,
-          description: venue.address,
-        },
-      };
+    if (unformattedVenues.length) {
+      unformattedVenues.forEach((venue: Venue) => {
+        const formattedVenue = {
+          id: venue.id!,
+          geojson: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [ Number(venue.longitude), Number(venue.latitude) ],
+            },
+            properties: {
+              title: venue.name,
+              description: venue.address,
+            },
+          },
+        };
 
-      features.push(formattedVenue);
-    });
+        features.push(formattedVenue);
+      });
+    }
 
-    return ({
+    return {
       type: 'FeatureCollection',
       features,
-    });
+    };
   }
-
 }

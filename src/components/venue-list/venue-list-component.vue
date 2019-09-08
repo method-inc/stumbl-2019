@@ -1,5 +1,5 @@
 <style lang="scss">
-@import "./venue-list-component.scss";
+@import './venue-list-component.scss';
 </style>
 
 <template>
@@ -17,7 +17,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import VenueListItem from '@/components/venue-list/venue-list-item/venue-list-item-component.vue';
 
-import {VenuesService} from '../../services/venue-service';
+import { VenuesService } from '../../services/venue-service';
+import { Venue } from '@/models/venue-model';
 
 @Component({
   components: {
@@ -25,7 +26,11 @@ import {VenuesService} from '../../services/venue-service';
   },
 })
 export default class VenueListComponent extends Vue {
-  public venueSevice = new VenuesService();
-  public venues = this.venueSevice.getAllVenues();
+  public venueSevice: VenuesService = new VenuesService();
+  public venues: Venue[] = [];
+
+  public async mounted() {
+    this.venues = await this.venueSevice.getAllVenues();
+  }
 }
 </script>
