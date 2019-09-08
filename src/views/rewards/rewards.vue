@@ -42,6 +42,8 @@ import RewardDetails from '@/components/rewards-details/reward-details.vue';
 import { VenuesService } from '@/services/venue-service';
 import { log } from 'util';
 import { Venue } from '@/models/venue-model';
+import { User } from '../../models/user-model';
+import ApiService from '@/services/api-service';
 
 @Component({
   components: {
@@ -51,12 +53,14 @@ import { Venue } from '@/models/venue-model';
   },
 })
 export default class Rewards extends Vue {
-  public email = 'test@test.com';
   public venuesService = new VenuesService();
+  public apiService = new ApiService();
+  public email: string = '';
   public visitedVenues = this.venuesService.visitedVenues;
   public allVenues: Venue[] = [];
 
   public async mounted() {
+    this.email = await this.apiService.user.email;
     this.allVenues = await this.venuesService.getAllVenues();
   }
 }

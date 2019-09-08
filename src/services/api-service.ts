@@ -50,7 +50,7 @@ export default class ApiService {
         const response = await fetch(`${API_URI}/events/${EVENT_ID}/locations`);
 
         const json = await response.json();
-        const data = (json.data.map((entry: any) => entry.attributes)) as Venue[];
+        const data = json.data.map((entry: any) => entry.attributes) as Venue[];
 
         this.venues = data;
 
@@ -126,11 +126,9 @@ export default class ApiService {
   }
 
   public markVenueVisited = async (id: number) => {
-    const alreadyVisitedVenue = this.user.visited_venues.find(
-      (venueId) => {
-          return venueId === id;
-      },
-    );
+    const alreadyVisitedVenue = this.user.visited_venues.find((venueId) => {
+      return venueId === id;
+    });
 
     if (!alreadyVisitedVenue) {
       // Add the venue to the front end immediately
