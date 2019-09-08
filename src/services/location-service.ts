@@ -1,8 +1,14 @@
 import { distanceBetweenTwoPoints } from '@/services/util/DistanceCalculator';
 
 const SKOOKUM_COORDINATES = {
-  latitude: 39.758117, // default to skookum coordinates
-  longitude: -104.989888, // default to skookum coordinates
+  // latitude: 39.758117, // default to skookum coordinates
+  // longitude: -104.989888, // default to skookum coordinates
+
+  // latitude: 32.715736, // default to san diego coordinates
+  // longitude: -117.161087, // default to san diego coordinates
+
+  latitude: 31.9686, // default to somewhere in texas
+  longitude: 99.9018, // default to somewhere in texas
 };
 
 export class LocationService {
@@ -31,13 +37,14 @@ export class LocationService {
     const userCoordinates = await this.get();
 
     return new Promise<any>((res, rej) => {
-      const isWithinRadius = distanceBetweenTwoPoints(
+      const distance = distanceBetweenTwoPoints(
         latitude,
         longitude,
         userCoordinates.latitude,
         userCoordinates.longitude,
         'ft',
-      ) < locationRadius;
+      );
+      const isWithinRadius = distance < locationRadius;
 
       res(isWithinRadius);
     });

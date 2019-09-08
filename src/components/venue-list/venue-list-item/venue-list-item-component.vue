@@ -17,7 +17,7 @@
         {{venue.address}}
       </div>
     </div>
-    <router-link class="venue-list-item--router-link"  :to="'/venue/' + venue.Id">
+    <router-link class="venue-list-item--router-link"  :to="'/venue/' + venue.id">
     </router-link>
   </div>
 </template>
@@ -27,6 +27,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { VenuesService } from '@/services/venue-service';
+import { Venue } from '../../../models/venue-model';
 
 @Component({
   props: {
@@ -38,15 +39,16 @@ import { VenuesService } from '@/services/venue-service';
 export default class VenueListItemComponent extends Vue {
   @Prop()
   public index!: number;
+
+  @Prop()
+  public venue!: Venue;
+
   public venuesService = new VenuesService();
   public visitedVenues = this.venuesService.visitedVenues;
 
   public visitedVenue() {
-    if (this.visitedVenues.includes(this.index)) {
-      return true;
-    } else {
-      return false;
-    }
+    const isVisited = this.visitedVenues.includes(this.venue.id!);
+    return isVisited;
   }
 
   public mapIconLabel = () => {
