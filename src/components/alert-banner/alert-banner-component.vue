@@ -3,10 +3,10 @@
 </style>
 
 <template>
-  <div class="alert-banner" :class="{'yellow': yellow, 'green': green}">
+  <div class="alert-banner" :class="color">
     <span class="alert-banner-icon">
-      <IconClock v-if="icon === 'clock'"/>
-      <IconLocation v-if="icon === 'location'"/>
+      <IconClock v-if="icon === 'clock'" />
+      <IconLocation v-if="icon === 'location'" />
     </span>
     <!-- :src="'@/images/' + iconFilename" -->
     <slot></slot>
@@ -26,9 +26,11 @@ import IconLocation from '@/images/icon-location-component.vue';
     IconLocation,
   },
   props: {
-    green: Boolean,
-    yellow: Boolean,
-    icon: String,   // 'clock', 'location'
+    color: {
+      type: String,
+      validator: (val) => ['green', 'yellow'].includes(val),
+    },
+    icon: String, // 'clock', 'location'
   },
 })
 export default class AlertBannerComponent extends Vue {
