@@ -10,23 +10,23 @@
       <p class="rewards-email">{{email}}</p>
       <ProgressBannerComponent />
       <RewardDetails
-        :title="'Visit 1'"
-        :subTitle="'One entry to win'"
+        title="Visit 1"
+        subTitle="One entry to win"
         :unLocked="this.visitedVenues.length ? true : false"
       />
       <RewardDetails
-        :title="'Visit 3'"
-        :subTitle="'Two entries to win'"
+        title="Visit 3"
+        subTitle="Two entries to win"
         :unLocked="this.visitedVenues.length > 2 ? true : false"
       />
       <RewardDetails
-        :title="'Visit 5'"
-        :subTitle="'Three entries to win'"
+        title="Visit 5"
+        subTitle="Three entries to win"
         :unLocked="this.visitedVenues.length > 4 ? true : false"
       />
       <RewardDetails
-        :title="'Visited all'"
-        :subTitle="'Three entries to win'"
+        title="Visited all"
+        subTitle="Three entries to win"
         :unLocked="this.visitedVenues.length === this.allVenues.length ? true : false"
       />
     </div>
@@ -40,7 +40,6 @@ import Header from '@/components/header/header-component.vue';
 import ProgressBannerComponent from '@/components/progress-banner/progress-banner-component.vue';
 import RewardDetails from '@/components/rewards-details/reward-details.vue';
 import { VenuesService } from '@/services/venue-service';
-import { log } from 'util';
 import { Venue } from '@/models/venue-model';
 import { User } from '../../models/user-model';
 import ApiService from '@/services/api-service';
