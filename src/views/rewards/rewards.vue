@@ -7,6 +7,7 @@
     <Header :showClose="true" />
     <div class="rewards">
       <h1 class="header-2">Your Rewards</h1>
+      <p class="rewards-email">{{email}}</p>
       <ProgressBannerComponent />
       <RewardDetails
         :title="'Visit 1'"
@@ -50,6 +51,7 @@ import { Venue } from '@/models/venue-model';
   },
 })
 export default class Rewards extends Vue {
+  public email = 'test@test.com';
   public venuesService = new VenuesService();
   public visitedVenues = this.venuesService.visitedVenues;
   public allVenues: Venue[] = [];
