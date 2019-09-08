@@ -25,34 +25,6 @@ export const DEFAULT_VENUE: Venue = {
   features: '',
 };
 
-const mockVenues = [
-  {
-    ...DEFAULT_VENUE,
-    id: '1',
-    name: 'one',
-  },
-  {
-    ...DEFAULT_VENUE,
-    id: '2',
-    name: 'two',
-  },
-  {
-    ...DEFAULT_VENUE,
-    id: '3',
-    name: 'three',
-  },
-  {
-    ...DEFAULT_VENUE,
-    id: '4',
-    name: 'four',
-  },
-  {
-    ...DEFAULT_VENUE,
-    id: '5',
-    name: 'five',
-  },
-];
-
 export class VenuesService {
   public apiSvc = new ApiService();
 
@@ -60,14 +32,11 @@ export class VenuesService {
   public visitedVenues: string[] = ['1'];
   public venues: Venue[] = [];
 
-  // API CALL
   // Get List of Venues and their detail, to be stored on front end
   public getAllVenues = async (): Promise<Venue[]> => {
     const response = await this.apiSvc.getAllVenues();
     this.venues = response;
 
-    // TODO: Remove mock
-    this.venues = mockVenues;
     return this.venues;
   }
 
