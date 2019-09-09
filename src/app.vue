@@ -8,7 +8,7 @@
       <AlertBanner v-if="showAlert" :color="alertTypeColor" :icon="'clock'">
         <strong>{{message}}</strong>
       </AlertBanner>
-      <router-view @send-alert="showAlertBanner" />
+      <router-view @send-alert="showAlertBanner" :all-venues="allVenues"/>
     </div>
   </div>
 </template>
@@ -18,6 +18,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { setTimeout } from 'timers';
 import { AlertTypeEnum } from './models/alert-model';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
+import { VenuesService } from '@/services/venue-service';
+import { Venue } from '@/models/venue-model';
 
 const ALERT_TIMEOUT = 2500;
 
@@ -27,11 +29,18 @@ const ALERT_TIMEOUT = 2500;
   },
 })
 export default class App extends Vue {
+  public venueService: VenuesService = new VenuesService();
+  public allVenues: Venue[] = [];
+
   // TODO: Set to true when authentication is completed
   public authenticated = false;
   public alertTypeColor = 'green';
   public showAlert = false;
   public message = '';
+
+  public async beforeMount() {
+    this.allVenues = await this.venueService.getAllVenues();
+  }
 
 /**
  * Method to dispaly the AlertBanner at the top of the AppComponent.

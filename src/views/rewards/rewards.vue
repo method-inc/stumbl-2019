@@ -8,7 +8,7 @@
     <div class="rewards">
       <h1 class="header-2">Your Rewards</h1>
       <p class="rewards-email">{{email}}</p>
-      <ProgressBannerComponent />
+      <ProgressBannerComponent :all-venues="allVenues"/>
       <RewardDetails
         title="Visit 1"
         subTitle="One entry to win"
@@ -27,7 +27,7 @@
       <RewardDetails
         title="Visited all"
         subTitle="Three entries to win"
-        :unLocked="this.visitedVenues.length === this.allVenues.length ? true : false"
+        :unLocked="this.visitedVenues.length === allVenues.length ? true : false"
       />
     </div>
   </div>
@@ -50,17 +50,18 @@ import ApiService from '@/services/api-service';
     ProgressBannerComponent,
     RewardDetails,
   },
+  props: {
+    allVenues: Array,
+  },
 })
 export default class Rewards extends Vue {
   public venuesService = new VenuesService();
   public apiService = new ApiService();
   public email: string = '';
   public visitedVenues = this.venuesService.visitedVenues;
-  public allVenues: Venue[] = [];
 
   public async mounted() {
     this.email = await this.apiService.user.email;
-    this.allVenues = await this.venuesService.getAllVenues();
   }
 }
 </script>

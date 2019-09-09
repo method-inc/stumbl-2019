@@ -2,7 +2,7 @@
   <div>
     <Header :showRewards="true" :showInfo="true" />
     <div class="home">
-      <Map />
+      <Map :all-venues="allVenues"/>
       <VenueListScroll>
         <Countdown />
         <AlertBanner
@@ -13,8 +13,8 @@
         >
           <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
         </AlertBanner>
-        <ProgressBanner />
-        <VenueList />
+        <ProgressBanner :all-venues="allVenues"/>
+        <VenueList :all-venues="allVenues"/>
       </VenueListScroll>
     </div>
   </div>
@@ -45,7 +45,12 @@ import { AlertTypeEnum } from '../../models/alert-model';
     VenueListScroll,
     ProgressBanner,
   },
+  props: {
+    allVenues: Array,
+  },
 })
+
+
 export default class Home extends Vue {
   public venueSevice = new VenuesService();
   public locationService = new LocationService();
@@ -53,6 +58,7 @@ export default class Home extends Vue {
   public locationPermissionActivated = false;
   public locationPermissionLink = '';
   public polling: any = null; // polling interval
+  public allVenues: any;
 
   public beforeMount() {
     // get position
@@ -100,11 +106,10 @@ export default class Home extends Vue {
 
   private async pollData() {
     const visitedVenues = this.venueSevice.visitedVenues;
-    const allVenues = await this.venueSevice.getAllVenues();
 
     this.polling = setInterval(() => {
       // retrieve list of venues that have not been visited
-      const venuesToCheck = allVenues.filter(
+      const venuesToCheck = this.allVenues.filter(
         (n) => !this.venueSevice.visitedVenues.includes(n.id!),
       );
 

@@ -18,7 +18,11 @@ import { GeoJsonVenue, GeoJsonFeature } from '../../models/geojson-feature';
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
 
 
-@Component({})
+@Component({
+  props: {
+    allVenues: Array,
+  },
+})
 export default class MapContainerComponent extends Vue {
   public venuesService = new VenuesService();
   public mapLoaded = false;
@@ -46,7 +50,18 @@ export default class MapContainerComponent extends Vue {
 
   // Lifecycle hook
   private mounted() {
-    this.createMap();
+    // if the venues exist create the map
+    // This is used for all page visits after app is loaded and inital call
+    // to the API is finished
+    if (!!this.allVenues.length) {
+      this.createMap();
+    }
+
+    // This will watch the prop allVenues and on change createMap()
+    // This is used on initial page load while the API is still fetching the venues
+    this.$watch('allVenues', () => {
+      this.createMap();
+    });
   }
 
   // Build the Mapbox instance and draw the map
@@ -84,7 +99,7 @@ export default class MapContainerComponent extends Vue {
   private async loadMarkers(map: mapboxgl.Map) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // TODO: These are sample data points to test markers.  Replace with points from database.
-    const geojsonVenues = await this.venuesService.getAllVenuesAsGeoJSON();
+    const geojsonVenues = await this.venuesService.getAllVenuesAsGeoJSON(this.allVenues);
 
     geojsonVenues.features.forEach((venue: GeoJsonVenue, index: number) => {
       let markerLabel: any;
