@@ -37,20 +37,32 @@ export default class ApiService {
   }
 
   /**
+   * Log in
+   */
+  public login = async (body) => {
+    
+  }
+
+  /**
    * Gets array of venues and their detail
    */
   public getAllVenues = async (): Promise<Venue[]> => {
     const hasCachedVenues = this.venues.length;
 
     if (hasCachedVenues) {
-      return await this.getCachedVenues();
+      return this.getCachedVenues();
     } else {
       try {
         // TODO: Connect this to API route
         const response = await fetch(`${API_URI}/events/${EVENT_ID}/locations`);
 
         const json = await response.json();
-        const data = json.data.map((entry: any) => entry.attributes) as Venue[];
+        const data = json.data.map((entry: any) => {
+          return {
+            id: entry.id,
+            ...entry.attributes,
+          };
+        }) as Venue[];
 
         this.venues = data;
 
