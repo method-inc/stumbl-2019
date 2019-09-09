@@ -4,7 +4,7 @@
     <div class="home">
       <Map />
       <VenueListScroll>
-        <Countdown :countdownDateString="eventStart" />
+        <Countdown />
         <AlertBanner
           class="alert-location-denied"
           :color="'green'"
@@ -35,11 +35,6 @@ import { Venue } from '../../models/venue-model';
 import router from '@/router';
 import { AlertTypeEnum } from '../../models/alert-model';
 
-// TODO: Refactor to check if current time is within the bounds of each crawl event
-// Tuesday:   https://www.denverstartupweek.org/schedule/6066-startup-crawl-night-1
-// Thursday:  https://www.denverstartupweek.org/schedule/6067-startup-crawl-night-2
-const START_DATE = 'Sep 16, 2019 16:00:00';
-
 @Component<Home>({
   components: {
     Header,
@@ -56,7 +51,6 @@ export default class Home extends Vue {
   public locationService = new LocationService();
 
   public locationPermissionActivated = false;
-  public eventStart = START_DATE;
   public locationPermissionLink = '';
   public polling: any = null; // polling interval
 
