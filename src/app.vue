@@ -20,6 +20,7 @@ import { AlertTypeEnum } from './models/alert-model';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import { VenuesService } from '@/services/venue-service';
 import { Venue } from '@/models/venue-model';
+import { User } from '@/models/user-model';
 
 const ALERT_TIMEOUT = 2500;
 
@@ -31,8 +32,6 @@ const ALERT_TIMEOUT = 2500;
 export default class App extends Vue {
   public venueService: VenuesService = new VenuesService();
   public allVenues: Venue[] = [];
-
-  // TODO: Set to true when authentication is completed
   public authenticated = false;
   public alertTypeColor = 'green';
   public showAlert = false;
@@ -62,6 +61,11 @@ export default class App extends Vue {
       this.showAlert = false;
       this.message = '';
     }, alertTimeout);
+  }
+
+  private handleLoginEvent() {
+    this.authenticated = true;
+    this.$router.push({ name: 'home' });
   }
 }
 </script>

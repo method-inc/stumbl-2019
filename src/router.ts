@@ -8,11 +8,12 @@ const VenueDetails = () => import('./views/venue-details/venue-details.vue');
 const Intro = () => import('./views/intro/intro.vue');
 const PrizeEarned = () => import('./views/prize-earned/prize-earned.vue');
 const VenueDiscovered = () => import('./views/venue-discovered/venue-discovered.vue');
+const Confirmation = () => import('@/views/confirmation/confirmation.vue');
+const Recovery = () => import('@/views/recovery/recovery.vue');
 
 Vue.use(Router);
 
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -50,9 +51,35 @@ export default new Router({
       component: VenueDiscovered,
     },
     {
+      path: '/confirmation/:confirmationId',
+      name: 'confirmation',
+      component: Confirmation,
+      props: true,
+    },
+    {
+      path: '/recovery/:recoveryId',
+      name: 'recovery',
+      component: Recovery,
+      props: true,
+    },
+    {
       path: '*',
       name: 'other',
       redirect: '/',
     },
   ],
 });
+
+// Sets up protected routes
+router.beforeEach((to, from, next) => {
+  if (router.app.$auth.isAuthenticated() ||
+    to.name === 'confirmation' ||
+    to.name === 'recovery' ||
+    to.name === 'intro') {
+    next();
+  } else {
+    next({ name: 'intro' });
+  }
+});
+
+export default router;

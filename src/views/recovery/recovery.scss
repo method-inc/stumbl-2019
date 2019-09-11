@@ -1,0 +1,54 @@
+.recovery {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh);
+  text-align: center;
+
+  &-logo {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+
+    img {
+      height: 72px;
+      width: auto;
+    }
+  }
+
+  &-mountains img {
+    width: 100%;
+    height: auto;
+  }
+
+  &-content {
+    flex-grow: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    border-bottom: 3px solid red;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.first {
+      margin-bottom: 10px;
+    }
+
+    &.valid {
+      border-bottom: 3px solid $color_button-green;
+      color: green;
+    }
+  }
+}

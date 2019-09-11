@@ -61,7 +61,7 @@ export default class Rewards extends Vue {
   public visitedVenues = this.venuesService.visitedVenues;
 
   public async mounted() {
-    this.email = await this.apiService.user.email;
+    this.email = await this.apiService.user.email_address;
   }
 }
 </script>

@@ -4,7 +4,7 @@ import { User } from '@/models/user-model';
 const defaultUser = {
   id: 0,
   created_at: '',
-  email: '',
+  email_address: '',
   name: '',
   password: '',
   visited_venues: [],
@@ -34,13 +34,6 @@ export default class ApiService {
       this.user = { ...data };
       return this.user;
     }
-  }
-
-  /**
-   * Log in
-   */
-  public login = async (body) => {
-    
   }
 
   /**
