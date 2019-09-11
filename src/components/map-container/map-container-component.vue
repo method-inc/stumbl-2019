@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-
+import { Venue } from '@/models/venue-model';
 import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VenuesService } from '@/services/venue-service';
@@ -28,6 +28,7 @@ export default class MapContainerComponent extends Vue {
   public mapLoaded = false;
   public markers: mapboxgl.Marker[] = [];
   public visitedVenues = this.venuesService.visitedVenues;
+  public allVenues!: Venue[];
 
   /**
    * This component leverages `Mapbox GL JS`
@@ -53,7 +54,7 @@ export default class MapContainerComponent extends Vue {
     // if the venues exist create the map
     // This is used for all page visits after app is loaded and inital call
     // to the API is finished
-    if (!!this.allVenues.length) {
+    if (this.allVenues.length > 0) {
       this.createMap();
     }
 

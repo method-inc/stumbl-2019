@@ -49,7 +49,7 @@ export class VenuesService {
     return DEFAULT_VENUE;
   }
 
-  public getAllVenuesAsGeoJSON = async (allVenues): Promise<{type: string; features: GeoJsonVenue[]}> => {
+  public getAllVenuesAsGeoJSON = async (allVenues: Venue[]): Promise<{type: string; features: GeoJsonVenue[]}> => {
     const features: GeoJsonVenue[] = [];
 
     if (allVenues.length) {

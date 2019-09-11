@@ -110,13 +110,13 @@ export default class Home extends Vue {
     this.polling = setInterval(() => {
       // retrieve list of venues that have not been visited
       const venuesToCheck = this.allVenues.filter(
-        (n) => !this.venueSevice.visitedVenues.includes(n.id!),
+        (n: Venue) => !this.venueSevice.visitedVenues.includes(n.id!),
       );
 
       // tslint:disable-next-line:no-console
       console.debug('Venues that haven\'t been visited', venuesToCheck);
 
-      venuesToCheck.forEach((venue, index) => {
+      venuesToCheck.forEach((venue: Venue, index: number) => {
         this.locationService
           .isWithinGeoRadius(
             200,

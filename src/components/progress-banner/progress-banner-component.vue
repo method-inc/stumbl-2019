@@ -32,7 +32,7 @@ import { Venue } from '@/models/venue-model';
 export default class ProgressBannerComponent extends Vue {
   public venuesService = new VenuesService();
   public visitedVenues = this.venuesService.visitedVenues;
-  public allVenues: Venue[] = this.allVenues;
+  public allVenues!: Venue[];
 
   public get barsArray() {
     return this.allVenues.map((venue, index) => {

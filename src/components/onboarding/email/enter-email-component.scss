@@ -19,5 +19,17 @@
       border-bottom: 3px solid $color_button-green;
       color: green;
     }
+
+    &.first {
+      margin-bottom: 10px;
+    }
+  }
+
+  .form-error {
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    color: red;
   }
 }
