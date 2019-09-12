@@ -6,7 +6,7 @@
   <div class="venue-list">
     <ul>
       <li v-for="(venue, index) in allVenues" :key="index">
-        <VenueListItem :venue="venue" :index="index" />
+        <VenueListItem :venue="venue" :index="index" :visited-venues="visitedVenues" />
       </li>
     </ul>
   </div>
@@ -23,6 +23,7 @@ import VenueListItem from '@/components/venue-list/venue-list-item/venue-list-it
   },
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
 export default class VenueListComponent extends Vue {}

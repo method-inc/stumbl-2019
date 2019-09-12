@@ -21,18 +21,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { VenuesService } from '@/services/venue-service';
 import { Venue } from '@/models/venue-model';
 
 @Component({
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
 export default class ProgressBannerComponent extends Vue {
-  public venuesService = new VenuesService();
-  public visitedVenues = this.venuesService.visitedVenues;
   public allVenues!: Venue[];
+  public visitedVenues!: string[];
 
   public get barsArray() {
     return this.allVenues.map((venue, index) => {

@@ -13,15 +13,17 @@
       <p class="venue-discovered--sub-header">Looks like you found</p>
 
       <div class="venue-discovered--details">
-        <div class="venue-discovered--details-title global-title">{{venue.name}}</div>
-        <div class="venue-address" v-on:click="openDirections(`1801 california st, Denver Co`)">
+        <div class="venue-discovered--details-title global-title">{{ venue ? venue.name : '' }}</div>
+        <div class="venue-address" @click="openDirections(venue ? venue.address : '' )">
           <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon">
-          {{venue.address}}
+          {{ venue ? venue.address : '' }}
         </div>
         <div>
-          <p class="venue-discovered--details-description">{{venue.description}}</p>
+          <p class="venue-discovered--details-description">{{ venue ? venue.description : ''}}</p>
         </div>
-        <Button :title="'CHECK IN'" :routerLink="`/venue/${this.venue.id}`" class="button--background-green"/>
+        <div @click="checkin()">
+          <Button title="CHECK IN" class="button--background-green" @click="checkin()"/>
+        </div>
         <div>
         <router-link to="/home">
           <p class="venue-discovered--route-exit">I'm not at this location</p>
@@ -39,22 +41,40 @@ import Header from '@/components/header/header-component.vue';
 import Button from '@/components/button/button-component.vue';
 
 import { Venue } from '@/models/venue-model';
-import { VenuesService, DEFAULT_VENUE } from '@/services/venue-service';
 
 @Component({
   components: {
     Button,
     Header,
   },
+  props: {
+    allVenues: Array,
+    venueId: String,
+    lng: String,
+    lat: String,
+  },
 })
 
 export default class VenueDiscovered extends Vue {
-  public venueSevice = new VenuesService();
-  public venue: Venue = DEFAULT_VENUE;
+  public allVenues!: Venue[];
+  public venueId!: string;
+  public lng!: string;
+  public lat!: string;
 
-  public beforeMount() {
-    const id: string = this.$route.params.venueId;
-    this.venue = this.venueSevice.getSelectedVenue(id);
+  get venue() {
+    return this.allVenues.find((v: Venue) => v.id === this.venueId );
+  }
+
+  public async checkin() {
+    const checkedIn = await (this as any).$venues.checkin({
+      venueId: this.venueId,
+      latitude: this.lng,
+      longitude: this.lat,
+    });
+
+    if (checkedIn) {
+      this.$router.push({ name: 'venue', params: { venueId: this.venueId }});
+    }
   }
 
   public openDirections(destination: string) {
