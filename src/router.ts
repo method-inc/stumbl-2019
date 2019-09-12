@@ -72,7 +72,7 @@ const router = new Router({
 
 // Sets up protected routes
 router.beforeEach((to, from, next) => {
-  if (router.app.$auth.isAuthenticated() ||
+  if ((router.app as any).$auth.isAuthenticated() ||
     to.name === 'confirmation' ||
     to.name === 'recovery' ||
     to.name === 'intro') {
