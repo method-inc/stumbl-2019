@@ -8,7 +8,7 @@
     <div class="rewards">
       <h1 class="header-2">Your Rewards</h1>
       <p class="rewards-email">{{email}}</p>
-      <ProgressBannerComponent :all-venues="allVenues"/>
+      <ProgressBannerComponent :all-venues="allVenues" :visited-venues="visitedVenues"/>
       <RewardDetails
         title="Visit 1"
         subTitle="One entry to win"
@@ -39,7 +39,6 @@ import Component from 'vue-class-component';
 import Header from '@/components/header/header-component.vue';
 import ProgressBannerComponent from '@/components/progress-banner/progress-banner-component.vue';
 import RewardDetails from '@/components/rewards-details/reward-details.vue';
-import { VenuesService } from '@/services/venue-service';
 import { Venue } from '@/models/venue-model';
 import { User } from '../../models/user-model';
 import ApiService from '@/services/api-service';
@@ -52,16 +51,16 @@ import ApiService from '@/services/api-service';
   },
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
 export default class Rewards extends Vue {
-  public venuesService = new VenuesService();
   public apiService = new ApiService();
   public email: string = '';
-  public visitedVenues = this.venuesService.visitedVenues;
+  public visitedVenues!: string[];
 
   public async mounted() {
-    this.email = await this.apiService.user.email_address;
+    this.email = await this.apiService.getUserData().then((user) => user.email_address);
   }
 }
 </script>

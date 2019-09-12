@@ -9,7 +9,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
-import EventService from '@/services/event-service';
 
 interface StumblEvent {
   startTime: string;
@@ -39,7 +38,7 @@ export default class CountdownComponent extends Vue {
   private countdownState: CountdownState = CountdownState.INACTIVE;
 
   public mounted() {
-    this.currentEvent = EventService.getNextEvent(this.currentEventIndex);
+    this.currentEvent = (this as any).$events.getNextEvent(this.currentEventIndex);
     let countdownDate: number;
 
     if (this.currentEvent !== undefined) {
@@ -57,7 +56,7 @@ export default class CountdownComponent extends Vue {
         // Check if the current event is valid, otherwise check for the next event;
         while (!this.isValidEvent(now, this.currentEvent)) {
           this.currentEventIndex++;
-          this.currentEvent = EventService.getNextEvent(this.currentEventIndex);
+          this.currentEvent = (this as any).$events.getNextEvent(this.currentEventIndex);
 
           // If the event is undefined we have exhausted our events and must break out;
           if (this.currentEvent === undefined) {

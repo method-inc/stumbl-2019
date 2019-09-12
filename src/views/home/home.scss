@@ -1,0 +1,14 @@
+.home {
+  .venue-select {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+
+    &--label {
+      margin-left: 5px;
+    }
+  }
+
+}

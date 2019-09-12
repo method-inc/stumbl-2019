@@ -10,25 +10,26 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Venue } from '@/models/venue-model';
-import mapboxgl, { MapboxOptions, LngLatLike, ImageSource } from 'mapbox-gl';
+import mapboxgl, { MapboxOptions, LngLatLike, ImageSource, Marker } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VenuesService } from '@/services/venue-service';
-import { GeoJsonVenue, GeoJsonFeature } from '../../models/geojson-feature';
+import { GeoJsonVenue, GeoJsonFeature } from '@/models/geojson-feature';
+import { Watch } from 'vue-property-decorator';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_KEY as string;
-
 
 @Component({
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
+
 export default class MapContainerComponent extends Vue {
-  public venuesService = new VenuesService();
   public mapLoaded = false;
   public markers: mapboxgl.Marker[] = [];
-  public visitedVenues = this.venuesService.visitedVenues;
+  public visitedVenues!: string[];
   public allVenues!: Venue[];
+  public mapInstance!: mapboxgl.Map;
 
   /**
    * This component leverages `Mapbox GL JS`
@@ -49,12 +50,20 @@ export default class MapContainerComponent extends Vue {
     zoom: 13.0,
   };
 
+  @Watch('allVenues')
+  public allVenuesChange(oldVenues: Venue[], newVenues: Venue[]) {
+    if (oldVenues !== undefined && newVenues !== undefined) {
+      this.markers.forEach((marker: Marker) =>  marker.remove());
+      this.loadMarkers(this.mapInstance);
+    }
+  }
+
   // Lifecycle hook
   private mounted() {
     // if the venues exist create the map
     // This is used for all page visits after app is loaded and inital call
     // to the API is finished
-    if (this.allVenues.length > 0) {
+    if (this.allVenues && this.allVenues.length > 0) {
       this.createMap();
     }
 
@@ -89,18 +98,17 @@ export default class MapContainerComponent extends Vue {
 
       this.loadMarkers(map);
 
+      this.mapInstance = map;
       // Assures that the map is only loaded once
       //  so we are less likely to hit our free-tier api request limit
       this.mapLoaded = true;
     }
-
   }
 
   // Load and place location markers on the map
   private async loadMarkers(map: mapboxgl.Map) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    // TODO: These are sample data points to test markers.  Replace with points from database.
-    const geojsonVenues = await this.venuesService.getAllVenuesAsGeoJSON(this.allVenues);
+    const geojsonVenues = await (this as any).$venues.getAllVenuesAsGeoJSON(this.allVenues);
 
     geojsonVenues.features.forEach((venue: GeoJsonVenue, index: number) => {
       let markerLabel: any;
@@ -119,11 +127,14 @@ export default class MapContainerComponent extends Vue {
       el.innerHTML = markerLabel;
 
       // make a marker for each feature and add to the map
-      const markerRef = new mapboxgl.Marker(el)
-        .setLngLat(venue.geojson.geometry.coordinates as mapboxgl.LngLatLike)
-        .addTo(map);
+      // wrapped in div to avoid console error where map isnt loaded yet
+      if (map) {
+        const markerRef = new mapboxgl.Marker(el)
+          .setLngLat(venue.geojson.geometry.coordinates as mapboxgl.LngLatLike)
+          .addTo(map);
 
-      this.markers.push(markerRef);
+        this.markers.push(markerRef);
+      }
     });
   }
 }

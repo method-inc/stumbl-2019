@@ -5,7 +5,7 @@
 <template>
   <div>
     <Header :showClose="true" />
-    <img class="venue-details--image" :src="venue.companyImage" alt="Company Image" />
+    <img class="venue-details--image" :src="venue ? venue.companyImage : ''" alt="Company Image" />
     <AlertBanner
       class="venue-details-checked-in-banner"
       :color="'green'"
@@ -13,16 +13,16 @@
       v-if="checkedIn"
     >You checked in here!</AlertBanner>
     <div class="venue-details">
-      <div class="venue-details--title global-title">{{venue.name}}</div>
-      <div class="venue-address" v-on:click="openDirections(venue.address)">
+      <div class="venue-details--title global-title">{{ venue ? venue.name : '' }}</div>
+      <div class="venue-address" @click="openDirections(venue ? venue.address : '')">
         <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon" />
-        {{venue.address}}
+        {{ venue ? venue.address : '' }}
       </div>
       <div>
         <p class="header-2 venue-details--about">About</p>
-        <p class="venue-details--description">{{venue.description}}</p>
+        <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
-      <Button :title="'Visit Website'" :href="venue.url" />
+      <Button :title="'Visit Website'" :href="venue ? venue.url : ''" />
     </div>
   </div>
 </template>
@@ -33,10 +33,7 @@ import Component from 'vue-class-component';
 import Header from '@/components/header/header-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Button from '@/components/button/button-component.vue';
-
 import { Venue } from '@/models/venue-model';
-import { VenuesService, DEFAULT_VENUE } from '@/services/venue-service';
-import { Prop } from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -44,15 +41,23 @@ import { Prop } from 'vue-property-decorator';
     AlertBanner,
     Button,
   },
+  props: {
+    allVenues: Array,
+    venueId: String,
+    visitedVenues: Array,
+  },
 })
 export default class VenueDetails extends Vue {
-  public venueSevice = new VenuesService();
-  public venue: Venue = DEFAULT_VENUE;
-  public checkedIn = true; // This flag will need to be updated based on the 'Enter Geofence' screen
+  public allVenues!: Venue[];
+  public venueId!: string;
+  public visitedVenues!: string[];
 
-  public beforeMount() {
-    const Id: string = this.$route.params.venueId;
-    this.venue = this.venueSevice.getSelectedVenue(Id);
+  get venue() {
+    return this.allVenues.find((v: Venue) => v.id === this.venueId );
+  }
+
+  get checkedIn() {
+    return this.visitedVenues.includes(this.venueId);
   }
 
   public openDirections(destination: string) {

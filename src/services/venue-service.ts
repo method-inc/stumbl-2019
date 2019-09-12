@@ -1,6 +1,17 @@
+import EventEmitter from 'events';
 import { Venue } from '@/models/venue-model';
 import ApiService from '@/services/api-service';
 import { GeoJsonVenue } from '@/models/geojson-feature';
+
+const API_URI = process.env.VUE_APP_STMBL_API_URI;
+const TOKEN = 'dsw_user_token';
+const VISITED = 'dsw_visited';
+
+interface Checkin {
+  venueId: string;
+  latitude: string;
+  longitude: string;
+}
 
 /**
  * Default Venue values, to overwrite just set the property.
@@ -25,30 +36,58 @@ export const DEFAULT_VENUE: Venue = {
   features: '',
 };
 
-export class VenuesService {
+class VenuesService extends EventEmitter {
   public apiSvc = new ApiService();
-
-  // visitedVenues is an array of venue IDs
-  public visitedVenues: string[] = ['1'];
-  public venues: Venue[] = [];
 
   // Get List of Venues and their detail, to be stored on front end
   public getAllVenues = async (): Promise<Venue[]> => {
-    const response = await this.apiSvc.getAllVenues();
-    this.venues = response;
-
-    return this.venues;
+    return await this.apiSvc.getAllVenues();
   }
 
-  public getSelectedVenue = (Id: string): Venue => {
-    const venue = this.venues.find((v) => v.id === Id);
+  /**
+   * Get the user's visited venues
+   * If visitedVenues is null check localStorage else call API
+   * Intended to reduce API calls to the server
+   */
+  public getVisitedVenues = async () => {
+    const store = JSON.parse(localStorage.getItem(VISITED) || '{}');
+    const stale = Math.floor(new Date().getTime() / 1000) - 600; // 5 mins old
 
-    if (venue) {
-      return venue;
+    if (store.timestamp && store.timestamp >= stale) {
+      return store.venues;
+    } else {
+      return this.updateVisitedVenues();
     }
-    return DEFAULT_VENUE;
   }
 
+  /**
+   * Fetch and return visited venues for user from API
+   * Create store in localStorage for reference
+   */
+  public updateVisitedVenues = async () => {
+    const request = (await fetch(API_URI + '/me', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(TOKEN)}`,
+      },
+    }).then((res) => res.json())
+    .then((res) => {
+      const store = {
+        timestamp: Math.floor(new Date().getTime() / 1000),
+        venues: res.data.attributes.visited_venues,
+      };
+
+      localStorage.setItem(VISITED, JSON.stringify(store));
+
+      return res.data.attributes.visited_venues;
+    }));
+
+    return request;
+  }
+
+  /**
+   * Convert data structure for Mapbox to digest
+   */
   public getAllVenuesAsGeoJSON = async (allVenues: Venue[]): Promise<{type: string; features: GeoJsonVenue[]}> => {
     const features: GeoJsonVenue[] = [];
 
@@ -78,4 +117,37 @@ export class VenuesService {
       features,
     };
   }
+
+  /**
+   * Checkin to discovered venue then renew user's visited venues
+   */
+  public checkin = async (checkin: Checkin) => {
+    const { longitude, latitude } = checkin;
+    const payload = {
+      data: {
+        attributes: {
+          lat: latitude,
+          lng: longitude,
+        },
+      },
+    };
+    const response = await fetch(`${API_URI}/locations/${checkin.venueId}/check_ins`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem(TOKEN)}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.status === 201) {
+      const updated = await this.updateVisitedVenues();
+      this.emit('visitedVenuesUpdated', updated);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+
+export default new VenuesService();

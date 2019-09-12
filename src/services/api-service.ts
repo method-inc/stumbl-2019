@@ -1,85 +1,39 @@
 import { Venue } from '@/models/venue-model';
-import { User } from '@/models/user-model';
-
-const defaultUser = {
-  id: 0,
-  created_at: '',
-  email_address: '',
-  name: '',
-  password: '',
-  visited_venues: [],
-};
 
 const API_URI = process.env.VUE_APP_STMBL_API_URI;
 const EVENT_ID = process.env.VUE_APP_DSW_CRAWL_EVENT_ID;
+const TOKEN = 'dsw_user_token';
 
 export default class ApiService {
-  public venues: Venue[] = [];
-  public user: User = { ...defaultUser };
-
   /**
    * Request existing user's data.
    * If no existing user, creates new user.
    */
-  public getUserData = async (email: string) => {
-    const hasCachedUser = this.user.id !== 0;
+  public getUserData = async () => {
+      const response = await fetch(API_URI + '/me', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(TOKEN)}`,
+        },
+      });
+      const { data } = await response.json();
 
-    if (hasCachedUser) {
-      return this.getCachedUser();
-    } else {
-      // TODO: Connect this to the API route
-      const response = await fetch(API_URI + '/me');
-      const data = await response.json();
-
-      this.user = { ...data };
-      return this.user;
-    }
+      return data.attributes;
   }
 
   /**
    * Gets array of venues and their detail
    */
   public getAllVenues = async (): Promise<Venue[]> => {
-    const hasCachedVenues = this.venues.length;
+      const response = await fetch(`${API_URI}/events/${EVENT_ID}/locations`);
+      const json = await response.json();
 
-    if (hasCachedVenues) {
-      return this.getCachedVenues();
-    } else {
-      try {
-        // TODO: Connect this to API route
-        const response = await fetch(`${API_URI}/events/${EVENT_ID}/locations`);
-
-        const json = await response.json();
-        const data = json.data.map((entry: any) => {
-          return {
-            id: entry.id,
-            ...entry.attributes,
-          };
-        }) as Venue[];
-
-        this.venues = data;
-
-        return this.venues;
-      } catch (error) {
-        return error;
-      }
-    }
-  }
-
-  /**
-   * Returns a single venue's detail
-   *
-   * @param id number
-   */
-  public getVenueById = async (id: string) => {
-    const noCachedVenues = this.venues.length === 0;
-
-    if (noCachedVenues) {
-      await this.getAllVenues();
-    }
-    const matchingVenue = this.venues.find((venue) => venue.id === id);
-
-    return matchingVenue;
+      return json.data.map((entry: any) => {
+        return {
+          id: entry.id,
+          ...entry.attributes,
+        };
+      }) as Venue[];
   }
 
   /**
@@ -128,38 +82,5 @@ export default class ApiService {
     } catch (error) {
       return error;
     }
-  }
-
-  public markVenueVisited = async (id: number) => {
-    const alreadyVisitedVenue = this.user.visited_venues.find((venueId) => {
-      return venueId === id;
-    });
-
-    if (!alreadyVisitedVenue) {
-      // Add the venue to the front end immediately
-      this.user.visited_venues.push(id);
-
-      try {
-        const response = await fetch('url');
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        return error;
-      }
-    }
-  }
-
-  /**
-   * Returns array of cached venues to prevent redundant requests.
-   */
-  private getCachedVenues = (): Venue[] => {
-    return this.venues;
-  }
-
-  /**
-   * Returns cached user to prevent redundant requests
-   */
-  private getCachedUser = (): User => {
-    return this.user;
   }
 }

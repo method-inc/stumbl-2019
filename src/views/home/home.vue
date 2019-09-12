@@ -1,8 +1,12 @@
+<style lang="scss" scoped>
+@import './home.scss';
+</style>
+
 <template>
   <div>
     <Header :showRewards="true" :showInfo="true" />
     <div class="home">
-      <Map :all-venues="allVenues"/>
+      <Map :all-venues="venuesToDisplay" :visited-venues="visitedVenues"/>
       <VenueListScroll>
         <Countdown />
         <AlertBanner
@@ -11,10 +15,18 @@
           :icon="'location'"
           v-if="!locationPermissionActivated"
         >
-          <a :href="locationPermissionLink" target="_blank">Share your location</a> to crawl!
+          <a :href="locationPermissionLink || ''" target="_blank">Share your location</a> to crawl!
         </AlertBanner>
-        <ProgressBanner :all-venues="allVenues"/>
-        <VenueList :all-venues="allVenues"/>
+        <ProgressBanner :all-venues="allVenues" :visited-venues="visitedVenues"/>
+        <div class="venue-select">
+          <span class="venue-select--label">All Venues:</span>
+          <input :disabled="displayAll" @change="updateDisplay(0)" type="checkbox" v-model="displayAll">
+          <span class="venue-select--label">Day 1 Venues:</span>
+          <input :disabled="displayDayOne" @change="updateDisplay(1)" type="checkbox" v-model="displayDayOne">
+          <span class="venue-select--label">Day 2 Venues:</span>
+          <input :disabled="displayDayTwo" @change="updateDisplay(2)" type="checkbox" v-model="displayDayTwo">
+        </div>
+        <VenueList :all-venues="venuesToDisplay" :visited-venues="visitedVenues"/>
       </VenueListScroll>
     </div>
   </div>
@@ -29,10 +41,8 @@ import VenueList from '@/components/venue-list/venue-list-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Countdown from '@/components/countdown/countdown-component.vue';
 import ProgressBanner from '@/components/progress-banner/progress-banner-component.vue';
-import { VenuesService } from '../../services/venue-service';
 import { LocationService } from '../../services/location-service';
 import { Venue } from '../../models/venue-model';
-import router from '@/router';
 import { AlertTypeEnum } from '../../models/alert-model';
 
 @Component<Home>({
@@ -47,25 +57,29 @@ import { AlertTypeEnum } from '../../models/alert-model';
   },
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
 
 
 export default class Home extends Vue {
-  public venueSevice = new VenuesService();
   public locationService = new LocationService();
-
   public locationPermissionActivated = false;
-  public locationPermissionLink = '';
   public polling: any = null; // polling interval
   public allVenues: any;
+  public displayAll = false;
+  public displayDayOne = false;
+  public displayDayTwo = false;
+  public visitedVenues!: string[];
 
-  public beforeMount() {
+  public async created() {
+    // set venue display list default for the day
+    this.venueDisplayDefault();
     // get position
     navigator.geolocation.getCurrentPosition(
-      () => {
+      (location) => {
         this.locationPermissionActivated = true;
-        this.pollData();
+        this.pollData(location);
       },
       () => {
         // error, location permission denied
@@ -78,19 +92,115 @@ export default class Home extends Vue {
         );
       },
     );
-
-    this.locationPermissionLink = this.getLocationPermissionLink();
   }
 
-  // TODO: Create checkUserLocation, check if within any geofence every 5s
-  // locationService.isWithinGeoRadius
-  //
-  // API CALL - If within geofence, log that this user has visited this venue
   public beforeDestroy() {
     clearInterval(this.polling);
   }
 
-  private getLocationPermissionLink() {
+  private async pollData(location: Position) {
+    if ((this as any).$events.stumblin()) {
+      this.polling = setInterval(() => {
+        // Determing which array of venues to use
+        const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
+        // retrieve list of venues that have not been visited
+        const venuesToCheck = daySpecificVenues.filter(
+            (n: Venue) => !this.visitedVenues.includes(n.id!),
+          );
+
+        venuesToCheck.forEach((venue: Venue, index: number) => {
+          this.locationService
+            .isWithinGeoRadius(
+              location,
+              200,
+              parseFloat(venue.latitude),
+              parseFloat(venue.longitude),
+            )
+            .then((response) => {
+              if (response) {
+                // navigate to venue discovered
+                this.goToVenueDiscovered(venue, location);
+                return;
+              }
+          });
+        });
+      }, 2000);
+    }
+  }
+
+  private goToVenueDiscovered(venue: Venue, location: Position) {
+    // tslint:disable-next-line:max-line-length
+    this.$router.push({ path: `/venue_discovered/${venue.id}/lng/${location.coords.longitude}/lat/${location.coords.latitude}` });
+  }
+
+
+  private isToday(someDate: Date) {
+    const today = new Date();
+    return someDate.getDate() === today.getDate() &&
+      someDate.getMonth() === today.getMonth() &&
+      someDate.getFullYear() === today.getFullYear();
+  }
+
+  private updateDisplay(selection: number) {
+    if (selection === 0) {
+      this.displayDayOne = false;
+      this.displayDayTwo = false;
+    }
+
+    if (selection === 1) {
+      this.displayAll = false;
+      this.displayDayTwo = false;
+    }
+
+    if (selection === 2) {
+      this.displayAll = false;
+      this.displayDayOne = false;
+    }
+  }
+
+  private venueDisplayDefault() {
+    if (this.isDayOne) {
+      this.displayDayOne = true;
+    }
+
+    if (this.isDayTwo) {
+      this.displayDayTwo = true;
+    }
+
+    this.displayAll = true;
+  }
+
+  get isDayOne() {
+    return this.isToday(new Date('9/17/2019'));
+  }
+
+  get isDayTwo() {
+    return this.isToday(new Date('9/19/2019'));
+  }
+
+  get dayOneVenues() {
+    return this.allVenues.filter((venue: Venue) => venue.crawl_day === 1);
+  }
+
+  get dayTwoVenues() {
+    return this.allVenues.filter((venue: Venue) => venue.crawl_day === 2);
+  }
+
+  get venuesToDisplay() {
+    if (this.displayAll) {
+      return this.allVenues;
+    }
+
+    if (this.displayDayOne) {
+      return this.dayOneVenues;
+    }
+
+    if (this.displayDayTwo) {
+      return this.dayTwoVenues;
+    }
+  }
+
+  get locationPermissionLink() {
     const isIphone = navigator.userAgent.toLowerCase().includes('iphone');
     const isAndroid = navigator.userAgent.toLowerCase().includes('android');
 
@@ -102,42 +212,6 @@ export default class Home extends Vue {
       // Desktop case. Hope they're using Chrome!
       return 'https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop&hl=en';
     }
-  }
-
-  private async pollData() {
-    const visitedVenues = this.venueSevice.visitedVenues;
-
-    this.polling = setInterval(() => {
-      // retrieve list of venues that have not been visited
-      const venuesToCheck = this.allVenues.filter(
-        (n: Venue) => !this.venueSevice.visitedVenues.includes(n.id!),
-      );
-
-      // tslint:disable-next-line:no-console
-      console.debug('Venues that haven\'t been visited', venuesToCheck);
-
-      venuesToCheck.forEach((venue: Venue, index: number) => {
-        this.locationService
-          .isWithinGeoRadius(
-            200,
-            parseFloat(venue.latitude),
-            parseFloat(venue.longitude),
-          )
-          .then((response) => {
-            // tslint:disable-next-line:no-console
-            console.debug('Is within georadius', venue);
-            if (response) {
-              // navigate to venue discovered
-              this.goToVenueDiscovered(venue);
-              return;
-            }
-          });
-      });
-    }, 5000);
-  }
-
-  private goToVenueDiscovered(venue: Venue) {
-    router.push({ path: `/venue_discovered/${venue.id}` });
   }
 }
 </script>

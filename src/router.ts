@@ -1,19 +1,20 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from './views/home/home.vue';
-const About = () => import('./views/about/about.vue');
-const Rewards = () => import('./views/rewards/rewards.vue');
-const VenueDetails = () => import('./views/venue-details/venue-details.vue');
-const Intro = () => import('./views/intro/intro.vue');
-const PrizeEarned = () => import('./views/prize-earned/prize-earned.vue');
-const VenueDiscovered = () => import('./views/venue-discovered/venue-discovered.vue');
+const Home = () => import('@/views/home/home.vue');
+const About = () => import('@/views/about/about.vue');
+const Rewards = () => import('@/views/rewards/rewards.vue');
+const VenueDetails = () => import('@/views/venue-details/venue-details.vue');
+const Intro = () => import('@/views/intro/intro.vue');
+const PrizeEarned = () => import('@/views/prize-earned/prize-earned.vue');
+const VenueDiscovered = () => import('@/views/venue-discovered/venue-discovered.vue');
 const Confirmation = () => import('@/views/confirmation/confirmation.vue');
 const Recovery = () => import('@/views/recovery/recovery.vue');
 
 Vue.use(Router);
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -39,6 +40,7 @@ const router = new Router({
       path: '/venue/:venueId',
       name: 'venue',
       component: VenueDetails,
+      props: true,
     },
     {
       path: '/prize_earned',
@@ -46,9 +48,10 @@ const router = new Router({
       component: PrizeEarned,
     },
     {
-      path: '/venue_discovered/:venueId',
+      path: '/venue_discovered/:venueId/lng/:lng/lat/:lat',
       name: 'discovered',
       component: VenueDiscovered,
+      props: true,
     },
     {
       path: '/confirmation/:confirmationId',
@@ -72,10 +75,10 @@ const router = new Router({
 
 // Sets up protected routes
 router.beforeEach((to, from, next) => {
-  if ((router.app as any).$auth.isAuthenticated() ||
-    to.name === 'confirmation' ||
-    to.name === 'recovery' ||
-    to.name === 'intro') {
+  if ((router.app as any).$auth.isAuthenticated()) {
+    if (to.name === 'confirmation' || to.name === 'intro') {
+      next({name: 'home'});
+    }
     next();
   } else {
     next({ name: 'intro' });

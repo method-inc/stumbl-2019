@@ -8,7 +8,7 @@
       <AlertBanner v-if="showAlert" :color="alertTypeColor" :icon="'clock'">
         <strong>{{message}}</strong>
       </AlertBanner>
-      <router-view @send-alert="showAlertBanner" :all-venues="allVenues"/>
+      <router-view @send-alert="showAlertBanner" :all-venues="allVenues" :visited-venues="visitedVenues"/>
     </div>
   </div>
 </template>
@@ -16,11 +16,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { setTimeout } from 'timers';
-import { AlertTypeEnum } from './models/alert-model';
+import { AlertTypeEnum } from '@/models/alert-model';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
-import { VenuesService } from '@/services/venue-service';
 import { Venue } from '@/models/venue-model';
 import { User } from '@/models/user-model';
+import { Watch } from 'vue-property-decorator';
 
 const ALERT_TIMEOUT = 2500;
 
@@ -30,15 +30,19 @@ const ALERT_TIMEOUT = 2500;
   },
 })
 export default class App extends Vue {
-  public venueService: VenuesService = new VenuesService();
   public allVenues: Venue[] = [];
+  public visitedVenues: string[] = [];
   public authenticated = false;
   public alertTypeColor = 'green';
   public showAlert = false;
   public message = '';
 
   public async beforeMount() {
-    this.allVenues = await this.venueService.getAllVenues();
+    this.allVenues = await (this as any).$venues.getAllVenues();
+
+    if (localStorage.getItem('dsw_user_token')) {
+      this.authenticated = true;
+    }
   }
 
 /**
@@ -63,9 +67,26 @@ export default class App extends Vue {
     }, alertTimeout);
   }
 
+  @Watch('authenticated')
+  public async handleAuthChange() {
+    this.visitedVenues = await (this as any).$venues.getVisitedVenues();
+  }
+
+  /**
+   * After login event redirect to the home page
+   */
   private handleLoginEvent() {
     this.authenticated = true;
     this.$router.push({ name: 'home' });
+  }
+
+  /**
+   * After user has checked in to a venue we call the API to fetch
+   * most recent checkins. This is called when that event is called
+   * and updates the visited venues props so that venue isn't polled
+   */
+  private handleVisitedUpdate(venues: string[]) {
+    this.visitedVenues = venues;
   }
 }
 </script>

@@ -4,7 +4,7 @@
 
 <template>
   <div class="map">
-    <MapContainer :all-venues="allVenues"/>
+    <MapContainer :all-venues="allVenues" :visited-venues="visitedVenues"/>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ import MapContainer from '@/components/map-container/map-container-component.vue
   },
   props: {
     allVenues: Array,
+    visitedVenues: Array,
   },
 })
 export default class MapComponent extends Vue {}
