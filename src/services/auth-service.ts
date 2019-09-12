@@ -160,7 +160,7 @@ class AuthService extends EventEmitter {
   }
 
   public isAuthenticated = () => {
-    const exp = localStorage.getItem(EXPIRES_AT);
+    const exp = localStorage.getItem(EXPIRES_AT) || '';
     const now = new Date().getTime() / 1000;
     const loggedIn = localStorage.getItem(LOGGED_IN);
 
