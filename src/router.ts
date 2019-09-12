@@ -47,6 +47,7 @@ const router = new Router({
       path: '/admin/:venueId',
       name: 'admin-portal',
       component: AdminPortal,
+      props: true,
     },
     {
       path: '/prize_earned',

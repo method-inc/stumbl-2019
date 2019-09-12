@@ -55,4 +55,15 @@
     text-align: center;
     margin: 32px 0;
   }
+
+  &__alert-banner {
+    text-align: center;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
