@@ -99,7 +99,8 @@ export default class Home extends Vue {
   }
 
   private async pollData(location: Position) {
-    if ((this as any).$events.stumblin()) {
+    // TODO: add the conditional if back after testing
+    // if ((this as any).$events.stumblin()) {
       this.polling = setInterval(() => {
         // Determing which array of venues to use
         const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
@@ -108,7 +109,8 @@ export default class Home extends Vue {
             (n: Venue) => !this.visitedVenues.includes(n.id!),
           );
 
-        venuesToCheck.forEach((venue: Venue, index: number) => {
+        // TODO: change this back to venuesToCheck.forEach(... )
+        this.allVenues.forEach((venue: Venue, index: number) => {
           this.locationService
             .isWithinGeoRadius(
               location,
@@ -125,7 +127,7 @@ export default class Home extends Vue {
           });
         });
       }, 2000);
-    }
+    // }
   }
 
   private goToVenueDiscovered(venue: Venue, location: Position) {
