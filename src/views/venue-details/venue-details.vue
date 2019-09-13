@@ -24,9 +24,9 @@
       </div>
       <div v-if="venue ? venue.features : null">
         <p class="header-2 venue-details--about">Features</p>
-        <p class="venue-details--description">{{ venue ? venue.special_instructions: '' }}</p>
+        <p class="venue-details--description">{{ venue ? venue.features : '' }}</p>
       </div>
-      <div>
+      <div v-if="venue ? venue.description : null">
         <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
