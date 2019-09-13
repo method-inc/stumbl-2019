@@ -126,8 +126,8 @@ class VenuesService extends EventEmitter {
     const payload = {
       data: {
         attributes: {
-          lat: latitude,
-          lng: longitude,
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude),
         },
       },
     };
