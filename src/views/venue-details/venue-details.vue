@@ -18,11 +18,19 @@
         <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon" />
         {{ venue ? venue.address : '' }}
       </div>
-      <div>
+      <div v-if="venue ? venue.special_instructions : null">
+        <p class="header-2 venue-details--about">Special Instructions</p>
+        <p class="venue-details--description">{{ venue ? venue.special_instructions: '' }}</p>
+      </div>
+      <div v-if="venue ? venue.features : null">
+        <p class="header-2 venue-details--about">Features</p>
+        <p class="venue-details--description">{{ venue ? venue.features : '' }}</p>
+      </div>
+      <div v-if="venue ? venue.description : null">
         <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
-      <Button :title="'Visit Website'" :href="venue ? venue.url : ''" />
+      <Button :title="'Visit Website'" v-if="venue ? venue.website : null" :href="venue ? venue.website : ''" />
     </div>
   </div>
 </template>
