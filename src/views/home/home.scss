@@ -1,13 +1,24 @@
 .home {
   .venue-select {
     text-align: center;
-    justify-content: center;
     display: flex;
-    font-size: 12px;
     align-items: center;
+    font-size: 12px;
 
     &--label {
       margin-left: 5px;
+    }
+
+    &--container {
+      flex-grow: 1;
+      background: darken($color_background, 2%);
+      padding: 3px 20px;
+
+      &.selected {
+        background: $color_blue-gradient;
+        color: $color_black;
+        transition: background 0.5s;
+      }
     }
   }
 

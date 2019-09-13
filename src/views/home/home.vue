@@ -19,12 +19,15 @@
         </AlertBanner>
         <ProgressBanner :all-venues="allVenues" :visited-venues="visitedVenues"/>
         <div class="venue-select">
-          <span class="venue-select--label">All Venues:</span>
-          <input :disabled="displayAll" @change="updateDisplay(0)" type="checkbox" v-model="displayAll">
-          <span class="venue-select--label">Day 1 Venues:</span>
-          <input :disabled="displayDayOne" @change="updateDisplay(1)" type="checkbox" v-model="displayDayOne">
-          <span class="venue-select--label">Day 2 Venues:</span>
-          <input :disabled="displayDayTwo" @change="updateDisplay(2)" type="checkbox" v-model="displayDayTwo">
+          <div :class="{'venue-select--container': true, 'selected': displayAll}" @click="updateDisplay(0)">
+            <span class="venue-select--label">All Days</span>
+          </div>
+          <div :class="{'venue-select--container': true, 'selected': displayDayOne}" @click="updateDisplay(1)">
+            <span class="venue-select--label">Tue 9/15</span>
+          </div>
+          <div :class="{'venue-select--container': true, 'selected': displayDayTwo}" @click="updateDisplay(2)">
+            <span class="venue-select--label">Thu 9/17</span>
+          </div>
         </div>
         <VenueList :all-venues="venuesToDisplay" :visited-venues="visitedVenues"/>
       </VenueListScroll>
@@ -145,18 +148,21 @@ export default class Home extends Vue {
 
   private updateDisplay(selection: number) {
     if (selection === 0) {
+      this.displayAll = true;
       this.displayDayOne = false;
       this.displayDayTwo = false;
     }
 
     if (selection === 1) {
       this.displayAll = false;
+      this.displayDayOne = true;
       this.displayDayTwo = false;
     }
 
     if (selection === 2) {
       this.displayAll = false;
       this.displayDayOne = false;
+      this.displayDayTwo = true;
     }
   }
 
