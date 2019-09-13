@@ -51,13 +51,13 @@ import { Venue } from '@/models/venue-model';
   components: {
     Header,
     AlertBanner,
-    Button
+    Button,
   },
   props: {
     allVenues: Array,
     venueId: String,
-    visitedVenues: Array
-  }
+    visitedVenues: Array,
+  },
 })
 export default class VenueDetails extends Vue {
   public allVenues!: Venue[];

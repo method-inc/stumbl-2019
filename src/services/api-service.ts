@@ -43,10 +43,10 @@ export default class ApiService {
     const payload = {
       data: {
         attributes: {
-          ...venue
-        }
-      }
-    }
+          ...venue,
+        },
+      },
+    };
 
     try {
       const response = await fetch(API_URI + '/locations/' + venue.id, {
@@ -58,7 +58,7 @@ export default class ApiService {
         body: JSON.stringify(payload),
       });
       const data = await response.json();
-      return data.attributes;
+      return data;
     } catch (error) {
       return error;
     }
@@ -68,22 +68,29 @@ export default class ApiService {
     const payload = {
       data: {
         attributes: {
-          file
-        }
-      }
-    }
+          file: {
+            name: file.name,
+            type: file.type,
+          },
+        },
+      },
+    };
 
     try {
-      const response = await fetch(API_URI + '/locations/' + id + '/images', {
+      const imgUrl = await fetch(`${API_URI}/locations/${id}/images`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem(TOKEN)}`,
         },
         body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      return data.attributes;
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          return `${responseData.data.attributes.url}/${responseData.data.attributes.fields.key}`;
+        });
+
+      return imgUrl;
     } catch (error) {
       return error;
     }

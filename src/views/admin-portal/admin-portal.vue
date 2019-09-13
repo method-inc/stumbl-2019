@@ -121,12 +121,12 @@ import { Watch } from 'vue-property-decorator';
   components: {
     Button,
     Header,
-    AlertBanner
+    AlertBanner,
   },
   props: {
     allVenues: Array,
-    venueId: String
-  }
+    venueId: String,
+  },
 })
 export default class AdminPortal extends Vue {
   public apiService = new ApiService();
@@ -137,11 +137,12 @@ export default class AdminPortal extends Vue {
   public bannerMessage: string = 'Changes Saved!';
   public bannerColor: string = 'green';
   public imageChanged: boolean = false;
-  public newImage: any = '';
+  public newImage: any;
+  public newImageToUpload: any;
 
   @Watch('allVenues')
   public handleUpdate() {
-    const copy = this.allVenues.find(venue => venue.id === this.venueId);
+    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
@@ -160,17 +161,17 @@ export default class AdminPortal extends Vue {
 
   public async beforeMount() {
     // Needed for hard refresh of page.
-    const copy = this.allVenues.find(venue => venue.id === this.venueId);
+    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
 
   get validAddress() {
-    return this.venue.address.length > 0;
+    return !!this.venue.address;
   }
 
   get validName() {
-    return this.venue.name.length > 0;
+    return !!this.venue.name;
   }
 
   get validForm() {
@@ -179,7 +180,7 @@ export default class AdminPortal extends Vue {
 
   get validImage() {
     // Checks to see if the new image is a blob
-    return typeof this.newImage == 'string';
+    return this.newImage.includes('blob');
   }
 
   get displayImage() {
@@ -191,7 +192,9 @@ export default class AdminPortal extends Vue {
   }
 
   public imageUpdated(e: Event) {
-    this.newImage = URL.createObjectURL(e.target.files[0]);
+    const target = e.target as HTMLInputElement;
+    this.newImageToUpload = (target.files as FileList)[0];
+    this.newImage = URL.createObjectURL((target.files as FileList)[0]);
     this.imageChanged = true;
   }
 
@@ -202,8 +205,7 @@ export default class AdminPortal extends Vue {
       this.bannerActive = true;
     } else {
       const response = await this.apiService.updateVenue(this.venue);
-
-      if (response.ok) {
+      if (response) {
         this.bannerActive = true;
         this.venue = response.data.attributes;
       }
@@ -220,14 +222,13 @@ export default class AdminPortal extends Vue {
       this.bannerColor = 'red';
       this.bannerActive = true;
     } else {
-      console.log('ready to fucking go');
       const response = await this.apiService.updateCompanyImage(
         this.venueId,
-        this.newImage
+        this.newImageToUpload,
       );
-      if (response.ok) {
-        this.bannerActive = true;
-        this.venue = response.data.attributes;
+      if (response) {
+        this.venue.company_img_url = response;
+        this.updateVenue();
       }
     }
   }
