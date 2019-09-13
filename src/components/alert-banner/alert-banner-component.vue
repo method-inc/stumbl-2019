@@ -28,7 +28,7 @@ import IconLocation from '@/images/icon-location-component.vue';
   props: {
     color: {
       type: String,
-      validator: (val) => ['green', 'yellow'].includes(val),
+      validator: (val) => ['green', 'yellow', 'red'].includes(val),
     },
     icon: String, // 'clock', 'location'
   },

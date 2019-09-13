@@ -6,10 +6,10 @@
   <div>
     <transition name="fade">
       <AlertBanner
-        v-if="updatedSuccessfully"
-        color="green"
+        v-if="bannerActive"
+        :color="bannerColor"
         class="portal__alert-banner"
-      >Changes Saved!</AlertBanner>
+      >{{ bannerMessage }}</AlertBanner>
     </transition>
     <Header></Header>
     <div class="portal">
@@ -20,6 +20,7 @@
         <input
           type="text"
           class="portal__input"
+          :class="{'invalid-field': !validName}"
           name="company-name"
           placeholder="Company Name"
           v-model="venue.name"
@@ -30,9 +31,20 @@
         <input
           type="text"
           class="portal__input"
+          :class="{'invalid-field': !validAddress}"
           name="address"
           placeholder="Company Address"
           v-model="venue.address"
+        />
+      </label>
+      <label class="portal__label">
+        Unit #
+        <input
+          type="text"
+          class="portal__input"
+          name="address_2"
+          placeholder="Company Address Cont."
+          v-model="venue.address_2"
         />
       </label>
       <label class="portal__label">
@@ -51,9 +63,21 @@
         name="company-image"
         id="company-image"
         ref="company_img"
-        :src="venue.company_img_url ? venue.company_img_url : '../../images/company-images/emptyVenue.jpeg'"
+        :src="displayImage"
       />
-      <Button class="portal__button" title="change image"></Button>
+      <label class="portal__image-input-label">
+        <input
+          @change="imageUpdated"
+          type="file"
+          accept="image/*"
+          name="image-input"
+          class="portal__image-input"
+        />
+        Select Image
+      </label>
+      <div @click="submitImage()">
+        <Button class="portal__button" title="submit image"></Button>
+      </div>
       <label for="about-company" class="portal__label">About (What does your company do?)</label>
       <textarea
         id="about-company"
@@ -63,11 +87,20 @@
         v-model="venue.description"
         maxlength="300"
       ></textarea>
+      <label for="special-instructions" class="portal__label">Special instructions for attendees</label>
+      <textarea
+        id="special-instructions"
+        placeholder="Special Instructions"
+        class="portal__textarea"
+        name="special-instructions"
+        v-model="venue.special_instructions"
+        maxlength="300"
+      ></textarea>
       <div @click="updateVenue()">
         <Button class="portal__button" title="save changes"></Button>
       </div>
       <router-link to="/home">
-        <p class="portal__route-exit" v-on:click="resetValues()">Cancel and discard changes</p>
+        <p class="portal__route-exit">Cancel and discard changes</p>
       </router-link>
     </div>
   </div>
@@ -79,7 +112,7 @@ import Component from 'vue-class-component';
 import Button from '@/components/button/button-component.vue';
 import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Header from '@/components/header/header-component.vue';
-import { VenuesService, DEFAULT_VENUE } from '@/services/venue-service';
+import { DEFAULT_VENUE } from '@/services/venue-service';
 import { Venue } from '@/models/venue-model';
 import ApiService from '@/services/api-service';
 import { Watch } from 'vue-property-decorator';
@@ -88,58 +121,115 @@ import { Watch } from 'vue-property-decorator';
   components: {
     Button,
     Header,
-    AlertBanner,
+    AlertBanner
   },
   props: {
     allVenues: Array,
-    venueId: String,
-  },
+    venueId: String
+  }
 })
 export default class AdminPortal extends Vue {
   public apiService = new ApiService();
-  public updatedCompanyDetails = {};
   public venue: Venue = DEFAULT_VENUE;
   public venueId!: string;
   public allVenues!: Venue[];
-  public updatedSuccessfully: boolean = false;
-
-  public resetValues(): object {
-    return (this.updatedCompanyDetails = {});
-  }
+  public bannerActive: boolean = false;
+  public bannerMessage: string = 'Changes Saved!';
+  public bannerColor: string = 'green';
+  public imageChanged: boolean = false;
+  public newImage: any = '';
 
   @Watch('allVenues')
   public handleUpdate() {
-    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
+    const copy = this.allVenues.find(venue => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
 
-  @Watch('updatedSuccessfully')
+  @Watch('bannerActive')
   public promptSuccessMessage(value: boolean) {
     if (value) {
       window.scrollTo(0, 0);
       setTimeout(() => {
-        this.updatedSuccessfully = false;
+        this.bannerActive = false;
+        this.bannerColor = 'green';
+        this.bannerMessage = 'Changes Saved!';
       }, 3500);
     }
   }
 
   public async beforeMount() {
-    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
+    // Needed for hard refresh of page.
+    const copy = this.allVenues.find(venue => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
 
-  // public async updateVenue() {
-  //   debugger;
-  //   if (Object.keys(this.updatedCompanyDetails).length === 0) {
-  //     return window.prompt('you need some shit homie');
-  //   } else {
-  //     this.updatedCompanyDetails.id = this.venue.id;
-  //     await this.apiService.updateVenue(this.updatedCompanyDetails) {
+  get validAddress() {
+    return this.venue.address.length > 0;
+  }
 
-  //     }
-  //   }
-  // }
+  get validName() {
+    return this.venue.name.length > 0;
+  }
+
+  get validForm() {
+    return this.validAddress && this.validName;
+  }
+
+  get validImage() {
+    // Checks to see if the new image is a blob
+    return typeof this.newImage == 'string';
+  }
+
+  get displayImage() {
+    return this.imageChanged
+      ? this.newImage
+      : this.venue.company_img_url
+      ? this.venue.company_img_url
+      : require('../../images/company-images/emptyVenue.jpeg');
+  }
+
+  public imageUpdated(e: Event) {
+    this.newImage = URL.createObjectURL(e.target.files[0]);
+    this.imageChanged = true;
+  }
+
+  public async updateVenue() {
+    if (!this.validForm) {
+      this.bannerMessage = 'Please complete required fields.';
+      this.bannerColor = 'red';
+      this.bannerActive = true;
+    } else {
+      const response = await this.apiService.updateVenue(this.venue);
+
+      if (response.ok) {
+        this.bannerActive = true;
+        this.venue = response.data.attributes;
+      }
+    }
+  }
+
+  public async submitImage() {
+    if (!this.validImage) {
+      this.bannerMessage = 'Please provide valid image.';
+      this.bannerColor = 'red';
+      this.bannerActive = true;
+    } else if (!this.newImage) {
+      this.bannerMessage = 'Please provide new image.';
+      this.bannerColor = 'red';
+      this.bannerActive = true;
+    } else {
+      console.log('ready to fucking go');
+      const response = await this.apiService.updateCompanyImage(
+        this.venueId,
+        this.newImage
+      );
+      if (response.ok) {
+        this.bannerActive = true;
+        this.venue = response.data.attributes;
+      }
+    }
+  }
 }
 </script>

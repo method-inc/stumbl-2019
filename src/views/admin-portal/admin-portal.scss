@@ -59,6 +59,37 @@
   &__alert-banner {
     text-align: center;
   }
+
+  &__image-input {
+
+    &[type="file"] {
+      display: none;
+    }
+
+    &-label {
+    // Button
+    width: 100%;
+    background: #05D3D8; // fallback
+    background: $color_blue-gradient;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color_black;
+
+    // Text
+    font-size: 16px;
+    font-weight: 700;
+    align-self: center;
+    text-transform: uppercase;
+    height: 48px;
+    }
+  }
+}
+
+.invalid-field {
+  border-bottom: 5px solid red;
 }
 
 .fade-enter-active, .fade-leave-active {
