@@ -75,10 +75,8 @@ const router = new Router({
 
 // Sets up protected routes
 router.beforeEach((to, from, next) => {
-  if ((router.app as any).$auth.isAuthenticated()) {
-    if (to.name === 'confirmation' || to.name === 'intro') {
-      next({name: 'home'});
-    }
+  if ((router.app as any).$auth.isAuthenticated() ||
+    to.name === 'intro' || to.name === 'recovery' || to.name === 'confirmation') {
     next();
   } else {
     next({ name: 'intro' });
