@@ -61,10 +61,7 @@ export default class VenueDetails extends Vue {
   public visitedVenues!: string[];
 
   get venue() {
-    // TODO - kill this logging shit
-    const result = this.allVenues.find((v: Venue) => v.id === this.venueId );
-    console.log('VENUE', result);
-    return result;
+    return this.allVenues.find((v: Venue) => v.id === this.venueId );
   }
 
   get checkedIn() {
