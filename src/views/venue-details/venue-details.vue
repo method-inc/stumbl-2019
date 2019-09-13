@@ -18,11 +18,19 @@
         <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon" />
         {{ venue ? venue.address : '' }}
       </div>
+      <div v-if="venue ? venue.special_instructions : null">
+        <p class="header-2 venue-details--about">Special Instructions</p>
+        <p class="venue-details--description">{{ venue ? venue.special_instructions: '' }}</p>
+      </div>
+      <div v-if="venue ? venue.features : null">
+        <p class="header-2 venue-details--about">Features</p>
+        <p class="venue-details--description">{{ venue ? venue.special_instructions: '' }}</p>
+      </div>
       <div>
         <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
-      <Button :title="'Visit Website'" :href="venue ? venue.url : ''" />
+      <Button :title="'Visit Website'" v-if="venue ? venue.website : null" :href="venue ? venue.website : ''" />
     </div>
   </div>
 </template>
@@ -53,7 +61,10 @@ export default class VenueDetails extends Vue {
   public visitedVenues!: string[];
 
   get venue() {
-    return this.allVenues.find((v: Venue) => v.id === this.venueId );
+    // TODO - kill this logging shit
+    const result = this.allVenues.find((v: Venue) => v.id === this.venueId );
+    console.log('VENUE', result);
+    return result;
   }
 
   get checkedIn() {
