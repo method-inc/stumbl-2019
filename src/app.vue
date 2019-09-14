@@ -79,6 +79,13 @@ export default class App extends Vue {
     this.authenticated = true;
     this.$router.push({ name: 'home' });
   }
+  /**
+   * After logout event redirect to the intro page
+   */
+  private handleLogoutEvent() {
+    this.authenticated = false;
+    this.$router.push({ name: 'intro' });
+  }
 
   /**
    * After user has checked in to a venue we call the API to fetch
