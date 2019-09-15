@@ -45,6 +45,8 @@ import Component from 'vue-class-component';
   },
 })
 export default class HeaderComponent extends Vue {
+  private $auth: any;
+
   public logout() {
     this.$auth.logOut();
   }
