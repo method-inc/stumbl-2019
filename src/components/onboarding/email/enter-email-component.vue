@@ -66,7 +66,7 @@ export default class EnterEmailComponent extends Vue {
     }
 
     this.$auth.logIn({
-      email_address: this.email,
+      email_address: this.email.toLowerCase(),
       password: this.password,
     });
   }
@@ -78,7 +78,7 @@ export default class EnterEmailComponent extends Vue {
     }
 
     const result = this.$auth.signUp({
-      email_address: this.email,
+      email_address: this.email.toLowerCase(),
       password: this.password,
     });
 
@@ -94,7 +94,7 @@ export default class EnterEmailComponent extends Vue {
     }
 
     const result = this.$auth.recovery({
-      email_address: this.email,
+      email_address: this.email.toLowerCase(),
     });
 
     if (result) {
