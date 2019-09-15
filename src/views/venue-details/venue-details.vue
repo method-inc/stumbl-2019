@@ -5,7 +5,7 @@
 <template>
   <div>
     <Header :showClose="true" />
-    <img class="venue-details--image" :src="venue ? venue.companyImage : ''" alt="Company Image" />
+    <img class="venue-details--image" :src="venue ? venue.company_img_url : ''" alt="Company Image" />
     <AlertBanner
       class="venue-details-checked-in-banner"
       :color="'green'"
