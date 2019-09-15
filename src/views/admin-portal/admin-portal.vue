@@ -14,6 +14,9 @@
     <Header></Header>
     <div class="portal">
       <h2 class="header-2">Startup crawl company admin</h2>
+      <router-link class="portal__page-link" :to="{name: 'venue', params: {venueId}}">
+        <span class="portal__page-link">View Your Company Page</span>
+      </router-link>
       <p>Edit your company details below. This will be visible to crawl participants when they check in to your location.</p>
       <label class="portal__label">
         Company name
@@ -73,10 +76,10 @@
           name="image-input"
           class="portal__image-input"
         />
-        Select Image
+        Select New Image
       </label>
-      <div @click="submitImage()">
-        <Button class="portal__button" title="submit image"></Button>
+      <div class="submit-image" @click="submitImage()" v-if="imageChanged">
+        <Button class="portal__button" title="submit image" backgroundColor="green"></Button>
       </div>
       <label for="about-company" class="portal__label">About (What does your company do?)</label>
       <textarea
@@ -85,7 +88,6 @@
         class="portal__textarea"
         name="about-company"
         v-model="venue.description"
-        maxlength="300"
       ></textarea>
       <label for="special-instructions" class="portal__label">Special instructions for attendees</label>
       <textarea
@@ -94,7 +96,6 @@
         class="portal__textarea"
         name="special-instructions"
         v-model="venue.special_instructions"
-        maxlength="300"
       ></textarea>
       <div @click="updateVenue()">
         <Button class="portal__button" title="save changes"></Button>
@@ -205,9 +206,13 @@ export default class AdminPortal extends Vue {
       this.bannerActive = true;
     } else {
       const response = await this.apiService.updateVenue(this.venue);
-      if (response) {
+      if (response.data) {
         this.bannerActive = true;
         this.venue = response.data.attributes;
+      } else {
+        this.bannerActive = true;
+        this.bannerMessage = 'Error saving.  You might not have permission to edit this venue.';
+        this.bannerColor = 'red';
       }
     }
   }
