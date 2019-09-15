@@ -60,13 +60,13 @@ export default class Reset extends Vue {
 
     this.$auth.reset({
       recovery_id: this.recoveryId,
-      password: this.password,
-      password_confirmation: this.passwordConfirmation,
+      password: this.password.trim(),
+      password_confirmation: this.passwordConfirmation.trim(),
     });
   }
 
   get validPassword() {
-    return this.password.length > 6;
+    return this.password.length > 6 && !this.password.includes(' ');
   }
 
   get validConfirm() {

@@ -7,6 +7,9 @@
     <div v-if="!accountCreated && !resetSuccess">
       <h1>Track Progress</h1>
       <p>Enter your email to track your progress and be rewarded!</p>
+      <div class="form-error-container">
+        <span v-if="showError" class="form-error">Invalid email or password</span>
+      </div>
       <input class="first" :class="{'valid': validEmail}" type="text" name="email" id="email" placeholder="ILove@DenStartupWeek.com" v-model="email" >
       <input :class="{'valid': validPassword}" type="password" name="password" id="password" placeholder="Password" v-model="password" >
       <p>Email will ONLY be used as login and to inform you if you've won</p>
@@ -14,7 +17,6 @@
       <div @click="signUp()">
         <Button title="Sign Up" backgroundColor="green"/>
       </div>
-      <span v-if="showError" class="form-error">Please correct form errors</span>
       <div @click="logIn()">
         <Button title="Log In" backgroundColor="blue"/>
       </div>
@@ -66,8 +68,12 @@ export default class EnterEmailComponent extends Vue {
     }
 
     this.$auth.logIn({
-      email_address: this.email.toLowerCase(),
-      password: this.password,
+      email_address: this.email.trim().toLowerCase(),
+      password: this.password.trim(),
+    }).then((success: boolean) => {
+      if (!success) {
+        this.showError = true;
+      }
     });
   }
 
@@ -78,8 +84,8 @@ export default class EnterEmailComponent extends Vue {
     }
 
     const result = this.$auth.signUp({
-      email_address: this.email.toLowerCase(),
-      password: this.password,
+      email_address: this.email.trim().toLowerCase(),
+      password: this.password.trim(),
     });
 
     if (result) {
@@ -94,7 +100,7 @@ export default class EnterEmailComponent extends Vue {
     }
 
     const result = this.$auth.recovery({
-      email_address: this.email.toLowerCase(),
+      email_address: this.email.trim().toLowerCase(),
     });
 
     if (result) {
@@ -120,7 +126,7 @@ export default class EnterEmailComponent extends Vue {
   }
 
   get validPassword() {
-    return this.password.length > 6;
+    return this.password.length > 6 && !this.password.includes(' ');
   }
 
   get formValid() {
