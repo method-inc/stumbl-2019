@@ -49,7 +49,7 @@
     }
   }
 
-  &__route-exit {
+  &__route-exit, &__page-link {
     text-decoration: underline;
     color: $color_white;
     text-align: center;
@@ -58,6 +58,8 @@
 
   &__alert-banner {
     text-align: center;
+    position: sticky;
+    top: 0px;
   }
 
   &__image-input {
@@ -85,6 +87,10 @@
     text-transform: uppercase;
     height: 48px;
     }
+  }
+
+  .submit-image > * {
+    width: 100%
   }
 }
 
