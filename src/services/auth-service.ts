@@ -31,6 +31,7 @@ class AuthService extends EventEmitter {
    * Log in
    */
   public logIn = async (creds: Credentials) => {
+    let success = true;
     const payload = {
       data: {
         attributes: {
@@ -44,13 +45,19 @@ class AuthService extends EventEmitter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json())
+    })
       .then((res) => {
-        this.localLogin(res);
+        if (res.ok) {
+          this.localLogin(res);
+        } else {
+          success = false;
+        }
       })
       .catch((error) => {
         // console.log(error);
       });
+
+    return success;
   }
 
   /**
