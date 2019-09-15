@@ -54,6 +54,17 @@ class AuthService extends EventEmitter {
   }
 
   /**
+   * Log out
+   */
+  public logOut = () => {
+    localStorage.removeItem(LOGGED_IN);
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem(EXPIRES_AT);
+
+    this.emit('logout');
+  }
+
+  /**
    * Sign Up
    */
   public signUp = async (creds: Credentials) => {

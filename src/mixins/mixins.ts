@@ -14,12 +14,18 @@ export default {
           authService.addListener('login', this.handleLoginEvent);
           venuesService.addListener('visitedVenuesUpdated', this.handleVisitedUpdate);
         }
+        if (this.handleLogoutEvent) {
+          authService.addListener('logout', this.handleLogoutEvent);
+        }
       },
 
       destroyed() {
         if (this.handleLoginEvent) {
           authService.removeListener('login', this.handleLoginEvent);
           venuesService.addListener('visitedVenuesUpdated', this.handleVisitedUpdate);
+        }
+        if (this.handleLogoutEvent) {
+          authService.removeListener('logout', this.handleLogoutEvent);
         }
       },
     });
