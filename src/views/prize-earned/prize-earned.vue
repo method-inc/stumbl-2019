@@ -37,7 +37,7 @@
     </div>
 
     <div v-on:click="goHome()">
-      <Button title="Keep Crawlin\" />
+      <Button title="Keep Crawlin" />
     </div>
   </div>
 </template>
