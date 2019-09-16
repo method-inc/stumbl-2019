@@ -51,6 +51,36 @@
         />
       </label>
       <label class="portal__label">
+        City
+        <input
+          type="text"
+          class="portal__input"
+          name="city"
+          placeholder="City"
+          v-model="venue.city"
+        />
+      </label>
+      <label class="portal__label">
+        State
+        <input
+          type="text"
+          class="portal__input"
+          name="state"
+          placeholder="State"
+          v-model="venue.state"
+        />
+      </label>
+      <label class="portal__label">
+        Zip Code
+        <input
+          type="text"
+          class="portal__input"
+          name="zip"
+          placeholder="Zip Code"
+          v-model="venue.zip"
+        />
+      </label>
+      <label class="portal__label">
         Website
         <input
           type="text"
@@ -207,6 +237,7 @@ export default class AdminPortal extends Vue {
     } else {
       const response = await this.apiService.updateVenue(this.venue);
       if (response.data) {
+        console.log('DATA', response)
         this.bannerActive = true;
         this.venue = {
           id: response.data.id,
