@@ -40,6 +40,9 @@
         href="https://skookum.com/"
       />
     </div>
+    <div class="header--nav-exit" v-if="showClose" to="/" @click="logout()">
+      <img src="../../images/exit.svg" alt="sign out icon">
+    </div>
   </div>
 </template>
 
