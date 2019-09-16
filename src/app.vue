@@ -51,16 +51,17 @@ export default class App extends Vue {
 
   public async beforeMount() {
     this.allVenues = await (this as any).$venues.getAllVenues();
-    this.userDetails = await this.apiService.getUserData();
-    if (!!this.userDetails.managed_locations.length) {
-      localStorage.setItem(ADMIN_VENUES, JSON.stringify(this.userDetails.managed_locations));
-    }
-    if (this.userDetails.access.includes('admin')) {
-      localStorage.setItem(ROOT_ADMIN, 'admin');
-    }
 
     if (localStorage.getItem('dsw_user_token')) {
       this.authenticated = true;
+
+      this.userDetails = await this.apiService.getUserData();
+      if (!!this.userDetails.managed_locations.length) {
+        localStorage.setItem(ADMIN_VENUES, JSON.stringify(this.userDetails.managed_locations));
+      }
+      if (this.userDetails.access.includes('admin')) {
+        localStorage.setItem(ROOT_ADMIN, 'admin');
+      }
     }
   }
 
