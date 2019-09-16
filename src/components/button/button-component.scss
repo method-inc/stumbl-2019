@@ -9,7 +9,7 @@
   text-align: center;
   margin: 40px auto;
   height: 48px;
-  width: 327px;
+  width: 90%;
   color: $color_background;
   cursor: pointer;
   
@@ -19,7 +19,7 @@
     display: block;
     top: 0;
     left: 0;
-    width: 327px;
+    width: 90%;
     height: 48px;
     z-index: 1;
   }
@@ -37,6 +37,10 @@
 
   &--background-white {
     background: $color_white;
+  }
+
+  &--background-grey {
+    background: $color_grey;
   }
 
   &--background-blue {

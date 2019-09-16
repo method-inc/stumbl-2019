@@ -7,7 +7,7 @@
     <h1>Prize unlocked!</h1>
 
     <div v-if="visitCount === 4">
-      <div class="trophy-banner green"/>
+      <div class="trophy-banner green" />
       <img class="trophy" src="../../images/prizes/trophy-green.svg" alt="Green trophy" />
     </div>
     <div v-else-if="visitCount === 8">
@@ -19,7 +19,7 @@
       <img class="trophy" src="../../images/prizes/trophy-orange.svg" alt="Orange trophy" />
     </div>
 
-    <hr class="top-line">
+    <hr class="top-line" />
     <div class="parent">
       <div class="prize-details-container">
         <img class="checkmark" src="../../images/checkmark.svg" alt="checkmark" />
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr />
 
     <div class="prize-details-paragraph">
       You've earned a prize for visiting {{visitCount}} crawl locations.
@@ -37,7 +37,7 @@
     </div>
 
     <div v-on:click="goHome()">
-      <Button :title="'Keep Crawlin\''" />
+      <Button title="Keep Crawlin" />
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
 <template>
   <div>
     <Header :showClose="true" />
-    <img class="venue-details--image" :src="venue ? venue.companyImage : ''" alt="Company Image" />
+    <img class="venue-details--image" :src="venue ? venue.company_img_url : ''" alt="Company Image" />
     <AlertBanner
       class="venue-details-checked-in-banner"
       :color="'green'"
@@ -30,7 +30,11 @@
         <p class="header-2 venue-details--about">About</p>
         <p class="venue-details--description">{{ venue ? venue.description : '' }}</p>
       </div>
-      <Button :title="'Visit Website'" v-if="venue ? venue.website : null" :href="venue ? venue.website : ''" />
+      <Button
+        :title="'Visit Website'"
+        v-if="venue ? venue.website : null"
+        :href="venue ? venue.website : ''"
+      />
     </div>
   </div>
 </template>
@@ -61,7 +65,7 @@ export default class VenueDetails extends Vue {
   public visitedVenues!: string[];
 
   get venue() {
-    return this.allVenues.find((v: Venue) => v.id === this.venueId );
+    return this.allVenues.find((v: Venue) => v.id === this.venueId);
   }
 
   get checkedIn() {
@@ -70,9 +74,10 @@ export default class VenueDetails extends Vue {
 
   public openDirections(destination: string) {
     const urlEncodedDestination = encodeURIComponent(destination);
-    const fullUrlPath = 'https://www.google.com/maps/dir/?api=1&destination='
-      + urlEncodedDestination
-      + '&travelmode=walking';
+    const fullUrlPath =
+      'https://www.google.com/maps/dir/?api=1&destination=' +
+      urlEncodedDestination +
+      '&travelmode=walking';
 
     window.open(fullUrlPath);
   }

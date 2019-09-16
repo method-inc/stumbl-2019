@@ -71,16 +71,16 @@ class VenuesService extends EventEmitter {
         Authorization: `Bearer ${localStorage.getItem(TOKEN)}`,
       },
     }).then((res) => res.json())
-    .then((res) => {
-      const store = {
-        timestamp: Math.floor(new Date().getTime() / 1000),
-        venues: res.data.attributes.visited_venues,
-      };
+      .then((res) => {
+        const store = {
+          timestamp: Math.floor(new Date().getTime() / 1000),
+          venues: res.data.attributes.visited_venues,
+        };
 
-      localStorage.setItem(VISITED, JSON.stringify(store));
+        localStorage.setItem(VISITED, JSON.stringify(store));
 
-      return res.data.attributes.visited_venues;
-    }));
+        return res.data.attributes.visited_venues;
+      }));
 
     return request;
   }
@@ -88,7 +88,7 @@ class VenuesService extends EventEmitter {
   /**
    * Convert data structure for Mapbox to digest
    */
-  public getAllVenuesAsGeoJSON = async (allVenues: Venue[]): Promise<{type: string; features: GeoJsonVenue[]}> => {
+  public getAllVenuesAsGeoJSON = async (allVenues: Venue[]): Promise<{ type: string; features: GeoJsonVenue[] }> => {
     const features: GeoJsonVenue[] = [];
 
     if (allVenues.length) {
@@ -99,7 +99,7 @@ class VenuesService extends EventEmitter {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [ Number(venue.longitude), Number(venue.latitude) ],
+              coordinates: [Number(venue.longitude), Number(venue.latitude)],
             },
             properties: {
               title: venue.name,

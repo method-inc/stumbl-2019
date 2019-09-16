@@ -10,6 +10,7 @@ const PrizeEarned = () => import('@/views/prize-earned/prize-earned.vue');
 const VenueDiscovered = () => import('@/views/venue-discovered/venue-discovered.vue');
 const Confirmation = () => import('@/views/confirmation/confirmation.vue');
 const Recovery = () => import('@/views/recovery/recovery.vue');
+const AdminPortal = () => import('./views/admin-portal/admin-portal.vue');
 
 Vue.use(Router);
 
@@ -40,6 +41,12 @@ const router = new Router({
       path: '/venue/:venueId',
       name: 'venue',
       component: VenueDetails,
+      props: true,
+    },
+    {
+      path: '/admin/:venueId',
+      name: 'admin-portal',
+      component: AdminPortal,
       props: true,
     },
     {
