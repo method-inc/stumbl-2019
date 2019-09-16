@@ -211,7 +211,8 @@ export default class AdminPortal extends Vue {
         this.venue = response.data.attributes;
       } else {
         this.bannerActive = true;
-        this.bannerMessage = 'Error saving.  You might not have permission to edit this venue.';
+        this.bannerMessage =
+          'Error saving.  You might not have permission to edit this venue.';
         this.bannerColor = 'red';
       }
     }

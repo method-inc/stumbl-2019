@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import ApiService from '@/services/api-service';
 
 const Home = () => import('@/views/home/home.vue');
 const About = () => import('@/views/about/about.vue');
@@ -11,6 +12,8 @@ const VenueDiscovered = () => import('@/views/venue-discovered/venue-discovered.
 const Confirmation = () => import('@/views/confirmation/confirmation.vue');
 const Recovery = () => import('@/views/recovery/recovery.vue');
 const AdminPortal = () => import('./views/admin-portal/admin-portal.vue');
+
+const apiService = new ApiService();
 
 Vue.use(Router);
 
@@ -87,6 +90,18 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     next({ name: 'intro' });
+  }
+
+  if ((router.app as any).$auth.isAuthenticated() && to.name === 'admin-portal') {
+    apiService.getUserData().then((result) => {
+      const venueId = to.params.venueId;
+
+      if (result.managed_locations.includes(venueId) || result.access.includes('admin')) {
+        next();
+      } else {
+        next({ name: 'home' });
+      }
+    });
   }
 });
 

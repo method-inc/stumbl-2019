@@ -54,7 +54,7 @@ class AuthService extends EventEmitter {
       })
       .then((res) => res.json())
       .then((res) => {
-        this.localLogin(res)
+        this.localLogin(res);
       })
       .catch((error) => {
         // console.log(error);
