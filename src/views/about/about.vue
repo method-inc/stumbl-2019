@@ -42,7 +42,7 @@
       <div @click="logout()">
         <Button
           title="Log out"
-          backgroundColor="white"
+          backgroundColor="grey"
         />
       </div>
     </div>
