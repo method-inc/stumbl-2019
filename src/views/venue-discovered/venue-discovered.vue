@@ -68,8 +68,8 @@ export default class VenueDiscovered extends Vue {
   public async checkin() {
     const checkedIn = await (this as any).$venues.checkin({
       venueId: this.venueId,
-      latitude: this.lng,
-      longitude: this.lat,
+      latitude: this.lat,
+      longitude: this.lng,
     });
 
     if (checkedIn) {
