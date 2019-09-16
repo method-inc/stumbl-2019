@@ -1,7 +1,7 @@
 export interface User {
-  id: number;
   created_at: string;
   email_address: string;
-  password: string;
+  managed_locations: string[];
+  access: string[];
   visited_venues: number[];
 }
