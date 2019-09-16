@@ -14,9 +14,6 @@
       <router-link v-if="showInfo" to="/about">
         <img src="../../images/info_icon.svg" alt="Info icon">
       </router-link>
-      <div class="header--nav-exit" v-if="showClose" to="/" @click="logout()">
-        <img src="../../images/exit.svg" alt="sign out icon">
-      </div>
       <router-link v-if="showClose" to="/home">
         <img src="../../images/close_page_icon.svg" alt="Close page icon">
       </router-link>
@@ -44,11 +41,5 @@ import Component from 'vue-class-component';
     },
   },
 })
-export default class HeaderComponent extends Vue {
-  private $auth: any;
-
-  public logout() {
-    this.$auth.logOut();
-  }
-}
+export default class HeaderComponent extends Vue {}
 </script>

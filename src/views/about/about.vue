@@ -39,6 +39,12 @@
         backgroundColor="white"
         href="https://skookum.com/"
       />
+      <div @click="logout()">
+        <Button
+          title="Log out"
+          backgroundColor="grey"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +61,12 @@ import Header from '@/components/header/header-component.vue';
     Header,
   },
 })
-export default class About extends Vue {}
+export default class About extends Vue {
+  private $auth: any;
+
+  public logout() {
+    this.$auth.logOut();
+  }
+}
 </script>
 
