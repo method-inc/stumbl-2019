@@ -237,7 +237,6 @@ export default class AdminPortal extends Vue {
     } else {
       const response = await this.apiService.updateVenue(this.venue);
       if (response.data) {
-        console.log('DATA', response)
         this.bannerActive = true;
         this.venue = {
           id: response.data.id,
