@@ -85,16 +85,9 @@ const router = new Router({
 
 // Sets up protected routes
 router.beforeEach((to, from, next) => {
-  if ((router.app as any).$auth.isAuthenticated() ||
-    to.name === 'intro' || to.name === 'recovery' || to.name === 'confirmation') {
-    next();
-  } else {
-    next({ name: 'intro' });
-  }
-
   if ((router.app as any).$auth.isAuthenticated() && to.name === 'admin-portal') {
     apiService.getUserData().then((result) => {
-      const venueId = to.params.venueId;
+      const { venueId}  = to.params;
 
       if (result.managed_locations.includes(venueId) || result.access.includes('admin')) {
         next();
@@ -102,7 +95,13 @@ router.beforeEach((to, from, next) => {
         next({ name: 'home' });
       }
     });
+  } else if ((router.app as any).$auth.isAuthenticated() ||
+    to.name === 'intro' || to.name === 'recovery' || to.name === 'confirmation') {
+    next();
+  } else {
+    next({ name: 'intro' });
   }
+
 });
 
 export default router;
