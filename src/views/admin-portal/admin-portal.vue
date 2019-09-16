@@ -119,12 +119,12 @@ import { Watch } from 'vue-property-decorator';
   components: {
     Button,
     Header,
-    AlertBanner
+    AlertBanner,
   },
   props: {
     allVenues: Array,
-    venueId: String
-  }
+    venueId: String,
+  },
 })
 export default class AdminPortal extends Vue {
   public apiService = new ApiService();
@@ -140,7 +140,7 @@ export default class AdminPortal extends Vue {
 
   @Watch('allVenues')
   public handleUpdate() {
-    const copy = this.allVenues.find(venue => venue.id === this.venueId);
+    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
@@ -159,7 +159,7 @@ export default class AdminPortal extends Vue {
 
   public async beforeMount() {
     // Needed for hard refresh of page.
-    const copy = this.allVenues.find(venue => venue.id === this.venueId);
+    const copy = this.allVenues.find((venue) => venue.id === this.venueId);
     const freshCopy = Object.assign({}, copy);
     this.venue = freshCopy;
   }
@@ -193,7 +193,7 @@ export default class AdminPortal extends Vue {
     const target = e.target as HTMLInputElement;
     const response = await this.apiService.updateCompanyImage(
       this.venue,
-      (target.files as FileList)[0]
+      (target.files as FileList)[0],
     );
 
     this.venue.company_img_url = response.data.attributes.company_img_url;
@@ -214,7 +214,7 @@ export default class AdminPortal extends Vue {
         this.bannerActive = true;
         this.venue = {
           id: response.data.id,
-          ...response.data.attributes
+          ...response.data.attributes,
         };
       } else {
         this.bannerActive = true;
@@ -237,7 +237,7 @@ export default class AdminPortal extends Vue {
     } else {
       const response = await this.apiService.updateCompanyImage(
         this.venue,
-        this.newImageToUpload
+        this.newImageToUpload,
       );
     }
   }

@@ -1,8 +1,8 @@
-import { Venue } from "@/models/venue-model";
+import { Venue } from '@/models/venue-model';
 
 const API_URI = process.env.VUE_APP_STMBL_API_URI;
 const EVENT_ID = process.env.VUE_APP_DSW_CRAWL_EVENT_ID;
-const TOKEN = "dsw_user_token";
+const TOKEN = 'dsw_user_token';
 
 export default class ApiService {
   /**
@@ -10,16 +10,16 @@ export default class ApiService {
    * If no existing user, creates new user.
    */
   public getUserData = async () => {
-    const response = await fetch(API_URI + "/me", {
-      method: "GET",
+    const response = await fetch(API_URI + '/me', {
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(TOKEN)}`
-      }
+        Authorization: `Bearer ${localStorage.getItem(TOKEN)}`,
+      },
     });
     const { data } = await response.json();
 
     return data.attributes;
-  };
+  }
 
   /**
    * Gets array of venues and their detail
@@ -31,10 +31,10 @@ export default class ApiService {
     return json.data.map((entry: any) => {
       return {
         id: entry.id,
-        ...entry.attributes
+        ...entry.attributes,
       };
     }) as Venue[];
-  };
+  }
 
   /**
    * Add new venue from admin form
@@ -43,26 +43,26 @@ export default class ApiService {
     const payload = {
       data: {
         attributes: {
-          ...venue
-        }
-      }
+          ...venue,
+        },
+      },
     };
 
     try {
-      const response = await fetch(API_URI + "/locations/" + venue.id, {
-        method: "PATCH",
+      const response = await fetch(API_URI + '/locations/' + venue.id, {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(TOKEN)}`
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem(TOKEN)}`,
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
       return data;
     } catch (error) {
       return error;
     }
-  };
+  }
 
   public updateCompanyImage = async (venue: Venue, file: File) => {
     const payload = {
@@ -70,37 +70,36 @@ export default class ApiService {
         attributes: {
           file: {
             name: file.name,
-            type: file.type
-          }
-        }
-      }
+            type: file.type,
+          },
+        },
+      },
     };
 
     try {
       const result = await fetch(`${API_URI}/locations/${venue.id}/images`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(TOKEN)}`
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem(TOKEN)}`,
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       })
-        .then(response => response.json())
-        .then(responseData => {
-          const result = responseData.data.attributes;
+        .then((response) => response.json())
+        .then((responseData) => {
+          const resultAttrs = responseData.data.attributes;
           const formData = new FormData();
-          Object.keys(result.fields).forEach(key =>
-            formData.append(key, result.fields[key])
+          Object.keys(resultAttrs.fields).forEach((key) =>
+            formData.append(key, resultAttrs.fields[key]),
           );
-          formData.append("file", file);
-          return window.fetch(result.url, { method: "POST", body: formData });
+          formData.append('file', file);
+          return window.fetch(resultAttrs.url, { method: 'POST', body: formData });
         })
-        .then(response => (response as any).text())
-        .then(text => {
+        .then((response) => (response as any).text())
+        .then((text) => {
           const parser = new (window as any).DOMParser();
-          const documentXML = parser.parseFromString(text, "application/xml");
-          const link = documentXML.querySelector("Location")!.innerHTML;
-          console.log("link", link);
+          const documentXML = parser.parseFromString(text, 'application/xml');
+          const link = documentXML.querySelector('Location')!.innerHTML;
           return this.updateVenue({ ...venue, company_img_url: link });
         });
 
@@ -108,5 +107,5 @@ export default class ApiService {
     } catch (error) {
       return error;
     }
-  };
+  }
 }
