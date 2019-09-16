@@ -31,7 +31,7 @@
 
   &__button {
     text-transform: uppercase;
-    margin: 16px 0;
+    margin: 16px auto;
   }
 
   &__textarea {
@@ -70,11 +70,11 @@
 
     &-label {
     // Button
-    width: 100%;
+    width: 90%;
     background: #05D3D8; // fallback
     background: $color_blue-gradient;
     border-radius: 4px;
-    margin-top: 10px;
+    margin: 10px auto 16px auto;
     display: flex;
     justify-content: center;
     align-items: center;
