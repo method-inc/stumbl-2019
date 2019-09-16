@@ -21,8 +21,18 @@ import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import { Venue } from '@/models/venue-model';
 import { User } from '@/models/user-model';
 import { Watch } from 'vue-property-decorator';
+import ApiService from './services/api-service';
 
 const ALERT_TIMEOUT = 2500;
+const ADMIN_VENUES = 'admin_venues';
+const ROOT_ADMIN = 'root_admin';
+const blankUser = {
+  created_at: '',
+  email_address: '',
+  managed_locations: [],
+  access: [],
+  visited_venues: [],
+};
 
 @Component({
   components: {
@@ -30,6 +40,8 @@ const ALERT_TIMEOUT = 2500;
   },
 })
 export default class App extends Vue {
+  public apiService = new ApiService();
+  public userDetails: User = {...blankUser};
   public allVenues: Venue[] = [];
   public visitedVenues: string[] = [];
   public authenticated = false;
@@ -39,6 +51,13 @@ export default class App extends Vue {
 
   public async beforeMount() {
     this.allVenues = await (this as any).$venues.getAllVenues();
+    this.userDetails = await this.apiService.getUserData();
+    if (!!this.userDetails.managed_locations.length) {
+      localStorage.setItem(ADMIN_VENUES, JSON.stringify(this.userDetails.managed_locations));
+    }
+    if (this.userDetails.access.includes('admin')) {
+      localStorage.setItem(ROOT_ADMIN, 'admin');
+    }
 
     if (localStorage.getItem('dsw_user_token')) {
       this.authenticated = true;

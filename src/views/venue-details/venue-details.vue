@@ -18,6 +18,11 @@
         <img class="venue-address--image" src="../../images/location-icon.svg" alt="Location icon" />
         {{ venue ? venue.address : '' }}
       </div>
+      <div class="admin-button-container" v-if="isVenueAdmin">
+        <router-link :to="{name: 'admin-portal', params: {venueId: venue.id}}">
+          <Button title="Admin Portal" backgroundColor="green"></Button>
+        </router-link>
+      </div>
       <div v-if="venue ? venue.special_instructions : null">
         <p class="header-2 venue-details--about">Special Instructions</p>
         <p class="venue-details--description">{{ venue ? venue.special_instructions: '' }}</p>
@@ -47,6 +52,9 @@ import AlertBanner from '@/components/alert-banner/alert-banner-component.vue';
 import Button from '@/components/button/button-component.vue';
 import { Venue } from '@/models/venue-model';
 
+const ADMIN_VENUES = 'admin_venues';
+const ROOT_ADMIN = 'root_admin';
+
 @Component({
   components: {
     Header,
@@ -70,6 +78,17 @@ export default class VenueDetails extends Vue {
 
   get checkedIn() {
     return this.visitedVenues.includes(this.venueId);
+  }
+
+  get isVenueAdmin() {
+    const isRootAdmin = localStorage.getItem(ROOT_ADMIN) || false;
+    const hasAdminVenues = localStorage.getItem(ADMIN_VENUES) || false;
+    const parsedVenues = hasAdminVenues ? JSON.parse(hasAdminVenues) : [];
+
+    if (!!isRootAdmin || (hasAdminVenues && parsedVenues.includes(this.venueId))) {
+      return true;
+    }
+    return false;
   }
 
   public openDirections(destination: string) {
