@@ -117,7 +117,7 @@ export default class Home extends Vue {
           this.locationService
             .isWithinGeoRadius(
               location,
-              199,
+              50,
               parseFloat(venue.latitude),
               parseFloat(venue.longitude),
             )
