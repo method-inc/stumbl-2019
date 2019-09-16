@@ -55,7 +55,7 @@ export default class App extends Vue {
     if (!!this.userDetails.managed_locations.length) {
       localStorage.setItem(ADMIN_VENUES, JSON.stringify(this.userDetails.managed_locations));
     }
-    if (!!this.userDetails.access.includes('admin')) {
+    if (this.userDetails.access.includes('admin')) {
       localStorage.setItem(ROOT_ADMIN, 'admin');
     }
 
