@@ -82,7 +82,7 @@ export default class Home extends Vue {
     navigator.geolocation.getCurrentPosition(
       (location) => {
         this.locationPermissionActivated = true;
-        this.pollData(location);
+        this.pollData();
       },
       () => {
         // error, location permission denied
@@ -101,30 +101,32 @@ export default class Home extends Vue {
     clearInterval(this.polling);
   }
 
-  private async pollData(location: Position) {
+  private async pollData() {
     if ((this as any).$events.stumblin()) {
       this.polling = setInterval(() => {
-        // Determing which array of venues to use
-        const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
-        // retrieve list of venues that have not been visited
-        const venuesToCheck = daySpecificVenues.filter(
-            (n: Venue) => !this.visitedVenues.includes(n.id!),
-          );
+        navigator.geolocation.getCurrentPosition((location) => {
+          // Determing which array of venues to use
+          const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
+          // retrieve list of venues that have not been visited
+          const venuesToCheck = daySpecificVenues.filter(
+              (n: Venue) => !this.visitedVenues.includes(n.id!),
+            );
 
-        venuesToCheck.forEach((venue: Venue, index: number) => {
-          this.locationService
-            .isWithinGeoRadius(
-              location,
-              50,
-              parseFloat(venue.latitude),
-              parseFloat(venue.longitude),
-            )
-            .then((response) => {
-              if (response) {
-                // navigate to venue discovered
-                this.goToVenueDiscovered(venue, location);
-                return;
-              }
+          venuesToCheck.forEach((venue: Venue, index: number) => {
+            this.locationService
+              .isWithinGeoRadius(
+                location,
+                50,
+                parseFloat(venue.latitude),
+                parseFloat(venue.longitude),
+              )
+              .then((response) => {
+                if (response) {
+                  // navigate to venue discovered
+                  this.goToVenueDiscovered(venue, location);
+                  return;
+                }
+            });
           });
         });
       }, 2000);
