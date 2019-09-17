@@ -41,7 +41,18 @@ class VenuesService extends EventEmitter {
 
   // Get List of Venues and their detail, to be stored on front end
   public getAllVenues = async (): Promise<Venue[]> => {
-    return await this.apiSvc.getAllVenues();
+    const all =  await this.apiSvc.getAllVenues();
+    return all.sort((a: Venue, b: Venue) => {
+      const venueA = a.name.toLowerCase();
+      const venueB = b.name.toLowerCase();
+      if (venueA < venueB) {
+        return -1;
+      }
+      if (venueA > venueB) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   /**
