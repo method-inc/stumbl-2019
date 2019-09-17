@@ -4,6 +4,8 @@ const API_URI = process.env.VUE_APP_STMBL_API_URI;
 const LOGGED_IN = 'dsw_logged_in';
 const TOKEN = 'dsw_user_token';
 const EXPIRES_AT = 'dsw_expires_at';
+const ADMIN_VENUES = 'admin_venues';
+const ROOT_ADMIN = 'root_admin';
 
 interface Credentials {
   email_address: string;
@@ -70,6 +72,8 @@ class AuthService extends EventEmitter {
     localStorage.removeItem(LOGGED_IN);
     localStorage.removeItem(TOKEN);
     localStorage.removeItem(EXPIRES_AT);
+    localStorage.removeItem(ADMIN_VENUES);
+    localStorage.removeItem(ROOT_ADMIN);
 
     this.emit('logout');
   }
