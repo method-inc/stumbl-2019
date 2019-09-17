@@ -25,8 +25,23 @@
 
   &__image {
     width: 100%;
-    min-height: 100px;
     border-radius: 5px;
+
+    &[lazy=loading] {
+      width: 100px;
+    }
+
+    &-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 250px;
+    }
+
+    &-loading-spinner {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   &__button {

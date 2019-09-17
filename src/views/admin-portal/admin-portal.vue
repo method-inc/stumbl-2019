@@ -91,13 +91,21 @@
         />
       </label>
       <label for="company-image" class="portal__label">Featured Image</label>
-      <img
-        class="portal__image"
-        name="company-image"
-        id="company-image"
-        ref="company_img"
-        :src="displayImage"
-      />
+      <div class="portal__image-container">
+        <img
+          v-if="imageLoading"
+          class="portal__image-loading-spinner"
+          src="../../images/rolling-loader.gif"
+        />
+        <img
+          v-else
+          class="portal__image"
+          name="company-image"
+          id="company-image"
+          ref="company_img"
+          v-lazy="displayImage"
+        />
+      </div>
       <label class="portal__image-input-label">
         <input
           @change="imageUpdated"
@@ -175,6 +183,7 @@ export default class AdminPortal extends Vue {
   public imageChanged: boolean = false;
   public newImage: any;
   public newImageToUpload: any;
+  public imageLoading: boolean = false;
 
   @Watch('allVenues')
   public handleUpdate() {
@@ -224,10 +233,11 @@ export default class AdminPortal extends Vue {
       ? this.newImage
       : this.venue.company_img_url
       ? this.venue.company_img_url
-      : require('../../images/company-images/emptyVenue.jpeg');
+      : require('../../images/company-images/dsw-default-company.png');
   }
 
   public async imageUpdated(e: Event) {
+    this.imageLoading = true;
     const target = e.target as HTMLInputElement;
     const response = await this.apiService.updateCompanyImage(
       this.venue,
@@ -235,10 +245,7 @@ export default class AdminPortal extends Vue {
     );
 
     this.venue.company_img_url = response.data.attributes.company_img_url;
-
-    // this.newImageToUpload = (target.files as FileList)[0];
-    // this.newImage = URL.createObjectURL((target.files as FileList)[0]);
-    // this.imageChanged = true;
+    this.imageLoading = false;
   }
 
   public async updateVenue() {
