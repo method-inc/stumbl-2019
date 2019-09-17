@@ -173,7 +173,9 @@ export default class Home extends Vue {
       this.displayDayTwo = true;
     }
 
-    this.displayAll = true;
+    if (!this.isDayOne && !this.isDayTwo) {
+      this.displayAll = true;
+    }
   }
 
   get isDayOne() {
