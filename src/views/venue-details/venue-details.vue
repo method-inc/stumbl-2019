@@ -5,7 +5,9 @@
 <template>
   <div>
     <Header :showClose="true" />
-    <img class="venue-details--image" :src="venue ? venue.company_img_url : ''" alt="Company Image" />
+    <div class="venue-details--image-container">
+      <img class="venue-details--image" v-lazy="venue.company_img_url" alt="Company Image" />
+    </div>
     <AlertBanner
       class="venue-details-checked-in-banner"
       :color="'green'"
