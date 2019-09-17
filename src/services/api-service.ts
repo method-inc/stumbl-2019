@@ -3,6 +3,8 @@ import { Venue } from '@/models/venue-model';
 const API_URI = process.env.VUE_APP_STMBL_API_URI;
 const EVENT_ID = process.env.VUE_APP_DSW_CRAWL_EVENT_ID;
 const TOKEN = 'dsw_user_token';
+const ADMIN_VENUES = 'admin_venues';
+const ROOT_ADMIN = 'root_admin';
 
 export default class ApiService {
   /**
@@ -17,7 +19,11 @@ export default class ApiService {
       },
     });
     const { data } = await response.json();
-
+    localStorage.setItem(ROOT_ADMIN, data.attributes.access.includes('admin'));
+    localStorage.setItem(
+      ADMIN_VENUES,
+      JSON.stringify(data.attributes.managed_locations),
+    );
     return data.attributes;
   }
 
@@ -93,7 +99,10 @@ export default class ApiService {
             formData.append(key, resultAttrs.fields[key]),
           );
           formData.append('file', file);
-          return window.fetch(resultAttrs.url, { method: 'POST', body: formData });
+          return window.fetch(resultAttrs.url, {
+            method: 'POST',
+            body: formData,
+          });
         })
         .then((response) => (response as any).text())
         .then((text) => {
