@@ -22,7 +22,7 @@ export const DEFAULT_VENUE: Venue = {
   address_2: '',
   city: '',
   state: '',
-  zip_code: '',
+  zip: '',
   employees: 0,
   crawl_day: 0,
   name: 'Page Unavailable',
