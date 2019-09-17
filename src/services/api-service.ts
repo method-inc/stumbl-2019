@@ -64,7 +64,7 @@ export default class ApiService {
     }
   }
 
-  public updateCompanyImage = async (id: string, file: File) => {
+  public updateCompanyImage = async (venue: Venue, file: File) => {
     const payload = {
       data: {
         attributes: {
@@ -77,7 +77,7 @@ export default class ApiService {
     };
 
     try {
-      const imgUrl = await fetch(`${API_URI}/locations/${id}/images`, {
+      const result = await fetch(`${API_URI}/locations/${venue.id}/images`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,10 +87,23 @@ export default class ApiService {
       })
         .then((response) => response.json())
         .then((responseData) => {
-          return `${responseData.data.attributes.url}/${responseData.data.attributes.fields.key}`;
+          const resultAttrs = responseData.data.attributes;
+          const formData = new FormData();
+          Object.keys(resultAttrs.fields).forEach((key) =>
+            formData.append(key, resultAttrs.fields[key]),
+          );
+          formData.append('file', file);
+          return window.fetch(resultAttrs.url, { method: 'POST', body: formData });
+        })
+        .then((response) => (response as any).text())
+        .then((text) => {
+          const parser = new (window as any).DOMParser();
+          const documentXML = parser.parseFromString(text, 'application/xml');
+          const link = documentXML.querySelector('Location')!.innerHTML;
+          return this.updateVenue({ ...venue, company_img_url: link });
         });
 
-      return imgUrl;
+      return result;
     } catch (error) {
       return error;
     }

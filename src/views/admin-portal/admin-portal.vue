@@ -78,9 +78,6 @@
         />
         Select New Image
       </label>
-      <div class="submit-image" @click="submitImage()" v-if="imageChanged">
-        <Button class="portal__button" title="submit image" backgroundColor="green"></Button>
-      </div>
       <label for="about-company" class="portal__label">About (What does your company do?)</label>
       <textarea
         id="about-company"
@@ -192,11 +189,18 @@ export default class AdminPortal extends Vue {
       : require('../../images/company-images/emptyVenue.jpeg');
   }
 
-  public imageUpdated(e: Event) {
+  public async imageUpdated(e: Event) {
     const target = e.target as HTMLInputElement;
-    this.newImageToUpload = (target.files as FileList)[0];
-    this.newImage = URL.createObjectURL((target.files as FileList)[0]);
-    this.imageChanged = true;
+    const response = await this.apiService.updateCompanyImage(
+      this.venue,
+      (target.files as FileList)[0],
+    );
+
+    this.venue.company_img_url = response.data.attributes.company_img_url;
+
+    // this.newImageToUpload = (target.files as FileList)[0];
+    // this.newImage = URL.createObjectURL((target.files as FileList)[0]);
+    // this.imageChanged = true;
   }
 
   public async updateVenue() {
@@ -232,13 +236,9 @@ export default class AdminPortal extends Vue {
       this.bannerActive = true;
     } else {
       const response = await this.apiService.updateCompanyImage(
-        this.venueId,
+        this.venue,
         this.newImageToUpload,
       );
-      if (response) {
-        this.venue.company_img_url = response;
-        this.updateVenue();
-      }
     }
   }
 }
