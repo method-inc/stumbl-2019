@@ -102,8 +102,7 @@ export default class Home extends Vue {
   }
 
   private async pollData(location: Position) {
-    // TODO: add the conditional if back after testing
-    // if ((this as any).$events.stumblin()) {
+    if ((this as any).$events.stumblin()) {
       this.polling = setInterval(() => {
         // Determing which array of venues to use
         const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
@@ -130,7 +129,7 @@ export default class Home extends Vue {
           });
         });
       }, 2000);
-    // }
+    }
   }
 
   private goToVenueDiscovered(venue: Venue, location: Position) {
