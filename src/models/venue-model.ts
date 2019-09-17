@@ -5,7 +5,7 @@ export interface Venue {
   address_2: string;
   city: string;
   state: string;
-  zip_code: string;
+  zip: string;
   crawl_day: number; // 2 day event, could be either day (not both)
   latitude: string;
   longitude: string;

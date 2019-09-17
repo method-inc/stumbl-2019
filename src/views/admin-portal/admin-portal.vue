@@ -14,9 +14,9 @@
     <Header></Header>
     <div class="portal">
       <h2 class="header-2">Startup crawl company admin</h2>
-      <router-link class="portal__page-link" :to="{name: 'venue', params: {venueId}}">
+      <a class="portal__page-link" :href="'/venue/' + venueId">
         <span class="portal__page-link">View Your Company Page</span>
-      </router-link>
+      </a>
       <p>Edit your company details below. This will be visible to crawl participants when they check in to your location.</p>
       <label class="portal__label">
         Company name
@@ -48,6 +48,36 @@
           name="address_2"
           placeholder="Company Address Cont."
           v-model="venue.address_2"
+        />
+      </label>
+      <label class="portal__label">
+        City
+        <input
+          type="text"
+          class="portal__input"
+          name="city"
+          placeholder="City"
+          v-model="venue.city"
+        />
+      </label>
+      <label class="portal__label">
+        State
+        <input
+          type="text"
+          class="portal__input"
+          name="state"
+          placeholder="State"
+          v-model="venue.state"
+        />
+      </label>
+      <label class="portal__label">
+        Zip Code
+        <input
+          type="text"
+          class="portal__input"
+          name="zip"
+          placeholder="Zip Code"
+          v-model="venue.zip"
         />
       </label>
       <label class="portal__label">
