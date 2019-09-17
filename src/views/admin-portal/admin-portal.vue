@@ -116,6 +116,14 @@
         name="about-company"
         v-model="venue.description"
       ></textarea>
+      <label for="special-instructions" class="portal__label">What will your event feature?</label>
+      <textarea
+        id="features"
+        placeholder="Features"
+        class="portal__textarea"
+        name="features"
+        v-model="venue.features"
+      ></textarea>
       <label for="special-instructions" class="portal__label">Special instructions for attendees</label>
       <textarea
         id="special-instructions"
