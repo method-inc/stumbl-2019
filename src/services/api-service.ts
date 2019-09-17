@@ -19,7 +19,10 @@ export default class ApiService {
       },
     });
     const { data } = await response.json();
-    localStorage.setItem(ROOT_ADMIN, data.attributes.access.includes('admin'));
+    const isAdmin = data.attributes.access.includes('admin');
+    if (isAdmin) {
+      localStorage.setItem(ROOT_ADMIN, 'admin');
+    }
     localStorage.setItem(
       ADMIN_VENUES,
       JSON.stringify(data.attributes.managed_locations),
