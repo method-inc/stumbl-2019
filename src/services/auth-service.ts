@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import ApiService from '@/services/api-service';
 
 const API_URI = process.env.VUE_APP_STMBL_API_URI;
 const LOGGED_IN = 'dsw_logged_in';
@@ -29,6 +30,8 @@ interface RecoveryCreds {
 }
 
 class AuthService extends EventEmitter {
+  public apiService = new ApiService();
+
   /**
    * Log in
    */
@@ -95,16 +98,18 @@ class AuthService extends EventEmitter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json())
-    .then((res: any) => {
-      if (res.ok) {
-        return true;
-      } else {
-        return false;
-      }
-    }).catch((error) => {
-      // console.log(error);
-    });
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        if (res.ok) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
   }
 
   /**
@@ -126,12 +131,14 @@ class AuthService extends EventEmitter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json())
-    .then((res: any) => {
-      this.localLogin(res);
-    }).catch((error) => {
-      // console.log(error);
-    });
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        this.localLogin(res);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
   }
 
   /**
@@ -151,7 +158,8 @@ class AuthService extends EventEmitter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json())
+    })
+      .then((res) => res.json())
       .then((res) => {
         return res.ok ? true : false;
       });
@@ -176,12 +184,14 @@ class AuthService extends EventEmitter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).then((res) => res.json())
-    .then((res: any) => {
-      this.localLogin(res);
-    }).catch((error) => {
-      // console.log(error);
-    });
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        this.localLogin(res);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
   }
 
   public isAuthenticated = () => {
@@ -196,11 +206,14 @@ class AuthService extends EventEmitter {
    * Local login - sets token in localStorage and emits event to app
    */
   private localLogin = async (res: any) => {
-    const expires = Math.floor(new Date(res.data.attributes.expires_at).getTime() / 1000);
-
+    const expires = Math.floor(
+      new Date(res.data.attributes.expires_at).getTime() / 1000,
+    );
     localStorage.setItem(LOGGED_IN, 'true');
     localStorage.setItem(TOKEN, res.data.attributes.token);
     localStorage.setItem(EXPIRES_AT, expires.toString());
+
+    await this.apiService.getUserData();
 
     this.emit('login');
   }
