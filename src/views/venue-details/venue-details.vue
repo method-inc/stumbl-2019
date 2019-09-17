@@ -81,11 +81,11 @@ export default class VenueDetails extends Vue {
   }
 
   get isVenueAdmin() {
-    const isRootAdmin = localStorage.getItem(ROOT_ADMIN) || 'false';
+    const isRootAdmin = !!localStorage.getItem(ROOT_ADMIN);
     const hasAdminVenues = localStorage.getItem(ADMIN_VENUES) || false;
     const parsedVenues = hasAdminVenues ? JSON.parse(hasAdminVenues) : [];
 
-    return (JSON.parse(isRootAdmin) || parsedVenues.includes(this.venueId));
+    return (isRootAdmin || parsedVenues.includes(this.venueId));
   }
 
   public openDirections(destination: string) {
