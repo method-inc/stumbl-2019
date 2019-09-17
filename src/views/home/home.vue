@@ -111,8 +111,7 @@ export default class Home extends Vue {
             (n: Venue) => !this.visitedVenues.includes(n.id!),
           );
 
-        // TODO: change this back to venuesToCheck.forEach(... )
-        this.allVenues.forEach((venue: Venue, index: number) => {
+        venuesToCheck.forEach((venue: Venue, index: number) => {
           this.locationService
             .isWithinGeoRadius(
               location,
