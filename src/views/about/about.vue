@@ -34,6 +34,7 @@
         </p>
       </div>
       <Button
+        class="about__more-button"
         title="More about skookum"
         :showImage="true"
         backgroundColor="white"
