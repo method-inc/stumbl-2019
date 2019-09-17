@@ -22,6 +22,8 @@ export default class ApiService {
     const isAdmin = data.attributes.access.includes('admin');
     if (isAdmin) {
       localStorage.setItem(ROOT_ADMIN, 'admin');
+    } else {
+      localStorage.removeItem(ROOT_ADMIN);
     }
     localStorage.setItem(
       ADMIN_VENUES,
