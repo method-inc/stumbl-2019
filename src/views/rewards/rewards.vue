@@ -16,17 +16,17 @@
       />
       <RewardDetails
         title="Visit 3"
-        subTitle="Two entries to win"
-        :unLocked="this.visitedVenues.length > 2 ? true : false"
+        subTitle="Five entries to win"
+        :unLocked="this.visitedVenues.length > 3 ? true : false"
       />
       <RewardDetails
         title="Visit 5"
-        subTitle="Three entries to win"
-        :unLocked="this.visitedVenues.length > 4 ? true : false"
+        subTitle="Ten entries to win"
+        :unLocked="this.visitedVenues.length > 5 ? true : false"
       />
       <RewardDetails
         title="Visited all"
-        subTitle="Three entries to win"
+        subTitle="Twenty entries to win"
         :unLocked="this.visitedVenues.length === allVenues.length ? true : false"
       />
     </div>
@@ -57,7 +57,6 @@ import ApiService from '@/services/api-service';
 export default class Rewards extends Vue {
   public apiService = new ApiService();
   public email: string = '';
-  public visitedVenues!: string[];
 
   public async mounted() {
     this.email = await this.apiService.getUserData().then((user) => user.email_address);
