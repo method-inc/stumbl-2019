@@ -2,7 +2,7 @@
 // Thursday:  https://www.denverstartupweek.org/schedule/6067-startup-crawl-night-2
 
 const EVENTS = [
-  {startTime: 'Sep 17, 2019 16:00:00', endTime: 'Sep 17, 2019 19:00:00'},
+  {startTime: 'Sep 17, 2019 15:00:00', endTime: 'Sep 17, 2019 19:00:00'},
   {startTime: 'Sep 19, 2019 16:00:00', endTime: 'Sep 19, 2019 19:00:00'},
 ];
 
