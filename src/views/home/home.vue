@@ -48,6 +48,9 @@ import { LocationService } from '../../services/location-service';
 import { Venue } from '../../models/venue-model';
 import { AlertTypeEnum } from '../../models/alert-model';
 
+const DAY_ONE = '9/17/2019';
+const DAY_TWO = '9/19/2019';
+
 @Component<Home>({
   components: {
     Header,
@@ -64,7 +67,6 @@ import { AlertTypeEnum } from '../../models/alert-model';
   },
 })
 
-
 export default class Home extends Vue {
   public locationService = new LocationService();
   public locationPermissionActivated = false;
@@ -75,61 +77,66 @@ export default class Home extends Vue {
   public displayDayTwo = false;
   public visitedVenues!: string[];
 
+
   public async created() {
     // set venue display list default for the day
     this.venueDisplayDefault();
-    // get position
-    navigator.geolocation.getCurrentPosition(
-      (location) => {
-        this.locationPermissionActivated = true;
-        this.pollData();
-      },
-      () => {
-        // error, location permission denied
-        this.locationPermissionActivated = false;
-        clearInterval(this.polling);
-        this.$emit(
-          'send-alert',
-          AlertTypeEnum.warn,
-          'Location services have not been enabled.  Please enable location services.',
-        );
-      },
-    );
+
+    // parameters for geolocation.watchPosition are success, error, and options
+    /// called automatically each time the position of the device changes
+    const success = (location: Position) => {
+      this.locationPermissionActivated = true;
+      this.pollData(location);
+    };
+    /// error handling callback function
+    const error = (e: any) => {
+      // error, location permission denied
+      this.locationPermissionActivated = false;
+      navigator.geolocation.clearWatch(this.polling);
+      this.$emit(
+        'send-alert',
+        AlertTypeEnum.warn,
+        `Geolocation error: ${e.message}.`,
+      );
+    };
+    /// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+    const options = {
+      enableHighAccuracy: true, // default: false
+      maximumAge: 0,            // default: 0
+      timeout: 8000,            // default: Infinity
+    };
+    this.polling = navigator.geolocation.watchPosition(success, error, options);
   }
 
   public beforeDestroy() {
-    clearInterval(this.polling);
+    navigator.geolocation.clearWatch(this.polling);
   }
 
-  private async pollData() {
-    if ((this as any).$events.stumblin()) {
-      this.polling = setInterval(() => {
-        navigator.geolocation.getCurrentPosition((location) => {
-          // Determing which array of venues to use
-          const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
-          // retrieve list of venues that have not been visited
-          const venuesToCheck = daySpecificVenues.filter(
-              (n: Venue) => !this.visitedVenues.includes(n.id!),
-            );
+  private async pollData(location: Position) {
+   if ((this as any).$events.stumblin()) {
+    // Determing which array of venues to use
+    const daySpecificVenues = (this.isDayOne) ? this.dayOneVenues : this.dayTwoVenues;
+    // retrieve list of venues that have not been visited
+    const venuesToCheck = daySpecificVenues.filter(
+        (n: Venue) => !this.visitedVenues.includes(n.id!),
+      );
 
-          venuesToCheck.forEach((venue: Venue, index: number) => {
-            this.locationService
-              .isWithinGeoRadius(
-                location,
-                50,
-                parseFloat(venue.latitude),
-                parseFloat(venue.longitude),
-              )
-              .then((response) => {
-                if (response) {
-                  // navigate to venue discovered
-                  this.goToVenueDiscovered(venue, location);
-                  return;
-                }
-            });
-          });
+    venuesToCheck.forEach((venue: Venue, index: number) => {
+      this.locationService
+        .isWithinGeoRadius(
+          location,
+          50,
+          parseFloat(venue.latitude),
+          parseFloat(venue.longitude),
+        )
+        .then((response) => {
+          if (response) {
+            // navigate to venue discovered
+            this.goToVenueDiscovered(venue, location);
+            return;
+          }
         });
-      }, 2000);
+      });
     }
   }
 
@@ -151,15 +158,11 @@ export default class Home extends Vue {
       this.displayAll = true;
       this.displayDayOne = false;
       this.displayDayTwo = false;
-    }
-
-    if (selection === 1) {
+    } else if (selection === 1) {
       this.displayAll = false;
       this.displayDayOne = true;
       this.displayDayTwo = false;
-    }
-
-    if (selection === 2) {
+    } else if (selection === 2) {
       this.displayAll = false;
       this.displayDayOne = false;
       this.displayDayTwo = true;
@@ -169,23 +172,19 @@ export default class Home extends Vue {
   private venueDisplayDefault() {
     if (this.isDayOne) {
       this.displayDayOne = true;
-    }
-
-    if (this.isDayTwo) {
+    } else if (this.isDayTwo) {
       this.displayDayTwo = true;
-    }
-
-    if (!this.isDayOne && !this.isDayTwo) {
+    } else if (!this.isDayOne && !this.isDayTwo) {
       this.displayAll = true;
     }
   }
 
   get isDayOne() {
-    return this.isToday(new Date('9/17/2019'));
+    return this.isToday(new Date(DAY_ONE));
   }
 
   get isDayTwo() {
-    return this.isToday(new Date('9/19/2019'));
+    return this.isToday(new Date(DAY_TWO));
   }
 
   get dayOneVenues() {
@@ -199,13 +198,9 @@ export default class Home extends Vue {
   get venuesToDisplay() {
     if (this.displayAll) {
       return this.allVenues;
-    }
-
-    if (this.displayDayOne) {
+    } else if (this.displayDayOne) {
       return this.dayOneVenues;
-    }
-
-    if (this.displayDayTwo) {
+    } else if (this.displayDayTwo) {
       return this.dayTwoVenues;
     }
   }
