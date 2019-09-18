@@ -78,58 +78,62 @@ export default class Home extends Vue {
   public async created() {
     // set venue display list default for the day
     this.venueDisplayDefault();
-    // get position
-    navigator.geolocation.getCurrentPosition(
-      (location) => {
-        this.locationPermissionActivated = true;
-        this.pollData();
-      },
-      () => {
-        // error, location permission denied
-        this.locationPermissionActivated = false;
-        clearInterval(this.polling);
-        this.$emit(
-          'send-alert',
-          AlertTypeEnum.warn,
-          'Location services have not been enabled.  Please enable location services.',
-        );
-      },
-    );
+
+    // parameters for geolocation.watchPosition are success, error, and options
+    /// called automatically each time the position of the device changes
+    const success = (location: Position) => {
+      this.locationPermissionActivated = true;
+      this.pollData(location);
+    };
+    /// error handling callback function
+    const error = (e: any) => {
+      // error, location permission denied
+      this.locationPermissionActivated = false;
+      navigator.geolocation.clearWatch(this.polling);
+      this.$emit(
+        'send-alert',
+        AlertTypeEnum.warn,
+        `Geolocation error: ${e.message}.`,
+      );
+    };
+    /// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+    const options = {
+      enableHighAccuracy: true, // default: false
+      maximumAge: 0,            // default: 0
+      timeout: 8000,            // default: Infinity
+    };
+    this.polling = navigator.geolocation.watchPosition(success, error, options);
   }
 
   public beforeDestroy() {
-    clearInterval(this.polling);
+    navigator.geolocation.clearWatch(this.polling);
   }
 
-  private async pollData() {
-    if ((this as any).$events.stumblin()) {
-      this.polling = setInterval(() => {
-        navigator.geolocation.getCurrentPosition((location) => {
-          // Determing which array of venues to use
-          const daySpecificVenues = this.isDayOne ? this.dayOneVenues : this.dayTwoVenues;
-          // retrieve list of venues that have not been visited
-          const venuesToCheck = daySpecificVenues.filter(
-              (n: Venue) => !this.visitedVenues.includes(n.id!),
-            );
+  private async pollData(location: Position) {
+   if ((this as any).$events.stumblin()) {
+    // Determing which array of venues to use
+    const daySpecificVenues = (this.isDayOne) ? this.dayOneVenues : this.dayTwoVenues;
+    // retrieve list of venues that have not been visited
+    const venuesToCheck = daySpecificVenues.filter(
+        (n: Venue) => !this.visitedVenues.includes(n.id!),
+      );
 
-          venuesToCheck.forEach((venue: Venue, index: number) => {
-            this.locationService
-              .isWithinGeoRadius(
-                location,
-                50,
-                parseFloat(venue.latitude),
-                parseFloat(venue.longitude),
-              )
-              .then((response) => {
-                if (response) {
-                  // navigate to venue discovered
-                  this.goToVenueDiscovered(venue, location);
-                  return;
-                }
-            });
-          });
+    venuesToCheck.forEach((venue: Venue, index: number) => {
+      this.locationService
+        .isWithinGeoRadius(
+          location,
+          50,
+          parseFloat(venue.latitude),
+          parseFloat(venue.longitude),
+        )
+        .then((response) => {
+          if (response) {
+            // navigate to venue discovered
+            this.goToVenueDiscovered(venue, location);
+            return;
+          }
         });
-      }, 2000);
+      });
     }
   }
 
