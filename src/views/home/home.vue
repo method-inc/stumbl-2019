@@ -48,6 +48,9 @@ import { LocationService } from '../../services/location-service';
 import { Venue } from '../../models/venue-model';
 import { AlertTypeEnum } from '../../models/alert-model';
 
+const DAY_ONE = '9/17/2019';
+const DAY_TWO = '9/19/2019';
+
 @Component<Home>({
   components: {
     Header,
@@ -64,7 +67,6 @@ import { AlertTypeEnum } from '../../models/alert-model';
   },
 })
 
-
 export default class Home extends Vue {
   public locationService = new LocationService();
   public locationPermissionActivated = false;
@@ -74,6 +76,7 @@ export default class Home extends Vue {
   public displayDayOne = false;
   public displayDayTwo = false;
   public visitedVenues!: string[];
+
 
   public async created() {
     // set venue display list default for the day
@@ -155,15 +158,11 @@ export default class Home extends Vue {
       this.displayAll = true;
       this.displayDayOne = false;
       this.displayDayTwo = false;
-    }
-
-    if (selection === 1) {
+    } else if (selection === 1) {
       this.displayAll = false;
       this.displayDayOne = true;
       this.displayDayTwo = false;
-    }
-
-    if (selection === 2) {
+    } else if (selection === 2) {
       this.displayAll = false;
       this.displayDayOne = false;
       this.displayDayTwo = true;
@@ -173,23 +172,19 @@ export default class Home extends Vue {
   private venueDisplayDefault() {
     if (this.isDayOne) {
       this.displayDayOne = true;
-    }
-
-    if (this.isDayTwo) {
+    } else if (this.isDayTwo) {
       this.displayDayTwo = true;
-    }
-
-    if (!this.isDayOne && !this.isDayTwo) {
+    } else if (!this.isDayOne && !this.isDayTwo) {
       this.displayAll = true;
     }
   }
 
   get isDayOne() {
-    return this.isToday(new Date('9/17/2019'));
+    return this.isToday(new Date(DAY_ONE));
   }
 
   get isDayTwo() {
-    return this.isToday(new Date('9/19/2019'));
+    return this.isToday(new Date(DAY_TWO));
   }
 
   get dayOneVenues() {
@@ -203,13 +198,9 @@ export default class Home extends Vue {
   get venuesToDisplay() {
     if (this.displayAll) {
       return this.allVenues;
-    }
-
-    if (this.displayDayOne) {
+    } else if (this.displayDayOne) {
       return this.dayOneVenues;
-    }
-
-    if (this.displayDayTwo) {
+    } else if (this.displayDayTwo) {
       return this.dayTwoVenues;
     }
   }
